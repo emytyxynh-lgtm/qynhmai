@@ -4,13 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>qynhmai - Bio Links</title>
+
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
 
+/* ============ LOCKSCREEN ============ */
 .lockscreen{
     position:fixed;
     inset:0;
@@ -24,12 +27,10 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     overflow:hidden;
     transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1);
 }
-
 .lockscreen.hidden{
     opacity:0;
     pointer-events:none;
 }
-
 .lockscreen-bg{
     position:absolute;
     inset:0;
@@ -40,7 +41,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
         linear-gradient(135deg, #0a0a1a 0%, #111827 40%, #0f172a 100%);
     z-index:0;
 }
-
 .lockscreen-particles{
     position:absolute;
     inset:0;
@@ -48,21 +48,18 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     pointer-events:none;
     overflow:hidden;
 }
-
 .lockscreen-particle{
     position:absolute;
     border-radius:50%;
     opacity:0;
     animation:particleFloat linear infinite;
 }
-
 @keyframes particleFloat{
     0%{transform:translateY(100vh) scale(0);opacity:0}
     10%{opacity:1}
     90%{opacity:1}
     100%{transform:translateY(-100px) scale(1);opacity:0}
 }
-
 .lockscreen-content{
     position:relative;
     z-index:2;
@@ -72,12 +69,10 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     gap:20px;
     animation:lockFadeIn 0.8s ease;
 }
-
 @keyframes lockFadeIn{
     from{opacity:0;transform:translateY(30px)}
     to{opacity:1;transform:translateY(0)}
 }
-
 .lock-avatar-wrap{
     position:relative;
     width:150px;
@@ -86,7 +81,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     align-items:center;
     justify-content:center;
 }
-
 .lock-avatar-frame{
     position:absolute;
     top:50%;
@@ -102,7 +96,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     pointer-events:none;
     z-index:2;
 }
-
 .lock-avatar{
     position:relative;
     z-index:1;
@@ -113,7 +106,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     border:3px solid rgba(255,255,255,0.1);
     box-shadow:0 0 25px rgba(139,92,246,0.35),0 0 50px rgba(139,92,246,0.15);
 }
-
 .lock-name{
     font-family:'Lexend',sans-serif;
     font-size:32px;
@@ -122,7 +114,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     letter-spacing:1px;
     text-shadow:0 0 20px rgba(139,92,246,0.5);
 }
-
 .lock-quote{
     font-size:15px;
     color:#a0aec0;
@@ -136,11 +127,7 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     justify-content:center;
     transition:opacity 0.4s ease;
 }
-
-.lock-quote.fade{
-    opacity:0;
-}
-
+.lock-quote.fade{opacity:0}
 .lock-hint{
     position:absolute;
     bottom:50px;
@@ -154,7 +141,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     animation:hintPulse 2s ease-in-out infinite;
     white-space:nowrap;
 }
-
 .lock-hint span{
     color:#cbd5e0;
     font-size:18px;
@@ -162,7 +148,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     letter-spacing:0.5px;
     text-shadow:0 0 14px rgba(139,92,246,0.6),0 0 35px rgba(139,92,246,0.25);
 }
-
 .lock-hint i{
     font-style:normal;
     font-size:24px;
@@ -171,17 +156,16 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     display:inline-block;
     text-shadow:0 0 10px rgba(139,92,246,0.7);
 }
-
 @keyframes hintPulse{
     0%,100%{opacity:0.4}
     50%{opacity:0.9}
 }
-
 @keyframes arrowBounce{
     0%,100%{transform:translateY(0)}
     50%{transform:translateY(6px)}
 }
 
+/* ============ MAIN ============ */
 .container{
     display:flex;
     flex-direction:column;
@@ -193,7 +177,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     overflow:hidden;
     padding:40px 20px
 }
-
 .stars{
     position:absolute;
     top:0;
@@ -204,7 +187,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     overflow:hidden;
     contain:strict;
 }
-
 .star{
     position:absolute;
     background:white;
@@ -212,12 +194,10 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     animation:twinkle linear infinite;
     box-shadow:0 0 3px rgba(255,255,255,0.6)
 }
-
 @keyframes twinkle{
     0%,100%{opacity:0.3}
     50%{opacity:0.9}
 }
-
 .constellation{
     position:absolute;
     width:100%;
@@ -226,7 +206,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     left:0;
     opacity:0.1
 }
-
 .profile-wrapper{
     position:relative;
     z-index:10;
@@ -235,19 +214,16 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     max-width:500px;
     width:100%
 }
-
 @keyframes fadeInUp{
     from{opacity:0;transform:translateY(40px)}
     to{opacity:1;transform:translateY(0)}
 }
-
 .avatar-wrapper{
     margin-bottom:30px;
     display:inline-block;
     position:relative;
     padding:0
 }
-
 .avatar-frame{
     position:absolute;
     top:50%;
@@ -263,12 +239,10 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     pointer-events:none;
     z-index:2
 }
-
 @keyframes gentleFloat{
     0%,100%{transform:translate(-50%,-50%) scale(1)}
     50%{transform:translate(-50%,-52%) scale(1.02)}
 }
-
 .avatar{
     width:120px;
     height:120px;
@@ -279,7 +253,6 @@ body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
     position:relative;
     z-index:1
 }
-
 h1{
     font-size:36px;
     font-weight:700;
@@ -292,14 +265,12 @@ h1{
     align-items:center;
     gap:8px
 }
-
 .blue-tick{
     width:20px;
     height:20px;
     display:inline-block;
     filter:drop-shadow(0 0 4px rgba(59,130,246,0.6))
 }
-
 .bio{
     font-size:15px;
     color:#a0aec0;
@@ -309,13 +280,11 @@ h1{
     position:relative;
     transition:all 0.3s ease
 }
-
 .bio .fade-text{
     position:relative;
     display:inline-block;
     transition:opacity 0.3s ease
 }
-
 .bio .fade-text::before{
     content:'';
     position:absolute;
@@ -328,11 +297,9 @@ h1{
     z-index:1;
     transition:opacity 0.3s ease
 }
+.bio:hover .fade-text::before{opacity:0}
 
-.bio:hover .fade-text::before{
-    opacity:0
-}
-
+/* ============ ABOUT & QUOTE ============ */
 .about-section{
     background:rgba(255,255,255,0.04);
     backdrop-filter:blur(15px);
@@ -342,7 +309,6 @@ h1{
     margin-bottom:30px;
     animation:fadeInUp 1s ease 0.3s backwards
 }
-
 .about-section .role{
     color:#8b5cf6;
     font-weight:500;
@@ -350,7 +316,6 @@ h1{
     margin-bottom:12px;
     letter-spacing:0.5px
 }
-
 .about-section p{
     color:#a0aec0;
     font-size:14px;
@@ -358,10 +323,7 @@ h1{
     margin-bottom:10px;
     font-weight:300
 }
-
-.about-section p:last-child{
-    margin-bottom:0
-}
+.about-section p:last-child{margin-bottom:0}
 
 .quote-section{
     background:rgba(255,255,255,0.04);
@@ -377,7 +339,6 @@ h1{
     gap:8px;
     width:auto
 }
-
 .quote-section::before{
     content:'';
     width:6px;
@@ -387,7 +348,6 @@ h1{
     flex-shrink:0;
     box-shadow:0 0 8px rgba(0,255,136,0.6)
 }
-
 .quote-text{
     font-size:13px;
     color:#cbd5e0;
@@ -398,13 +358,13 @@ h1{
     font-weight:300
 }
 
+/* ============ LINKS ============ */
 .links-container{
     display:flex;
     flex-direction:column;
     gap:16px;
     width:100%
 }
-
 .link-item{
     background:rgba(255,255,255,0.05);
     backdrop-filter:blur(20px) saturate(180%);
@@ -422,7 +382,6 @@ h1{
     overflow:hidden;
     box-shadow:0 4px 24px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.08)
 }
-
 .link-item::before{
     content:'';
     position:absolute;
@@ -433,18 +392,13 @@ h1{
     background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
     transition:left 0.6s
 }
-
-.link-item:hover::before{
-    left:100%
-}
-
+.link-item:hover::before{left:100%}
 .link-item:hover{
     background:rgba(255,255,255,0.12);
     border-color:rgba(255,255,255,0.25);
     transform:translateY(-4px);
     box-shadow:0 12px 40px rgba(139,92,246,0.3),0 4px 24px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.15)
 }
-
 .link-icon{
     width:48px;
     height:48px;
@@ -457,7 +411,6 @@ h1{
     position:relative;
     overflow:hidden
 }
-
 .link-icon::before{
     content:'';
     position:absolute;
@@ -469,55 +422,42 @@ h1{
     opacity:0;
     transition:opacity 0.3s
 }
-
-.link-item:hover .link-icon::before{
-    opacity:1
-}
-
+.link-item:hover .link-icon::before{opacity:1}
 .telegram-icon{
     background:linear-gradient(135deg,#2AABEE 0%,#229ED9 100%);
     box-shadow:0 6px 20px rgba(42,171,238,0.4)
 }
-
 .facebook-icon{
     background:linear-gradient(135deg,#1877F2 0%,#0C63D4 100%);
     box-shadow:0 6px 20px rgba(24,119,242,0.4)
 }
-
 .whatsapp-icon{
     background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
     box-shadow:0 6px 20px rgba(37,211,102,0.4)
 }
-
-.link-text{
-    flex:1;
-    text-align:left
-}
-
+.link-text{flex:1;text-align:left}
 .link-title{
     font-size:18px;
     font-weight:600;
     margin-bottom:4px;
     letter-spacing:0.3px
 }
-
 .link-subtitle{
     font-size:13px;
     color:#718096;
     font-weight:300
 }
-
 .link-arrow{
     font-size:22px;
     color:#4a5568;
     transition:all 0.4s cubic-bezier(0.4,0,0.2,1)
 }
-
 .link-item:hover .link-arrow{
     transform:translateX(6px);
     color:#fff
 }
 
+/* ============ FOOTER ============ */
 .footer{
     margin-top:50px;
     text-align:center;
@@ -526,6 +466,7 @@ h1{
     font-weight:300
 }
 
+/* ============ MUSIC INDICATOR ============ */
 .music-indicator{
     position:fixed;
     bottom:30px;
@@ -544,35 +485,31 @@ h1{
     animation:slideInRight 0.5s ease;
     z-index:999
 }
-
 @keyframes slideInRight{
     from{transform:translateX(100px);opacity:0}
     to{transform:translateX(0);opacity:1}
 }
-
 .music-indicator .bars{
     display:flex;
     gap:3px;
     align-items:flex-end;
     height:20px
 }
-
 .music-indicator .bar{
     width:3px;
     background:linear-gradient(to top,#8b5cf6,#3b82f6);
     border-radius:2px;
     animation:musicBars 0.8s ease-in-out infinite
 }
-
 .music-indicator .bar:nth-child(1){animation-delay:0s;height:8px}
 .music-indicator .bar:nth-child(2){animation-delay:0.2s;height:14px}
 .music-indicator .bar:nth-child(3){animation-delay:0.4s;height:10px}
-
 @keyframes musicBars{
     0%,100%{transform:scaleY(0.5)}
     50%{transform:scaleY(1)}
 }
 
+/* ============ CLICK TEXT ============ */
 .click-text{
     position:fixed;
     pointer-events:none;
@@ -584,13 +521,13 @@ h1{
     text-shadow:0 0 8px currentColor;
     animation:clickTextFloat 1.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
 }
-
 @keyframes clickTextFloat{
     0%{opacity:1;transform:translateY(0) scale(1)}
     60%{opacity:0.8;transform:translateY(-100px) scale(1.05)}
     100%{opacity:0;transform:translateY(-180px) scale(0.8)}
 }
 
+/* ============ FALLING STARS ============ */
 .falling-stars{
     position:fixed;
     top:0;
@@ -601,7 +538,6 @@ h1{
     z-index:9998;
     overflow:hidden;
 }
-
 .falling-star{
     position:absolute;
     font-size:1.2rem;
@@ -609,7 +545,6 @@ h1{
     opacity:0;
     animation:starFall linear forwards;
 }
-
 @keyframes starFall{
     0%{
         opacity:0;
@@ -619,15 +554,14 @@ h1{
         opacity:1;
         transform:translateY(0) rotate(45deg) scale(1);
     }
-    90%{
-        opacity:1;
-    }
+    90%{opacity:1;}
     100%{
         opacity:0;
         transform:translateY(100vh) rotate(180deg) scale(0.5);
     }
 }
 
+/* ============ MODAL ============ */
 .modal{
     display:none;
     position:fixed;
@@ -640,12 +574,10 @@ h1{
     backdrop-filter:blur(12px);
     animation:fadeIn 0.4s
 }
-
 @keyframes fadeIn{
     from{opacity:0}
     to{opacity:1}
 }
-
 .modal-content{
     background:rgba(15,25,40,0.65);
     backdrop-filter:blur(30px) saturate(180%);
@@ -665,7 +597,6 @@ h1{
     position:relative;
     overflow:hidden
 }
-
 .modal-content::before{
     content:'';
     position:absolute;
@@ -675,12 +606,10 @@ h1{
     height:2px;
     background:linear-gradient(90deg,#6078c8 0%,#4a90e2 50%,#7c9ce8 100%)
 }
-
 @keyframes slideUp{
     from{transform:translateY(80px) scale(0.95);opacity:0}
     to{transform:translateY(0) scale(1);opacity:1}
 }
-
 .modal-content h2{
     color:#fff;
     margin-bottom:10px;
@@ -689,14 +618,12 @@ h1{
     font-family:'Lexend',sans-serif;
     letter-spacing:0.3px
 }
-
 .modal-avatar-wrapper{
     margin-bottom:20px;
     display:inline-block;
     position:relative;
     padding:0
 }
-
 .modal-avatar-frame{
     position:absolute;
     top:50%;
@@ -712,7 +639,6 @@ h1{
     pointer-events:none;
     z-index:2
 }
-
 .modal-avatar{
     width:75px;
     height:75px;
@@ -725,7 +651,6 @@ h1{
     position:relative;
     z-index:1
 }
-
 .modal-content p{
     color:#a0aec0;
     margin-bottom:20px;
@@ -733,7 +658,6 @@ h1{
     line-height:1.6;
     font-weight:300
 }
-
 .name-input{
     width:100%;
     padding:14px 20px;
@@ -754,7 +678,6 @@ h1{
     -webkit-user-select:text;
     user-select:text
 }
-
 .name-input:focus{
     border-color:rgba(100,120,200,0.5);
     background:rgba(20,30,50,0.7);
@@ -764,12 +687,10 @@ h1{
         inset 0 1px 0 rgba(255,255,255,0.08);
     transform:translateY(-1px)
 }
-
 .name-input::placeholder{
     color:#718096;
     font-weight:300
 }
-
 .error-message{
     color:#ef4444;
     font-size:12px;
@@ -779,7 +700,6 @@ h1{
     font-weight:400;
     text-shadow:0 0 6px rgba(239,68,68,0.2)
 }
-
 .btn{
     background:linear-gradient(135deg,#8b5cf6 0%,#3b82f6 50%,#a855f7 100%);
     color:white;
@@ -797,7 +717,6 @@ h1{
     overflow:hidden;
     letter-spacing:0.4px
 }
-
 .btn::before{
     content:'';
     position:absolute;
@@ -810,34 +729,28 @@ h1{
     transform:translate(-50%,-50%);
     transition:width 0.5s,height 0.5s
 }
-
 .btn:hover::before{
     width:300px;
     height:300px
 }
-
 .btn:hover{
     transform:translateY(-2px);
     box-shadow:
         0 12px 35px rgba(139,92,246,0.5),
         inset 0 1px 0 rgba(255,255,255,0.3)
 }
-
-.btn:active{
-    transform:translateY(0)
-}
-
+.btn:active{transform:translateY(0)}
 .btn:disabled{
     opacity:0.6;
     cursor:not-allowed;
     transform:none
 }
-
 .btn span{
     position:relative;
     z-index:1
 }
 
+/* ============ RESPONSIVE ============ */
 @media(max-width:768px){
     h1{font-size:30px}
     .link-title{font-size:16px}
@@ -908,6 +821,7 @@ h1{
         <div class="links-container">
             <a href="https://t.me/qyyhmai" class="link-item" target="_blank">
                 <div class="link-icon telegram-icon">
+                    <!-- Telegram Icon -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
                     </svg>
@@ -921,6 +835,7 @@ h1{
             
             <a href="https://www.facebook.com/quynhmai.trinhthi.547/" class="link-item" target="_blank">
                 <div class="link-icon facebook-icon">
+                    <!-- Facebook Icon -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                         <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
                     </svg>
@@ -934,6 +849,7 @@ h1{
             
             <a href="https://wa.me/84357296423?text=Hello%20mình%20liên%20hệ%20qua%20website" class="link-item" target="_blank">
                 <div class="link-icon whatsapp-icon">
+                    <!-- WhatsApp Icon -->
                     <svg width="24" height="24" viewBox="0 0 32 32" fill="white">
                         <path d="M16 3C9.373 3 4 8.373 4 15c0 2.65.86 5.104 2.313 7.094L4 29l7.094-2.313A11.93 11.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22a9.94 9.94 0 0 1-4.813-1.25l-.344-.188-4.219 1.375 1.375-4.094-.219-.375A9.94 9.94 0 1 1 16 25zm5.438-7.063c-.297-.156-1.75-.875-2.031-.969-.281-.094-.484-.156-.688.156-.203.313-.781.969-.953 1.156-.172.188-.344.219-.641.063-.297-.156-1.25-.469-2.375-1.5-.875-.781-1.469-1.75-1.641-2.047-.172-.297-.016-.453.141-.609.141-.141.297-.344.453-.516.156-.172.203-.297.313-.5.109-.203.047-.375-.016-.531-.063-.156-.688-1.656-.938-2.266-.25-.609-.5-.516-.688-.516h-.594c-.203 0-.531.078-.813.375-.281.297-1.063 1.031-1.063 2.516s1.094 2.922 1.25 3.125c.156.203 2.156 3.281 5.219 4.594.719.313 1.281.5 1.719.641.719.219 1.375.188 1.891.109.578-.094 1.75-.719 2-1.406.25-.688.25-1.281.172-1.406-.078-.125-.266-.203-.563-.359z"/>
                     </svg>
@@ -979,120 +895,238 @@ h1{
 <audio id="backgroundMusic"></audio>
 
 <script>
-const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
+// ================== CONFIG ==================
+//const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
+const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1466471346077827324/35ZOkMh1SUJtJVZI1H58KwQB0jOEJaK5IVBLcNpEKCctbGooYkG73sX5PYId4Nw43YkN';
 
+const AVATAR_URL = 'https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg';
+
+// ================== QUOTES ==================
 const quotes = [
     "leaving the country (rời khỏi đất nước)",
     "delete all my accounts (xoá sạch mọi tài khoản)",
     "change my number (đổi số liên lạc)",
     "start a new life (bắt đầu cuộc sống mới)",
-    "privacy so high (ẩn danh tuyệt đối)",
-    "u'll never see me until i decide to be seen (bạn sẽ không biết về tôi trừ khi được cho phép)",
+    "...",
+    "privacy so high",
+    "ẩn danh tuyệt đối)",
+    "u'll never see me until i decide to be seen",
+    "bạn sẽ không biết về tôi trừ khi được cho phép",
+    "...",
     "im lặng là vàng là bạc, tiền là tiên là phật",
     "Silence is golden, and money makes the world go round"
+    "...",
 ];
 
-var lockQuotes = [
-    "leaving the country (rời khỏi đất nước)",
-    "delete all my accounts (xoá sạch mọi tài khoản)",
-    "change my number (đổi số liên lạc)",
-    "start a new life (bắt đầu cuộc sống mới)",
-    "privacy so high (ẩn danh tuyệt đối)",
-    "u'll never see me until i decide to be seen",
-    "im lặng là vàng là bạc, tiền là tiên là phật",
-    "Silence is golden, and money makes the world go round",
-    "Silence is power. I hope you can understand.",
-    "enjoy your life.",
-    "hello, i'm nothing with you !"
+const lockQuotes = [
+    "hey!",
+    "nice to meet you",
+    "welcome",
 ];
 
-var clickTexts = [
-    "♥️ Năm mới vui vẻ",
-    "❤️ Cung hỉ phát tài",
-    "💛 Tiền vô như nước",
-    "💚 Vợ đẹp con ngoan",
-    "💙 Tài lộc vào nhà",
-    "💜 Phúc thọ vô biên",
-    "🖤 Sống khoẻ đón xuân",
-    "💖 Phú quý cát tường",
-    "💝 Đắc lộc toàn gia",
-    "💙 Hạnh phúc mênh mang",
-    "❤️ Vạn sự thành công",
-    "💚 Mã đáo thành công",
-    "💙 Tiền vô tỷ tỷ",
-    "💜 Tài vạn công danh",
-    "💛 Hạnh phúc gia an",
-    "💖 Sức khoẻ như voi",
-    "💛 Thông minh vượt trội",
-    "💖 Phúc lộc trong tay",
-    "💚 Gia chủ phát tài",
-    "💚 Vạn sự như ý",
-    "💚 Túi tiền nặng ký",
-    "🖤 Làm ăn phát đạt",
-    "💛 Vàng bạc cao sang",
-    "💙 Sức khỏe an nhàn",
-    "💜 Công danh hết ý",
-    "🖤 Cung hỷ cung hỷ",
-    "💝 Hạnh phúc triền miên",
-    "🖤 Sung sướng như tiên",
-    "❤️ An khang thịnh vượng",
-    "💛 Tết đến an nhiên",
-    "💚 Lộc xuân gõ cửa",
-    "💙 Gia đình êm ấm",
-    "💜 Vạn điều may mắn",
-    "💖 Xuân sang phú quý",
-    "💝 Tâm an vạn sự an",
-    "🖤 Lộc lá quanh năm",
-    "💚 Tiền vô cửa trước",
-    "💙 Lộc vào cửa sau",
-    "💛 Nụ cười rạng rỡ",
-    "💜 Tết này giàu to",
-    "💖 Xuân này phát lộc",
-    "💚 May mắn ngập tràn",
-    "❤️ Bình an trọn vẹn",
-    "💙 Hỷ sự liên miên",
-    "💛 Lộc tài song toàn",
-    "💜 Gia đạo hưng thịnh",
-    "💝 Vui xuân như ý",
-    "🖤 Xuân về sung túc"
+const clickTexts = [
+    "♥️ stupid","❤️ stupid","💛 stupid","💚 stupid","💙 stupid","💜 stupid",
+    "🖤 stupid","💖 stupid","💝 stupid","💙 stupid","❤️ stupid","💚 stupid",
+    "💙 stupid","💜 stupid","💛 stupid","💖 stupid","💛 stupid","💖 stupid",
+    "💚 stupid","💚 stupid","💚 stupid","🖤 stupid","💛 stupid","💙 stupid",
+    "💜 stupid","🖤 stupid","💝 stupid","🖤 stupid","❤️ stupid","💛 stupid",
+    "💚 stupid","💙 stupid","💜 stupid","💖 stupid","💝 stupid","🖤 stupid",
+    "💚 stupid","💙 stupid","💛 stupid","💜 stupid","💖 stupid","💚 stupid",
+    "❤️ stupid","💙 stupid","💛 stupid","💜 stupid","💝 stupid","🖤 stupid"
 ];
 
-var clickColors = [
-    "#ff6651",
-    "#42a5f5",
-    "#66bb6a",
-    "#ab47bc",
-    "#ffa726",
-    "#ec407a",
-    "#26c6da",
-    "#78909c",
-    "#ffca28",
-    "#5c6bc0",
-    "#8d6e63",
-    "#26a69a",
-    "#ef5350",
-    "#29b6f6",
-    "#9ccc65",
-    "#ba68c8",
-    "#ffb74d",
-    "#f06292",
-    "#4dd0e1",
-    "#90a4ae",
-    "#ffd54f",
-    "#7986cb",
-    "#a1887f",
-    "#4db6ac",
-    "#ff8a65",
-    "#64b5f6",
-    "#81c784",
-    "#9575cd",
-    "#ffcc80",
-    "#f48fb1",
-    "#80deea",
-    "#b0bec5",
-    "#ffe082",
-    "#9fa8da"
+const clickColors = [
+    "#ff6651","#42a5f5","#66bb6a","#ab47bc","#ffa726","#ec407a",
+    "#26c6da","#78909c","#ffca28","#5c6bc0","#8d6e63","#26a69a",
+    "#ef5350","#29b6f6","#9ccc65","#ba68c8","#ffb74d","#f06292",
+    "#4dd0e1","#90a4ae","#ffd54f","#7986cb","#a1887f","#4db6ac",
+    "#ff8a65","#64b5f6","#81c784","#9575cd","#ffcc80","#f48fb1",
+    "#80deea","#b0bec5","#ffe082","#9fa8da"
 ];
+
+// ================== UTILS ==================
+function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function sendToDiscord(content) {
+    if (!DISCORD_WEBHOOK) return;
+    fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+            content,
+            username: 'Visitor Logger',
+            avatar_url: AVATAR_URL
+        })
+    }).catch(() => {});
+}
+
+// ================== LOCKSCREEN ==================
+const lockscreen = document.getElementById('lockscreen');
+const lockQuoteEl = document.getElementById('lockQuote');
+
+function rotateLockQuote() {
+    let index = 0;
+    const updateQuote = () => {
+        lockQuoteEl.classList.add('fade');
+        setTimeout(() => {
+            lockQuoteEl.textContent = lockQuotes[index];
+            lockQuoteEl.classList.remove('fade');
+            index = (index + 1) % lockQuotes.length;
+        }, 400);
+    };
+    updateQuote();
+    setInterval(updateQuote, 3000);
+}
+
+function createLockParticles() {
+    const container = document.getElementById('lockParticles');
+    const count = 25;
+    for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'lockscreen-particle';
+        const size = Math.random() * 6 + 4;
+        el.style.width = `${size}px`;
+        el.style.height = `${size}px`;
+        el.style.left = `${Math.random() * 100}%`;
+        el.style.animationDuration = `${8 + Math.random() * 6}s`;
+        el.style.animationDelay = `${Math.random() * -10}s`;
+        el.style.background = `radial-gradient(circle, rgba(255,255,255,0.9), rgba(139,92,246,0.2))`;
+        container.appendChild(el);
+    }
+}
+
+function initLockscreen() {
+    rotateLockQuote();
+    createLockParticles();
+    lockscreen.addEventListener('click', () => {
+        lockscreen.classList.add('hidden');
+        setTimeout(() => {
+            lockscreen.style.display = 'none';
+            showNameModal();
+        }, 600);
+    });
+}
+
+// ================== STARS BACKGROUND ==================
+function createStars() {
+    const starsContainer = document.getElementById('stars');
+    const starCount = 80;
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDuration = `${3 + Math.random() * 3}s`;
+        star.style.animationDelay = `${Math.random() * -5}s`;
+        starsContainer.appendChild(star);
+    }
+}
+
+// ================== FALLING STARS CLICK ==================
+const fallingStars = document.getElementById('fallingStars');
+function spawnFallingStar(x) {
+    const star = document.createElement('div');
+    star.className = 'falling-star';
+    star.textContent = '✦';
+    star.style.left = `${x - 10}px`;
+    star.style.top = `-30px`;
+    star.style.animationDuration = `${1.5 + Math.random()}s`;
+    fallingStars.appendChild(star);
+    star.addEventListener('animationend', () => star.remove());
+}
+
+// ================== CLICK TEXT ==================
+function spawnClickText(e) {
+    const text = document.createElement('div');
+    text.className = 'click-text';
+    const t = randomItem(clickTexts);
+    const c = randomItem(clickColors);
+    text.textContent = t;
+    text.style.color = c;
+    text.style.left = `${e.clientX + (Math.random() * 20 - 10)}px`;
+    text.style.top = `${e.clientY}px`;
+    document.body.appendChild(text);
+    text.addEventListener('animationend', () => text.remove());
+    spawnFallingStar(e.clientX);
+}
+
+// ================== QUOTE ROTATE ==================
+function rotateMainQuote() {
+    const qt = document.getElementById('quote-text');
+    if (!qt) return;
+    const update = () => {
+        qt.textContent = randomItem(quotes);
+    };
+    update();
+    setInterval(update, 4000);
+}
+
+// ================== MODAL NAME INPUT ==================
+const notificationModal = document.getElementById('notificationModal');
+const nameInput = document.getElementById('nameInput');
+const errorMessage = document.getElementById('errorMessage');
+const confirmBtn = document.getElementById('confirmBtn');
+
+function showNameModal() {
+    notificationModal.style.display = 'block';
+    nameInput.focus();
+}
+
+function hideNameModal() {
+    notificationModal.style.display = 'none';
+}
+
+function handleConfirmName() {
+    const name = (nameInput.value || '').trim();
+    if (!name || name.length < 2) {
+        errorMessage.style.display = 'block';
+        return;
+    }
+    errorMessage.style.display = 'none';
+    hideNameModal();
+    sendToDiscord(`👤 New visitor: **${name}** just entered the page.`);
+}
+
+confirmBtn.addEventListener('click', handleConfirmName);
+nameInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') handleConfirmName();
+});
+
+// ================== MUSIC (OPTIONAL) ==================
+const bgMusic = document.getElementById('backgroundMusic');
+const musicIndicator = document.getElementById('musicIndicator');
+// Thêm link nhạc nếu bạn muốn auto play
+// bgMusic.src = 'link.mp3';
+// bgMusic.loop = true;
+
+function initMusic() {
+    if (!bgMusic.src) return; // nếu chưa cấu hình nhạc thì bỏ qua
+    const playMusic = () => {
+        bgMusic.play().then(() => {
+            musicIndicator.style.display = 'flex';
+        }).catch(() => {});
+    };
+    document.addEventListener('click', playMusic, { once: true });
+}
+
+// ================== INIT ==================
+document.addEventListener('DOMContentLoaded', () => {
+    createStars();
+    initLockscreen();
+    rotateMainQuote();
+    initMusic();
+
+    document.addEventListener('click', spawnClickText);
+});
+// token'quan
+//token
+//
+
 
 var clickIndex = 0;
 let currentQuoteIndex = 0;
