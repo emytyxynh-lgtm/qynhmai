@@ -861,13 +861,13 @@ h1{
     <div class="lockscreen-content">
         <div class="lock-avatar-wrap">
             <div class="lock-avatar-frame"></div>
-            <img src="https://sf-static.upanhlaylink.com/img/image_202601316f23bf937075d2c3d763b7aeebfdf7a4.jpg" alt="Avatar" class="lock-avatar">
+            <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="lock-avatar">
         </div>
         <div class="lock-name">qynh mai</div>
         <div class="lock-quote" id="lockQuote"></div>
     </div>
     <div class="lock-hint">
-        <span>Tap anywhere to continue</span>
+        <span>Chạm bất kỳ đâu để tiếp tục</span>
         <i>↓</i>
     </div>
 </div>
@@ -889,7 +889,7 @@ h1{
                 <path d="M9.5 12.5L11 14L14.5 10.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </h1>
-        <p class="bio">I'm not like that. <span class="fade-text">I hope you can understand.</span></p>
+        <p class="bio">Silence is power. <span class="fade-text">I hope you can understand.</span></p>
         
         <div style="display:flex;justify-content:center;margin-bottom:15px">
             <div class="quote-section">
@@ -958,7 +958,7 @@ h1{
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
-    <span>phaying music...</span>
+    <span>Đang phát nhạc...</span>
 </div>
 
 <div id="notificationModal" class="modal">
@@ -967,11 +967,11 @@ h1{
             <div class="modal-avatar-frame"></div>
             <img src="https://sf-static.upanhlaylink.com/img/image_2026010804e6d83232c262fed7eb625f06bed361.jpg" alt="Avatar" class="modal-avatar">
         </div>
-        <h2>Enter your name</h2>
-        <p>Please enter your name to continue.</p>
-        <input type="text" class="name-input" id="nameInput" placeholder="your name..." autocomplete="off">
-        <p class="error-message" id="errorMessage">Please enter a valid name!</p>
-        <button class="btn" id="confirmBtn"><span>Confirm</span></button>
+        <h2>Nhập tên của bạn</h2>
+        <p>Vui lòng nhập tên để tiếp tục</p>
+        <input type="text" class="name-input" id="nameInput" placeholder="Tên của bạn..." autocomplete="off">
+        <p class="error-message" id="errorMessage">Vui lòng nhập tên hợp lệ!</p>
+        <button class="btn" id="confirmBtn"><span>Xác nhận</span></button>
     </div>
 </div>
 
@@ -979,79 +979,82 @@ h1{
 <audio id="backgroundMusic"></audio>
 
 <script>
-//const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
-const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1466471346077827324/35ZOkMh1SUJtJVZI1H58KwQB0jOEJaK5IVBLcNpEKCctbGooYkG73sX5PYId4Nw43YkN';
-var quotes = [
+const DISCORD_WEBHOOK='https://discord.com/api/webhooks/1440247747700723732/vmQeU92yVVYgp8uuYkRttiIgWDH5ttAsPegnTh8zwBuIg7mofGMH9_UMAQbsaF-Mny1t';
+
+const quotes = [
     "leaving the country (rời khỏi đất nước)",
     "delete all my accounts (xoá sạch mọi tài khoản)",
     "change my number (đổi số liên lạc)",
     "start a new life (bắt đầu cuộc sống mới)",
-    "...",
-    "privacy so high",
-    "ẩn danh tuyệt đối)",
-    "u'll never see me until i decide to be seen",
-    "bạn sẽ không biết về tôi trừ khi được cho phép",
-    "...",
+    "privacy so high (ẩn danh tuyệt đối)",
+    "u'll never see me until i decide to be seen (bạn sẽ không biết về tôi trừ khi được cho phép)",
     "im lặng là vàng là bạc, tiền là tiên là phật",
     "Silence is golden, and money makes the world go round"
-    "...",
 ];
 
 var lockQuotes = [
-    "hey!",
-    "nice to meet you",
-    "welcome",
+    "leaving the country (rời khỏi đất nước)",
+    "delete all my accounts (xoá sạch mọi tài khoản)",
+    "change my number (đổi số liên lạc)",
+    "start a new life (bắt đầu cuộc sống mới)",
+    "privacy so high (ẩn danh tuyệt đối)",
+    "u'll never see me until i decide to be seen",
+    "im lặng là vàng là bạc, tiền là tiên là phật",
+    "Silence is golden, and money makes the world go round",
+    "Silence is power. I hope you can understand.",
+    "enjoy your life.",
+    "hello, i'm nothing with you !"
 ];
 
 var clickTexts = [
- "♥️ stupid",
-"❤️ stupid",
-"💛 stupid",
-"💚 stupid",
-"💙 stupid",
-"💜 stupid",
-"🖤 stupid",
-"💖 stupid",
-"💝 stupid",
-"💙 stupid",
-"❤️ stupid",
-"💚 stupid",
-"💙 stupid",
-"💜 stupid",
-"💛 stupid",
-"💖 stupid",
-"💛 stupid",
-"💖 stupid",
-"💚 stupid",
-"💚 stupid",
-"💚 stupid",
-"🖤 stupid",
-"💛 stupid",
-"💙 stupid",
-"💜 stupid",
-"🖤 stupid",
-"💝 stupid",
-"🖤 stupid",
-"❤️ stupid",
-"💛 stupid",
-"💚 stupid",
-"💙 stupid",
-"💜 stupid",
-"💖 stupid",
-"💝 stupid",
-"🖤 stupid",
-"💚 stupid",
-"💙 stupid",
-"💛 stupid",
-"💜 stupid",
-"💖 stupid",
-"💚 stupid",
-"❤️ stupid",
-"💙 stupid",
-"💛 stupid",
-"💜 stupid",
-"💝 stupid",
-"🖤 stupid"
+    "♥️ Năm mới vui vẻ",
+    "❤️ Cung hỉ phát tài",
+    "💛 Tiền vô như nước",
+    "💚 Vợ đẹp con ngoan",
+    "💙 Tài lộc vào nhà",
+    "💜 Phúc thọ vô biên",
+    "🖤 Sống khoẻ đón xuân",
+    "💖 Phú quý cát tường",
+    "💝 Đắc lộc toàn gia",
+    "💙 Hạnh phúc mênh mang",
+    "❤️ Vạn sự thành công",
+    "💚 Mã đáo thành công",
+    "💙 Tiền vô tỷ tỷ",
+    "💜 Tài vạn công danh",
+    "💛 Hạnh phúc gia an",
+    "💖 Sức khoẻ như voi",
+    "💛 Thông minh vượt trội",
+    "💖 Phúc lộc trong tay",
+    "💚 Gia chủ phát tài",
+    "💚 Vạn sự như ý",
+    "💚 Túi tiền nặng ký",
+    "🖤 Làm ăn phát đạt",
+    "💛 Vàng bạc cao sang",
+    "💙 Sức khỏe an nhàn",
+    "💜 Công danh hết ý",
+    "🖤 Cung hỷ cung hỷ",
+    "💝 Hạnh phúc triền miên",
+    "🖤 Sung sướng như tiên",
+    "❤️ An khang thịnh vượng",
+    "💛 Tết đến an nhiên",
+    "💚 Lộc xuân gõ cửa",
+    "💙 Gia đình êm ấm",
+    "💜 Vạn điều may mắn",
+    "💖 Xuân sang phú quý",
+    "💝 Tâm an vạn sự an",
+    "🖤 Lộc lá quanh năm",
+    "💚 Tiền vô cửa trước",
+    "💙 Lộc vào cửa sau",
+    "💛 Nụ cười rạng rỡ",
+    "💜 Tết này giàu to",
+    "💖 Xuân này phát lộc",
+    "💚 May mắn ngập tràn",
+    "❤️ Bình an trọn vẹn",
+    "💙 Hỷ sự liên miên",
+    "💛 Lộc tài song toàn",
+    "💜 Gia đạo hưng thịnh",
+    "💝 Vui xuân như ý",
+    "🖤 Xuân về sung túc"
 ];
 
 var clickColors = [
